@@ -1,0 +1,28 @@
+<td-layout-nav>
+  <public-header td-toolbar-content [sideNavOpened]="true" flex></public-header>
+  <div layout="row" layout-align="center" class="pad-top-xl">
+    <mat-card style="width:350px;">
+      <mat-card-title>{{'login.title' | translate}}</mat-card-title>
+      <mat-card-content>
+        <form layout="column" class="pad" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <mat-form-field flex>
+            <input [(ngModel)]="user.username" matInput type="text" [placeholder]="'login.username' | translate" ngModel name="username" required>
+          </mat-form-field>
+
+          <mat-form-field flex>
+            <input [(ngModel)]="user.password" matInput type="password" [placeholder]="'login.password' | translate" ngModel name="password" required>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">{{'buttons.submit'| translate}}</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <td-layout-footer>
+    <div layout="row" layout-align="center center" flex>
+      <span>DevonFW Application</span>
+      <span flex></span>
+      <span>Devonfw</span>
+    </div>
+  </td-layout-footer>
+</td-layout-nav>
