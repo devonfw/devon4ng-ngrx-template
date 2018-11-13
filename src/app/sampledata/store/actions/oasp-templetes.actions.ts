@@ -38,23 +38,21 @@ export class LogInAction implements Action {
   
   readonly type = AuthActionTypes.LOGIN;
   constructor(public payload: any) {
-    debugger;
-    console.log('-------action1')
+   
   }
 }
 
 export class LogInSuccess implements Action {
   readonly type = AuthActionTypes.LOGIN_SUCCESS;
   constructor(public payload: any) {
-    console.log('successaction')
+    
   }
 }
 
 export class LogInFailure implements Action {
   readonly type = AuthActionTypes.LOGIN_FAILURE;
   constructor(public payload: any) {
-    debugger;
-console.log('-------fail')
+   
     
   }
 }
@@ -97,7 +95,7 @@ export class AddDatafail implements Action {
 }
 export class deleteData implements Action {
   readonly type = AuthActionTypes.DELETE_DATA;
-  debugger;
+ 
   constructor(public payload: any) {
    // debugger;
    // console.log('-------deletedata')
@@ -123,7 +121,7 @@ export class editDataSuccess implements Action {
 
   constructor(public payload: any) {
 
-    console.log(payload.name+'-------deletedatasuccess---' +payload.id)
+    
   }
 }
 export class editDatafail implements Action {
@@ -139,7 +137,7 @@ export class editDatafail implements Action {
    readonly type = AuthActionTypes.SEARCH_DATA;
    constructor(public payload: any) {
     //debugger;
-    console.log('-------deletedata---')
+   
    
   }
 }
@@ -147,7 +145,7 @@ export class editDatafail implements Action {
    readonly type = AuthActionTypes.SEARCH_DATA_SUCCESS;
    constructor(public payload: any) {
      //debugger;
-     console.log('-------deletedata---')
+  
     
    }
  }
@@ -155,7 +153,7 @@ export class editDatafail implements Action {
   readonly type = AuthActionTypes.ERROR_SEARCH_DATA;
   constructor(public payload: any) {
     debugger;
-    console.log('-------deletedata---')
+   
    
   }
 }
@@ -164,22 +162,22 @@ export class loadData implements Action {
   readonly type = AuthActionTypes.LOAD_DATA;
   constructor(public payload = null) {
 
-    console.log('awww')
+    
   }
 }
 
 
 export class loadDataSuccess implements Action {
   readonly type = AuthActionTypes.LOAD_DATA_SUCCESS;
-  constructor(public payload: Login[]) {  console.log('ddda')}
+  constructor(public payload: Login[]) {  }
 }
 
 
 export class loadDataFail implements Action {
   readonly type = AuthActionTypes.LOAD_DATA_FAIL;
   constructor(public payload: any) {
-    debugger;
-    console.log('-------deletedata---')
+   
+ 
    
   }
 }
