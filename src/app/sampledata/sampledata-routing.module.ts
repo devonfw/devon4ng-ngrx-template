@@ -6,8 +6,8 @@ import { HomeComponent } from '../home/home.component';
 import { InitialPageComponent } from '../home/initial-page/initial-page.component';
 import { ErrorPageComponent } from '../sampledata/error-page/error-page.component';
 import { SampledataGridDisplayComponent } from '../sampledata/sampledata-grid-display/sampledata-grid-display.component';
-debugger;
-console.log('-------SAMPLEROUTING')
+
+
 const routes: Routes = [
   {
     
@@ -52,8 +52,8 @@ const routes: Routes = [
     redirectTo: '/login',
   },
 ];
-debugger;
-console.log('-------SAMPLEROUTING' +routes)
+
+
 
 
 @NgModule({

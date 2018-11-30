@@ -100,11 +100,15 @@ export class errorSearchData implements Action {
 }
 export class loadDataSuccess implements Action {
   readonly type = AuthActionTypes.LOAD_DATA_SUCCESS;
-  constructor(public payload: Login[]) {}
+  constructor() {}
 }
 export class loadDataFail implements Action {
   readonly type = AuthActionTypes.LOAD_DATA_FAIL;
   constructor(public payload: any) {}
+}
+export class loadData implements Action {
+ readonly type = AuthActionTypes.LOAD_DATA_SUCCESS;
+  constructor() {}
 }
 export type All =
   | LogInAction
@@ -123,4 +127,6 @@ export type All =
   | EditDataFail
   | SearchData
   | SearchDataSuccess
-  | errorSearchData;
+  | errorSearchData
+  | loadDataSuccess
+  | loadData;

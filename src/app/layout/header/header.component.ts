@@ -43,7 +43,7 @@ export class HeaderComponent {
 
   logout(): void {
     
-    debugger;
+    
     this.store.dispatch(new LogOutAction());
   }
 

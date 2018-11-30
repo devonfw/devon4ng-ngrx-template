@@ -26,6 +26,14 @@
     export function reducer(state: State = initialState, action: All): State {
       
       switch (action.type) {
+
+        case AuthActionTypes.LOAD_DATA_SUCCESS: {
+          
+          return {
+            ...state, 
+            successmassage:'successfully loaded'
+          };
+        }
         case AuthActionTypes.LOGIN_SUCCESS: {
           return {
             ...state,
@@ -56,6 +64,7 @@
                 email: action.payload.email,
                 age: action.payload.age
             },
+            errorMessage:'No error'
           };
         }
         case AuthActionTypes.EDIT_DATA_SUCCESS: {

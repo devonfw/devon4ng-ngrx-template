@@ -1,3 +1,5 @@
+
+import * as faker from 'faker';
 export class Login {
    
     username?: string;
@@ -12,3 +14,12 @@ export class Login {
     selectedRow ?: any;
    
   }
+  export const generateUser = (): Login => {
+    return {
+      id: faker.random.number(),
+      name: faker.name.firstName(),
+      surname: faker.name.lastName(),
+      email:faker.internet.email(),
+      age: faker.random.number(),
+    };
+  };

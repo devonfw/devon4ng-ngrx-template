@@ -1,13 +1,10 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/catch';
+
 import { tap } from 'rxjs/operators';
-import "core-js/es7/reflect";
+
 import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
 import {
@@ -26,10 +23,10 @@ import {
   LogOutSuccessAction,
   SearchData,
   SearchDataSuccess,
-  errorSearchData
+
 } from '../actions/oasp-templetes.actions';
 import { of } from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {map,switchMap} from 'rxjs/operators';
 import { Login } from '../../models/login.model';
 
 @Injectable()
@@ -42,6 +39,14 @@ export class sampledataeffects {
 
   ) { }
 
+  @Effect({ dispatch: false })
+  loadDataSuccess: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.LOAD_DATA_SUCCESS),
+    tap((user) => {
+      
+      this.SampleDataService.callComponentMethod();
+    })
+  )
   @Effect()//Add Data start
   AddData: Observable<any> = this.actions
     .ofType(AuthActionTypes.ADD_DATA)

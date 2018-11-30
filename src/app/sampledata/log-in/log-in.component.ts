@@ -23,12 +23,12 @@ export class LogInComponent implements OnInit {
   constructor(
     private store: Store<AppState>
   ) {
-    debugger;
+  
     this.getState = this.store.select(selectAuthState);
   }
 
   ngOnInit() {
-    debugger;
+    
     this.getState.subscribe((state) => {
       this.errorMessage = state.errorMessage;
     });
@@ -44,7 +44,7 @@ export class LogInComponent implements OnInit {
       password: this.user.password
     };
     
-    debugger;
+    
      this.store.dispatch(new LogInAction(payload));
     
   }

@@ -14,15 +14,14 @@ import { AuthService } from '../../core/security/auth.service';
 import { SampleDataDialogComponent } from '../../sampledata/sampledata-dialog/sampledata-dialog.component';
 import { Pagination } from '../../core/interfaces/pagination';
 import {Observable} from 'rxjs';
-import {AddDataService} from '../services/add-data.service'
+//import {AddDataService} from '../services/add-data.service'
 import { Store,select } from '@ngrx/store';
-import * as fromContacts from '../store/app.states';
 import { AppState } from '../store/app.states';
-import { AddData,editData,deleteData,SearchData,SearchDataSuccess,loadData } from '../store/actions/oasp-templetes.actions';
+import { AddData,EditData,DeleteData,SearchData,loadDataSuccess } from '../store/actions/oasp-templetes.actions';
 import { Login } from '../models/login.model';
 
 @Component({
-  
+
   selector: 'app-sampledata-grid-display',
   templateUrl: './sampledata-grid-display.component.html',
   styleUrls: ['./sampledata-grid-display.component.scss']
@@ -90,24 +89,20 @@ export class SampledataGridDisplayComponent implements OnInit {
     public router: Router,
     public dataGridService: SampleDataService,
     private _dialogService: TdDialogService,
-    private _myService :AddDataService
+   
 
   ) {
 
     this.dataGridService.componentMethodCalled$.subscribe(
       () => {
-       // alert('(Component2) Method called!');
+       
         this.getSampleData();
       }
     );   
   }
 
   ngOnInit(): void {
-  
-  // this.contacts$ = this.store.select(fromContacts.getAllContacts)
-  //this.store.dispatch(new loadData());
- // this.store.pipe(select(fromContacts.getAllContacts));
- this.getSampleData();
+    this.store.dispatch(new loadDataSuccess());
   }
   
  getSampleData(): void {
@@ -194,7 +189,7 @@ export class SampledataGridDisplayComponent implements OnInit {
       data: this.selectedRow,
     });
     this.dialogRef.afterClosed().subscribe((result: any) => {
-      debugger;
+      
       if (result) {
         {
           const payload = {
@@ -208,7 +203,7 @@ export class SampledataGridDisplayComponent implements OnInit {
 
         };
        
-        this.store.dispatch(new editData(payload));
+        this.store.dispatch(new EditData(payload));
      
       }
     }
@@ -241,7 +236,7 @@ export class SampledataGridDisplayComponent implements OnInit {
        }) .afterClosed().subscribe((accept: boolean) => {
             if (accept) {
        
-        this.store.dispatch(new deleteData(payload));
+        this.store.dispatch(new DeleteData(payload));
        // this.getSampleData();
         this.selectedRow = undefined;
          }
@@ -252,10 +247,9 @@ export class SampledataGridDisplayComponent implements OnInit {
     form.reset();
     this.getSampleData();
   }
-  getSampleData1(): void {
-    debugger
+  getSampleData_1(): void {
     const payload ={
-      
+     
       pageSize: this.pageSize,
       pagination :this.pagination.page,
       searchTerms:this.searchTerms,

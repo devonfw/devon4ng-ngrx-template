@@ -5,7 +5,6 @@ import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import {select, Store} from '@ngrx/store';
 import { AppState,selectAuthState } from './sampledata/store/app.states';
-debugger;
 @Component({
   selector: 'public-root',
   templateUrl: './app.component.html',
