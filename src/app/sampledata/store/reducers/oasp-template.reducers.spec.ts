@@ -40,7 +40,7 @@ describe('Edit Action Reducer ', () => {
       expect(state).toBe(initialState);
     });
   });
-  it('should add the New Details in array', () => {
+  it('should Edit Details in array', () => {
     const Login = [
       {
         name: '',
@@ -65,7 +65,7 @@ describe('Edit Action Reducer ', () => {
       expect(state).toBe(initialState);
     });
   });
-  it('should add the New Details in array', () => {
+  it('should Remove the Detils from array', () => {
     const Login = [
       {
         name: '',

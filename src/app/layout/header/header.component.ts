@@ -47,20 +47,5 @@ export class HeaderComponent {
     this.store.dispatch(new LogOutAction());
   }
 
-  // logout(): void {
-  //   console.log('----3>>>>')
-  //   this.loginService.logout().subscribe(
-  //     () => {
-  //       this.auth.setLogged(false);
-  //       this.auth.setToken('');
-  //       this.router.navigate(['/login']);
-  //     },
-  //     (err: any) => {
-  //       // Logout error. Exiting anyway...
-  //       this.auth.setLogged(false);
-  //       this.auth.setToken('');
-  //       this.router.navigate(['/login']);
-  //     },
-  //   );
-  // }
+  
 }

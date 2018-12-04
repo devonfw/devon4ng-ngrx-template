@@ -48,22 +48,4 @@ export class SampleDataDialogComponent {
   }
   ngOnInit() {
   }
-
-  //  addData(): void {
-  //    console.log('aaa')
-
-  //    console.log(this.items.name+'logincomponentts' +this.items.surname);
-  //    const payload = {
-     
-  //      name : this.items.name,
-  //      surname : this.items.surname,
-  //      age : this.items.age,
-  //      email : this.items.email
-  //    };
-    
-  //    this.store.dispatch(new AddData(payload));
-  //    console.log(payload);
-  //    AddData
-   
-  //  }
 }
