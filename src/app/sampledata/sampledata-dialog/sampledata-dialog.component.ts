@@ -9,9 +9,7 @@ import { AppState } from '../store/app.states';
 @Component({
   selector: 'public-sampledata-dialog',
   templateUrl: './sampledata-dialog.component.html',
-  
 })
-
 export class SampleDataDialogComponent {
   title: string;
   items: any = {
@@ -24,15 +22,12 @@ export class SampleDataDialogComponent {
   constructor(
     private store: Store<AppState>,
     private translate: TranslateService,
-    
     public dialogRef: MatDialogRef<SampleDataDialogComponent>,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
   ) {
     if (!dialogData) {
-      
       this.title = this.getTranslation('sampledatamanagement.addTitle');
     } else {
-      
       this.title = this.getTranslation('sampledatamanagement.editTitle');
       this.items = dialogData;
     }
@@ -42,10 +37,8 @@ export class SampleDataDialogComponent {
     let value: string;
     this.translate.get(text).subscribe((res: any) => {
       value = res;
-      
     });
     return value;
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

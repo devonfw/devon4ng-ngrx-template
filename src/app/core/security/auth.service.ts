@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {Observable, of} from 'rxjs';;//Amit
+import { Observable, of } from 'rxjs'; // Amit
 @Injectable()
 export class AuthService {
   private logged: boolean = false;
