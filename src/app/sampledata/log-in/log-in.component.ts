@@ -1,56 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../models/login.model';
-
 import { Store } from '@ngrx/store';
-
-import { AppState,selectAuthState } from '../store/app.states';
-import { LogInAction,LogOutAction } from '../store/actions/oasp-templetes.actions';
+import { LogInAction } from '../store/actions/sampledata-templetes.actions';
 import { Observable } from 'rxjs/Observable';
+import { AppState, selectAuthState } from '../store/app.states';
 
 @Component({
-  
-  selector: 'app-log-in',
   templateUrl: './log-in.component.html',
-  //template: `dfgdfgdfgdfgdfgdfgdf`,
-  styleUrls: ['./log-in.component.scss']
+  styleUrls: ['./log-in.component.scss'],
 })
 
 export class LogInComponent implements OnInit {
- user: Login = new Login();
- getState: Observable<any>;
- errorMessage: string | null;
+  user: Login = new Login();
+  getState: Observable<any>;
+  errorMessage: string | null;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {
-  
     this.getState = this.store.select(selectAuthState);
   }
-
+  // tslint:disable-next-line:typedef
   ngOnInit() {
-    
-    this.getState.subscribe((state) => {
+    this.getState.subscribe((state: any) => {
       this.errorMessage = state.errorMessage;
     });
-  };
-
-  onSubmit(): void {
-    
-    
-    const payload = {
-      
-      
-      username: this.user.username,
-      password: this.user.password
-    };
-    
-    
-     this.store.dispatch(new LogInAction(payload));
-    
   }
-  
-
-
-
-
+  onSubmit(): void {
+    const payload: Login = {
+      username: this.user.username,
+      password: this.user.password,
+    };
+    this.store.dispatch(
+      new LogInAction(payload),
+    );
+  }
 }

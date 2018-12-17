@@ -1,7 +1,7 @@
-    import { Login } from '../../../sampledata/models/login.model';
+    import { Login } from '../../models/login.model';
     import { EntityState, createEntityAdapter } from '@ngrx/entity';
-    import { AuthActionTypes, All } from '../actions/oasp-templetes.actions';
-    export const sampledataAdapter = createEntityAdapter<Login>(
+    import { SampleDataActionTypes, All } from '../actions/sampledata-templetes.actions';
+    export const sampledataAdapter: any = createEntityAdapter<Login>(
     );
     export interface State extends EntityState<Login> {
       currentContactId?: number;
@@ -18,84 +18,81 @@
         user: undefined,
         errorMessage: undefined,
         text: undefined,
-        successmassage:undefined
+        successmassage: undefined,
     });
-    const newState = (state, newData) => {
-      return Object.assign({}, state, newData)
-    }
+   // const newState = (state, newData) => {
+   //   return Object.assign({}, state, newData);
+   // };
     export function reducer(state: State = initialState, action: All): State {
-      
       switch (action.type) {
-
-        case AuthActionTypes.LOAD_DATA_SUCCESS: {
-          
+        case SampleDataActionTypes.LOAD_DATA_SUCCESS: {
           return {
-            ...state, 
-            successmassage:'successfully loaded'
+            ...state,
+            successmassage: 'successfully loaded',
           };
         }
-        case AuthActionTypes.LOGIN_SUCCESS: {
+        case SampleDataActionTypes.LOGIN_SUCCESS: {
           return {
             ...state,
             isAuthenticated: true,
             user: {
               username: action.payload.username,
-              password: action.payload.password
+              password: action.payload.password,
             },
-              errorMessage: '',
-              successmassage: 'login Successfully'
+            errorMessage: '',
+            successmassage: 'login Successfully',
             };
-        }
-        case AuthActionTypes.LOGOUT: {
+          }
+        case SampleDataActionTypes.LOGOUT: {
           return initialState;
         }
-        case AuthActionTypes.LOGIN_FAILURE: {
+        case SampleDataActionTypes.LOGIN_FAILURE: {
           return {
             ...state,
-             errorMessage: 'Incorrect username and/or password.'
+             errorMessage: 'Incorrect username and/or password.',
           };
         }
-        case AuthActionTypes.ADD_DATA_SUCCESS: {
+        case SampleDataActionTypes.ADD_DATA_SUCCESS: {
           return {
             ...state, user:
             {
-                name: action.payload.name,
-                surname: action.payload.surname,
-                email: action.payload.email,
-                age: action.payload.age
-            },
-            errorMessage:'No error'
-          };
-        }
-        case AuthActionTypes.EDIT_DATA_SUCCESS: {
-          return {
-            ...state, user:
-              {
-                id :action.payload.id,
-                name: action.payload.name,
-                surname: action.payload.surname,
-                email: action.payload.email,
-                age: action.payload.age
-              },
-          };
-        }
-        case AuthActionTypes.SEARCH_DATA_SUCCESS: {
-          return {
-            ...state, 
-            successmassage:'successfully Search'
-          };
-        }
-        case AuthActionTypes.DELETE_DATA_SUCCESS: {
-          return {
-            ...state, user:
-            {
-              id :action.payload.id,
               name: action.payload.name,
               surname: action.payload.surname,
               email: action.payload.email,
-              age: action.payload.age
+              age: action.payload.age,
             },
-            successmassage:'successfully Remove Data'
+            errorMessage: 'No error',
+          };
+        }
+        case SampleDataActionTypes.EDIT_DATA_SUCCESS: {
+          return {
+            ...state, user:
+              {
+                id : action.payload.id,
+                name: action.payload.name,
+                surname: action.payload.surname,
+                email: action.payload.email,
+                age: action.payload.age,
+              },
+          };
+        }
+        case SampleDataActionTypes.SEARCH_DATA_SUCCESS: {
+          return {
+            ...state,
+            successmassage: 'successfully Search',
+          };
+        }
+        case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
+          return {
+            ...state, user:
+            {
+              id : action.payload.id,
+              name: action.payload.name,
+              surname: action.payload.surname,
+              email: action.payload.email,
+              age: action.payload.age,
+            },
+            successmassage: 'successfully Remove Data',
           };
         }
         default: {
@@ -103,4 +100,4 @@
         }
       }
     }
-    export const getCurrentContactId = (state: State) => state.currentContactId;
+    export const getCurrentContactId: any = (state: State) => state.currentContactId;

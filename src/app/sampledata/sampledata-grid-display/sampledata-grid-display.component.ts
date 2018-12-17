@@ -13,23 +13,21 @@ import { SampleDataService } from '../services/sampledata.service';
 import { AuthService } from '../../core/security/auth.service';
 import { SampleDataDialogComponent } from '../../sampledata/sampledata-dialog/sampledata-dialog.component';
 import { Pagination } from '../../core/interfaces/pagination';
-import {Observable} from 'rxjs';
-//import {AddDataService} from '../services/add-data.service'
-import { Store,select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.states';
-import { AddData,EditData,DeleteData,SearchData,loadDataSuccess } from '../store/actions/oasp-templetes.actions';
+import { AddData, EditData, DeleteData, SearchData, LoadDataSuccess } from '../store/actions/sampledata-templetes.actions';
 import { Login } from '../models/login.model';
 
 @Component({
 
-  selector: 'app-sampledata-grid-display',
+  selector: 'public-app-sampledata-grid-display',
   templateUrl: './sampledata-grid-display.component.html',
-  styleUrls: ['./sampledata-grid-display.component.scss']
+  styleUrls: ['./sampledata-grid-display.component.scss'],
 })
 
 export class SampledataGridDisplayComponent implements OnInit {
-  contacts$: Observable<Login[]>;
-  private pagination: Pagination = {
+   private pagination: Pagination = {
     size: 8,
     page: 1,
     total: 1,
@@ -69,18 +67,17 @@ export class SampledataGridDisplayComponent implements OnInit {
   dialogRef: MatDialogRef<SampleDataDialogComponent>;
   totalItems: number;
   searchTerms: any = {
-    id :undefined,
+    id : undefined,
     name: undefined,
     surname: undefined,
     age: undefined,
     email: undefined,
     modificationCounter: undefined,
-
     pageSize: undefined,
     pagination: undefined,
     searchTerms: undefined,
-    
   };
+  contacts$: Observable<Login[]>;
   constructor(
     private store: Store<AppState>,
     private translate: TranslateService,
@@ -89,30 +86,25 @@ export class SampledataGridDisplayComponent implements OnInit {
     public router: Router,
     public dataGridService: SampleDataService,
     private _dialogService: TdDialogService,
-   
-
-  ) {
+    ) {
 
     this.dataGridService.componentMethodCalled$.subscribe(
       () => {
-       
         this.getSampleData();
-      }
-    );   
+      },
+    );
   }
-
   ngOnInit(): void {
-    this.store.dispatch(new loadDataSuccess());
+    this.store.dispatch(new LoadDataSuccess());
   }
-  
  getSampleData(): void {
-    this.dataGridService.getSampleData(this.pageSize,this.pagination.page,this.searchTerms,this.sorting)
+    this.dataGridService.getSampleData(this.pageSize, this.pagination.page,
+      this.searchTerms, this.sorting)
       .subscribe(
         (res: any) => {
          this.data = res.result;
          this.totalItems = res.pagination.total;
          this.dataTable.refresh();
-         
         },
         (error: any) => {
           setTimeout(() => {
@@ -124,8 +116,7 @@ export class SampledataGridDisplayComponent implements OnInit {
           });
         },
       );
-      
-  }
+    }
   getTranslation(text: string): string {
     let value: string;
     this.translate.get(text).subscribe((res: string) => {
@@ -161,23 +152,18 @@ export class SampledataGridDisplayComponent implements OnInit {
     });
     this.getSampleData();
   }
-  
-  openDialog(): void {
-   
+   openDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-       
-        
-     const payload = {
-        
-          name : result.name,
+      const payload: any = {
+         name : result.name,
           surname : result.surname,
           age : result.age,
-          email : result.email
+          email : result.email,
         };
-        this.store.dispatch(new AddData(payload));
-        this.getSampleData();
+      this.store.dispatch(new AddData(payload));
+      this.getSampleData();
        }
     });
   }
@@ -189,41 +175,28 @@ export class SampledataGridDisplayComponent implements OnInit {
       data: this.selectedRow,
     });
     this.dialogRef.afterClosed().subscribe((result: any) => {
-      
       if (result) {
         {
-          const payload = {
-          id :result.id,
+          const payload: any = {
+          id : result.id,
           name : result.name,
           surname : result.surname,
           age : result.age,
           email : result.email,
           modificationCounter: result.modificationCounter,
-        
-
-        };
-       
-        this.store.dispatch(new EditData(payload));
-     
+      };
+          this.store.dispatch(new EditData(payload));
       }
     }
-    
-    }
+  },
     );
-    
   }
-
-
-
-
   openConfirm(): void {
-    
-   
-    const payload = {
-     id: this.selectedRow.id
-     
+
+    const payload: any = {
+     id: this.selectedRow.id,
     };
-     this._dialogService
+    this._dialogService
        .openConfirm({
          message: this.getTranslation('sampledatamanagement.alert.message'),
          title: this.getTranslation('sampledatamanagement.alert.title'),
@@ -235,34 +208,29 @@ export class SampledataGridDisplayComponent implements OnInit {
          ),
        }) .afterClosed().subscribe((accept: boolean) => {
             if (accept) {
-       
-        this.store.dispatch(new DeleteData(payload));
+       this.store.dispatch(new DeleteData(payload));
        // this.getSampleData();
-        this.selectedRow = undefined;
+       this.selectedRow = undefined;
          }
           });
-    
   }
   searchReset(form: any): void {
     form.reset();
     this.getSampleData();
   }
   getSampleData_1(): void {
-    const payload ={
-     
+    const payload: any = {
       pageSize: this.pageSize,
-      pagination :this.pagination.page,
-      searchTerms:this.searchTerms,
-      'test':this.sorting,
-      data:this.data,
-      totalItems:this.totalItems,
-      'total' :this.pagination.total,
-      dataTable:this.dataTable,
-      'amit':'amt',
-      
-    }
+      pagination : this.pagination.page,
+      searchTerms: this.searchTerms,
+      'test': this.sorting,
+      data: this.data,
+      totalItems: this.totalItems,
+      'total' : this.pagination.total,
+      dataTable: this.dataTable,
+      'amit': 'amt',
+   };
     this.store.dispatch(new SearchData(payload));
- 
-    
-  }   
+
+  }
 }

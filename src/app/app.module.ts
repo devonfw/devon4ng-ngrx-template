@@ -12,11 +12,14 @@ import { SampleDataModule } from './sampledata/sampledata.module';
 import { LogInComponent } from './sampledata/log-in/log-in.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './sampledata/store/app.states';
+// import { reducers } from './sampledata/store/app.states';
 import { ErrorPageComponent } from './sampledata/error-page/error-page.component';
 import { SampleDataService } from './sampledata/services/sampledata.service';
 // AoT requires an exported function for factories
-
+import { reducers, CustomSerializer } from './store';
+import { StoreRouterConnectingModule, RouterStateSerializer, } from '@ngrx/router-store';
+import { environment } from '../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
@@ -30,6 +33,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppRoutingModule,
     CoreModule,
     StoreModule.forRoot(reducers),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule,
     EffectsModule.forRoot([]),
     TranslateModule.forRoot({
       loader: {
@@ -39,7 +44,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
   ],
-  providers: [SampleDataService],
+  providers: [SampleDataService, { provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

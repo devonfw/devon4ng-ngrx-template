@@ -96,7 +96,7 @@
     "no-debugger": true,
     "no-default-export": true,
     "no-duplicate-variable": true,
-    "no-empty": true,
+    "no-empty": false,
     "no-empty-interface": false,
     "no-eval": true,
     "no-inferrable-types": [
@@ -116,7 +116,6 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-var-requires": true,

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { BrowserModule } from '@angular/platform-browser';
 const routes: Routes = [
     {
       path: '',
       pathMatch: 'full',
-      redirectTo: '/login'
+      redirectTo: '/login',
     },
     {
       path: 'login', loadChildren: './sampledata/sampledata.module#SampleDataModule',
@@ -13,10 +16,15 @@ const routes: Routes = [
 
 @NgModule({
   exports: [
-    RouterModule
+    RouterModule,
   ],
   imports: [
-    RouterModule.forRoot(routes)
-  ]
+    BrowserModule,
+    StoreModule.forRoot({
+         router: routerReducer,
+       }),
+        RouterModule.forRoot(routes),
+        StoreRouterConnectingModule.forRoot(),
+  ],
 })
 export class AppRoutingModule {}
