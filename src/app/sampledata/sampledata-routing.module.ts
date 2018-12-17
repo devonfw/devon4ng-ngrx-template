@@ -9,7 +9,6 @@ import { SampledataGridDisplayComponent } from '../sampledata/sampledata-grid-di
 
 const routes: Routes = [
   {
-
     path: 'login',
     component: LogInComponent,
   },

@@ -25,7 +25,6 @@ import { Login } from '../models/login.model';
   templateUrl: './sampledata-grid-display.component.html',
   styleUrls: ['./sampledata-grid-display.component.scss'],
 })
-
 export class SampledataGridDisplayComponent implements OnInit {
    private pagination: Pagination = {
     size: 8,

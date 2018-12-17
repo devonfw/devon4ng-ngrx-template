@@ -7,7 +7,6 @@ import { Login } from '../models/login.model';
   selector: 'public-sampledata-dialog',
   templateUrl: './sampledata-dialog.component.html',
 })
-
 export class SampleDataDialogComponent {
   title: string;
   items: any = {

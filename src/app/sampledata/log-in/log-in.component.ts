@@ -9,7 +9,6 @@ import { AppState, selectAuthState } from '../store/app.states';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
 })
-
 export class LogInComponent implements OnInit {
   user: Login = new Login();
   getState: Observable<any>;

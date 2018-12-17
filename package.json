@@ -1,5 +1,5 @@
 {
-  "name": "oasp4js-new-template",
+  "name": "devon4ng-ngrx-template",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -40,7 +40,6 @@
     "material-ui-country-flags": "^3.0.1",
     "remote-redux-devtools": "^0.5.14",
     "rxjs": "^6.3.3",
-    "rxjs-compat": "^6.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
