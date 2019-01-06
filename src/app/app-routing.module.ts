@@ -4,27 +4,26 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { BrowserModule } from '@angular/platform-browser';
 const routes: Routes = [
-    {
-      path: '',
-      pathMatch: 'full',
-      redirectTo: '/login',
-    },
-    {
-      path: 'login', loadChildren: './sampledata/sampledata.module#SampleDataModule',
-    },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/login',
+  },
+  {
+    path: 'login',
+    loadChildren: './sampledata/sampledata.module#SampleDataModule',
+  },
 ];
 
 @NgModule({
-  exports: [
-    RouterModule,
-  ],
+  exports: [RouterModule],
   imports: [
     BrowserModule,
     StoreModule.forRoot({
-         router: routerReducer,
-       }),
-        RouterModule.forRoot(routes),
-        StoreRouterConnectingModule.forRoot(),
+      router: routerReducer,
+    }),
+    RouterModule.forRoot(routes),
+    StoreRouterConnectingModule.forRoot(),
   ],
 })
 export class AppRoutingModule {}

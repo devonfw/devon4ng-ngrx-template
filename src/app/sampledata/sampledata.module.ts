@@ -13,11 +13,16 @@ import { HomeModule } from '../home/home.module';
 import { effects } from './store/effects';
 
 @NgModule({
-  imports: [CommonModule, CoreModule, TranslateModule, SampleDataRoutingModule, HomeModule,
+  imports: [
+    CommonModule,
+    CoreModule,
+    TranslateModule,
+    SampleDataRoutingModule,
+    HomeModule,
     StoreModule.forFeature('sampledatareducer', reducers),
     EffectsModule.forFeature(effects),
-   ],
-  declarations: [SampledataGridDisplayComponent, SampleDataDialogComponent, ],
+  ],
+  declarations: [SampledataGridDisplayComponent, SampleDataDialogComponent],
   entryComponents: [SampleDataDialogComponent],
   providers: [SampleDataService],
 })

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../models/login.model';
 import { Store } from '@ngrx/store';
-import { LogInAction } from '../store/actions/sampledata-templetes.actions';
-import { Observable } from 'rxjs/Observable';
+import { LogInAction } from '../store/actions/sampledata.actions';
+import { Observable } from 'rxjs';
 import { AppState, selectAuthState } from '../store/app.states';
 
 @Component({
@@ -14,13 +14,10 @@ export class LogInComponent implements OnInit {
   getState: Observable<any>;
   errorMessage: string | null;
 
-  constructor(
-    private store: Store<AppState>,
-  ) {
+  constructor(private store: Store<AppState>) {
     this.getState = this.store.select(selectAuthState);
   }
-  // tslint:disable-next-line:typedef
-  ngOnInit() {
+  ngOnInit(): void {
     this.getState.subscribe((state: any) => {
       this.errorMessage = state.errorMessage;
     });
@@ -30,8 +27,6 @@ export class LogInComponent implements OnInit {
       username: this.user.username,
       password: this.user.password,
     };
-    this.store.dispatch(
-      new LogInAction(payload),
-    );
+    this.store.dispatch(new LogInAction(payload));
   }
 }

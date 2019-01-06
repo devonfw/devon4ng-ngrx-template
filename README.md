@@ -1,6 +1,6 @@
-# Oasp4jsNewTemplate
+# Devon4ngNgrxTemplate
 
-This project has been updated to **Angular 6** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
+This project has been updated to **Angular 7** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 7.1.1.
 
 ## Development server
 

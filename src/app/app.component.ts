@@ -14,7 +14,8 @@ export class AppComponent {
     public translate: TranslateService,
     public iconReg: MatIconRegistry,
     public sanitizer: DomSanitizer,
-  ) {// NGX Translate
+  ) {
+    // NGX Translate
     translate.setDefaultLang('en');
     translate.use('en');
     // Icon registered

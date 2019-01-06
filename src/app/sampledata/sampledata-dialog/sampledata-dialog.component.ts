@@ -35,4 +35,4 @@ export class SampleDataDialogComponent {
     });
     return value;
   }
- }
+}

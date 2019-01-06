@@ -1,0 +1,65 @@
+import * as fromMyReducers from './sampledata.reducers';
+import * as froasptempletesaction from '../actions/sampledata.actions';
+import { Login } from '../../models/login.model';
+import { generateUser } from '../../models/login.model';
+describe('SampleDataReducersTestCase', () => {
+  describe('Add Action  Reducer', () => {
+    it('should return the default state', () => {
+      const { initialState } = fromMyReducers;
+      const action: any = {} as any;
+      const state: any = fromMyReducers.reducer(undefined, action);
+      expect(state).toBe(initialState);
+    });
+
+    it('should add the New Details in array', () => {
+      const detailsdata: Login = {
+        name: 'AMIDDT',
+        surname: 'dubddey',
+        email: 'test',
+        age: 12,
+      };
+      const { initialState } = fromMyReducers;
+      const previousState: any = { ...initialState };
+      const action: any = new froasptempletesaction.AddDataSuccess(detailsdata);
+      const state: any = fromMyReducers.reducer(previousState, action);
+      expect(state.user).toEqual(detailsdata);
+    });
+  });
+  describe('Edit Action Reducer ', () => {
+    it('should return the default state', () => {
+      const { initialState } = fromMyReducers;
+      const action: any = {} as any;
+      const state: any = fromMyReducers.reducer(undefined, action);
+      expect(state).toBe(initialState);
+    });
+
+    it('should Edit Details in array', () => {
+      const detailsdata: any = generateUser();
+      const { initialState } = fromMyReducers;
+      const previousState: any = { ...initialState };
+      const action: any = new froasptempletesaction.EditDataSuccess(
+        detailsdata,
+      );
+      const state: any = fromMyReducers.reducer(previousState, action);
+      expect(state.user).toEqual(detailsdata);
+    });
+  });
+  describe('Remove Action Reducer ', () => {
+    it('should return the default state', () => {
+      const { initialState } = fromMyReducers;
+      const action: any = {} as any;
+      const state: any = fromMyReducers.reducer(undefined, action);
+      expect(state).toBe(initialState);
+    });
+    it('should Remove the Detils from array', () => {
+      const detailsdata: any = generateUser();
+      const { initialState } = fromMyReducers;
+      const previousState: any = { ...initialState };
+      const action: any = new froasptempletesaction.DeleteDataSuccess(
+        detailsdata,
+      );
+      const state: any = fromMyReducers.reducer(previousState, action);
+      expect(state.user).toEqual(detailsdata);
+    });
+  });
+});

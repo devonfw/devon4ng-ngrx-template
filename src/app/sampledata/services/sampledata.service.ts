@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { PageData } from '../../core/interfaces/page-data';
-
-import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { BusinessOperationsService } from '../../core/shared/business-operations.service';
 @Injectable({
@@ -12,25 +10,22 @@ import { BusinessOperationsService } from '../../core/shared/business-operations
 })
 export class SampleDataService {
   private componentMethodCallSource: any = new Subject<any>();
-  private urlService: string = environment.restServiceRoot +
-    'sampledatamanagement/v1/sampledata/';
-  // delete services end Add Data Service Start
- // Add Data Services End
-  // Observable string streams
+  private urlService: string =
+    environment.restServiceRoot + 'sampledatamanagement/v1/sampledata/';
+
   componentMethodCalled$: any = this.componentMethodCallSource.asObservable();
 
   constructor(
     private http: HttpClient,
     public router: Router,
     private BO: BusinessOperationsService,
-  ) {
-  }
-  getSampleData(size: number,
+  ) {}
+  getSampleData(
+    size: number,
     page: number,
     searchTerms: any,
     sort: any[],
-  ):
-    Observable<any> {
+  ): Observable<any> {
     const pageData: PageData = {
       pagination: {
         size: size,
@@ -73,46 +68,11 @@ export class SampleDataService {
     });
   }
 
-  // login service start
-  login(username: string, password: string): Observable<any> {
-
-    let options: any;
-    // CSRF
-    if (environment.security === 'csrf') {
-      options = {
-        withCredentials: true,
-        responseType: 'text',
-      };
-    }
-    // JWT
-    if (environment.security === 'jwt') {
-      options = { responseType: 'text', observe: 'response' };
-    }
-    return this.http.post(
-      this.BO.login(),
-      {
-        j_username: username,
-        j_password: password,
-      },
-      options,
-    );
-  }
-
-  logout(): Observable<string> {
-    return this.http.get(this.BO.logout(), { responseType: 'text' });
-  }
-  getCsrf(): Observable<any> {
-    return this.http.get(this.BO.getCsrf(), { withCredentials: true });
-  }
-  // login services end
-  // delete service start
   deleteSampleData(id: number): Observable<Object> {
     return this.http.delete(this.urlService + id);
   }
 
-  // Service message commands
-  // tslint:disable-next-line:typedef
-  callComponentMethod() {
+  callComponentMethod(): void {
     this.componentMethodCallSource.next();
   }
 }

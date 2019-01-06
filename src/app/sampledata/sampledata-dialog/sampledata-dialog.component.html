@@ -1,24 +1,58 @@
 <h1 mat-dialog-title>Add With NGRX</h1>
 <form (ngSubmit)="dialogRef.close(items)" #dialogForm="ngForm">
   <mat-form-field>
-    <input matInput type="string" name="name" [placeholder]="'sampledatamanagement.SampleData.columns.name' | translate" [(ngModel)]="items.name"
-      required>
+    <input
+      matInput
+      type="string"
+      name="name"
+      [placeholder]="'sampledatamanagement.SampleData.columns.name' | translate"
+      [(ngModel)]="items.name"
+      required
+    />
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="string" name="surname" [placeholder]="'sampledatamanagement.SampleData.columns.surname' | translate"
-      [(ngModel)]="items.surname" required>
+    <input
+      matInput
+      type="string"
+      name="surname"
+      [placeholder]="
+        'sampledatamanagement.SampleData.columns.surname' | translate
+      "
+      [(ngModel)]="items.surname"
+      required
+    />
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" name="age" [placeholder]="'sampledatamanagement.SampleData.columns.age' | translate" [(ngModel)]="items.age"
-      required>
+    <input
+      matInput
+      type="number"
+      name="age"
+      [placeholder]="'sampledatamanagement.SampleData.columns.age' | translate"
+      [(ngModel)]="items.age"
+      required
+    />
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="string" name="email" [placeholder]="'sampledatamanagement.SampleData.columns.email' | translate" [(ngModel)]="items.email"
-      required>
+    <input
+      matInput
+      type="string"
+      name="email"
+      [placeholder]="
+        'sampledatamanagement.SampleData.columns.email' | translate
+      "
+      [(ngModel)]="items.email"
+      required
+    />
   </mat-form-field>
 
-  <mat-dialog-actions>ss
-    <button type="button" mat-button mat-dialog-close>{{'buttons.cancel' | translate}}</button>
-    <button type="submit" mat-button [disabled]="!dialogForm.form.valid"> {{'buttons.save' | translate}} </button>
-  ss</mat-dialog-actions>
+  <mat-dialog-actions
+    >ss
+    <button type="button" mat-button mat-dialog-close>
+      {{ 'buttons.cancel' | translate }}
+    </button>
+    <button type="submit" mat-button [disabled]="!dialogForm.form.valid">
+      {{ 'buttons.save' | translate }}
+    </button>
+    ss</mat-dialog-actions
+  >
 </form>

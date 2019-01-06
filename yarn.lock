@@ -9,15 +9,22 @@
     "@angular-devkit/core" "7.1.1"
     rxjs "6.3.3"
 
-"@angular-devkit/build-angular@^0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-0.11.1.tgz#a828797d9177227aee70a65bb06d4b189b1404cd"
+"@angular-devkit/architect@0.11.4":
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.11.4.tgz#f0cc3b4f1dd0128f6b41d3bb760bcf4c324cd063"
   dependencies:
-    "@angular-devkit/architect" "0.11.1"
-    "@angular-devkit/build-optimizer" "0.11.1"
-    "@angular-devkit/build-webpack" "0.11.1"
-    "@angular-devkit/core" "7.1.1"
-    "@ngtools/webpack" "7.1.1"
+    "@angular-devkit/core" "7.1.4"
+    rxjs "6.3.3"
+
+"@angular-devkit/build-angular@^0.11.4":
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-0.11.4.tgz#795084e29c66a71da15227cf2ac29794aa807c7c"
+  dependencies:
+    "@angular-devkit/architect" "0.11.4"
+    "@angular-devkit/build-optimizer" "0.11.4"
+    "@angular-devkit/build-webpack" "0.11.4"
+    "@angular-devkit/core" "7.1.4"
+    "@ngtools/webpack" "7.1.4"
     ajv "6.5.3"
     autoprefixer "9.3.1"
     circular-dependency-plugin "5.0.2"
@@ -62,26 +69,36 @@
   optionalDependencies:
     node-sass "4.10.0"
 
-"@angular-devkit/build-optimizer@0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.11.1.tgz#1079737a44b26b39e35cea7f966a39cd11bbbf48"
+"@angular-devkit/build-optimizer@0.11.4":
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.11.4.tgz#d96b0e16a76f3825f173220a2de5f376fc5abaee"
   dependencies:
     loader-utils "1.1.0"
     source-map "0.5.6"
     typescript "3.1.6"
     webpack-sources "1.2.0"
 
-"@angular-devkit/build-webpack@0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-webpack/-/build-webpack-0.11.1.tgz#bd98ff3dea633c5b77671b471e72cf6c91f6c679"
+"@angular-devkit/build-webpack@0.11.4":
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-webpack/-/build-webpack-0.11.4.tgz#1397b21b6187eab0641830ece4c3b9faba00855e"
   dependencies:
-    "@angular-devkit/architect" "0.11.1"
-    "@angular-devkit/core" "7.1.1"
+    "@angular-devkit/architect" "0.11.4"
+    "@angular-devkit/core" "7.1.4"
     rxjs "6.3.3"
 
 "@angular-devkit/core@7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-7.1.1.tgz#ce0a674f16188072988502cc3f073b15efcfe194"
+  dependencies:
+    ajv "6.5.3"
+    chokidar "2.0.4"
+    fast-json-stable-stringify "2.0.0"
+    rxjs "6.3.3"
+    source-map "0.7.3"
+
+"@angular-devkit/core@7.1.4":
+  version "7.1.4"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-7.1.4.tgz#4d903fd2ecc259b716ae76da19695d03993e583c"
   dependencies:
     ajv "6.5.3"
     chokidar "2.0.4"
@@ -232,11 +249,11 @@
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-6.1.2.tgz#20fb5ab4d79571b804a348093aa11a167fe2946f"
 
-"@ngtools/webpack@7.1.1":
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.1.1.tgz#c418e1cb0d70a77d06e8c32500fe2e92e606ea52"
+"@ngtools/webpack@7.1.4":
+  version "7.1.4"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.1.4.tgz#632ece6ed8e05fe743554cc935be36a653376f01"
   dependencies:
-    "@angular-devkit/core" "7.1.1"
+    "@angular-devkit/core" "7.1.4"
     enhanced-resolve "4.1.0"
     rxjs "6.3.3"
     tree-kill "1.2.0"
@@ -5725,19 +5742,13 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs-compat@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.1.0.tgz#935059623ee4c167728c9dd03ee6e4468cc5b583"
+rxjs-compat@^6.3.3:
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.3.3.tgz#2ab3b9ac0dac0c073749d55fef9c03ea1df2045c"
 
-rxjs@6.3.3, rxjs@^6.3.3:
+rxjs@6.3.3, rxjs@^6.1.0:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.3.3.tgz#3c6a7fa420e844a81390fb1158a9ec614f4bad55"
-  dependencies:
-    tslib "^1.9.0"
-
-rxjs@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.1.0.tgz#833447de4e4f6427b9cec3e5eb9f56415cd28315"
   dependencies:
     tslib "^1.9.0"
 
