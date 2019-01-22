@@ -1,10 +1,10 @@
 {
-"vsicons.presets.angular": true,
-"typescript.check.tscVersion": true,
-"[typescript]": {
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-  },
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "all",
-}
+    "vsicons.presets.angular": true,
+    "typescript.check.tscVersion": true,
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+      },
+      "prettier.singleQuote": true,
+      "prettier.trailingComma": "all",
+    }

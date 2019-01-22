@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 
 export interface RouterStateUrl {
-  url: String;
+  url: string;
   queryParams: Params;
   params: Params;
 }

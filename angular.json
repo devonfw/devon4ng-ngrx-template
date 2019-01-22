@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "devon4ng-ngrx-template": {
+    "devon4ng-application-template": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -47,18 +47,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "devon4ng-ngrx-template:build"
+            "browserTarget": "devon4ng-application-template:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "devon4ng-ngrx-template:build:production"
+              "browserTarget": "devon4ng-application-template:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "devon4ng-ngrx-template:build"
+            "browserTarget": "devon4ng-application-template:build"
           }
         },
         "test": {
@@ -86,7 +86,7 @@
         }
       }
     },
-    "devon4ng-ngrx-template-e2e": {
+    "devon4ng-application-template-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -95,7 +95,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "devon4ng-ngrx-template:serve"
+            "devServerTarget": "devon4ng-application-template:serve"
           }
         },
         "lint": {
@@ -108,7 +108,7 @@
       }
     }
   },
-  "defaultProject": "devon4ng-ngrx-template",
+  "defaultProject": "devon4ng-application-template",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -117,8 +117,5 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
-  },
-  "cli": {
-    "defaultCollection": "@ngrx/schematics"
   }
 }

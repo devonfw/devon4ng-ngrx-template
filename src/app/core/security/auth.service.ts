@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+
 @Injectable()
 export class AuthService {
   private logged: boolean = false;
@@ -22,8 +22,5 @@ export class AuthService {
 
   public setToken(token: string): void {
     this.token = token;
-  }
-  getAll(): Observable<string[]> {
-    return of(['Kim', 'Mike', 'Joe']);
   }
 }

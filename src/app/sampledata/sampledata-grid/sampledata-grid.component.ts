@@ -5,6 +5,7 @@ import {
   TdDialogService,
   IPageChangeEvent,
   ITdDataTableSortChangeEvent,
+  TdPagingBarComponent,
 } from '@covalent/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SampleDataService } from '../services/sampledata.service';
 import { AuthService } from '../../core/security/auth.service';
 import { SampleDataDialogComponent } from '../../sampledata/sampledata-dialog/sampledata-dialog.component';
-import { Pagination } from '../../core/interfaces/pagination';
+import { Pageable } from '../../core/interfaces/pageable';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.states';
@@ -20,26 +21,33 @@ import {
   AddData,
   EditData,
   DeleteData,
-  SearchData,
   LoadDataSuccess,
 } from '../store/actions/sampledata.actions';
-import { Login } from '../models/login.model';
+import { Sampledata } from '../models/sampledata.model';
 
 @Component({
   selector: 'public-app-sampledata-grid-display',
-  templateUrl: './sampledata-grid-display.component.html',
-  styleUrls: ['./sampledata-grid-display.component.scss'],
+  templateUrl: './sampledata-grid.component.html',
+  styleUrls: ['./sampledata-grid.component.scss'],
 })
-export class SampledataGridDisplayComponent implements OnInit {
-  private pagination: Pagination = {
-    size: 8,
-    page: 1,
-    total: 1,
+export class SampleDataGridComponent implements OnInit {
+  private pageable: Pageable = {
+    pageSize: 8,
+    pageNumber: 0,
+    sort: [
+      {
+        property: 'name',
+        direction: 'ASC',
+      },
+    ],
   };
-  private sorting: any[] = [];
-  user: Login = new Login();
-  @ViewChild('dataTable') dataTable: TdDataTableComponent;
+  // private sorting: any[] = [];
+  // user: Sampledata = new Sampledata();
+  // @ViewChild('dataTable') dataTable: TdDataTableComponent;
 
+  private sorting: any[] = [];
+  @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
+  @ViewChild('dataTable') dataTable: TdDataTableComponent;
   data: any = [];
   columns: ITdDataTableColumn[] = [
     {
@@ -59,9 +67,9 @@ export class SampledataGridDisplayComponent implements OnInit {
       label: this.getTranslation('sampledatamanagement.SampleData.columns.age'),
     },
     {
-      name: 'email',
+      name: 'mail',
       label: this.getTranslation(
-        'sampledatamanagement.SampleData.columns.email',
+        'sampledatamanagement.SampleData.columns.mail',
       ),
     },
   ];
@@ -75,13 +83,13 @@ export class SampledataGridDisplayComponent implements OnInit {
     name: undefined,
     surname: undefined,
     age: undefined,
-    email: undefined,
+    mail: undefined,
     modificationCounter: undefined,
     pageSize: undefined,
     pagination: undefined,
     searchTerms: undefined,
   };
-  contacts$: Observable<Login[]>;
+  contacts$: Observable<Sampledata[]>;
   constructor(
     private store: Store<AppState>,
     private translate: TranslateService,
@@ -101,15 +109,15 @@ export class SampledataGridDisplayComponent implements OnInit {
   getSampleData(): void {
     this.dataGridService
       .getSampleData(
-        this.pageSize,
-        this.pagination.page,
+        this.pageable.pageSize,
+        this.pageable.pageNumber,
         this.searchTerms,
-        this.sorting,
+        (this.pageable.sort = this.sorting),
       )
       .subscribe(
         (res: any) => {
-          this.data = res.result;
-          this.totalItems = res.pagination.total;
+          this.data = res.content;
+          this.totalItems = res.totalElements;
           this.dataTable.refresh();
         },
         (error: any) => {
@@ -143,17 +151,17 @@ export class SampledataGridDisplayComponent implements OnInit {
     return value;
   }
   page(pagingEvent: IPageChangeEvent): void {
-    this.pagination = {
-      size: pagingEvent.pageSize,
-      page: pagingEvent.page,
-      total: 1,
+    this.pageable = {
+      pageSize: pagingEvent.pageSize,
+      pageNumber: pagingEvent.page - 1,
+      sort: this.pageable.sort,
     };
     this.getSampleData();
   }
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sorting = [];
     this.sorting.push({
-      name: sortEvent.name.split('.').pop(),
+      property: sortEvent.name.split('.').pop(),
       direction: '' + sortEvent.order,
     });
     this.getSampleData();
@@ -166,7 +174,7 @@ export class SampledataGridDisplayComponent implements OnInit {
           name: result.name,
           surname: result.surname,
           age: result.age,
-          email: result.email,
+          mail: result.mail,
         };
         this.store.dispatch(new AddData(payload));
         this.getSampleData();
@@ -188,7 +196,7 @@ export class SampledataGridDisplayComponent implements OnInit {
             name: result.name,
             surname: result.surname,
             age: result.age,
-            email: result.email,
+            mail: result.mail,
             modificationCounter: result.modificationCounter,
           };
           this.store.dispatch(new EditData(payload));
@@ -219,22 +227,12 @@ export class SampledataGridDisplayComponent implements OnInit {
         }
       });
   }
+  filter(): void {
+    this.pagingBar.firstPage();
+  }
+
   searchReset(form: any): void {
     form.reset();
     this.getSampleData();
-  }
-  getSampleData_1(): void {
-    const payload: any = {
-      pageSize: this.pageSize,
-      pagination: this.pagination.page,
-      searchTerms: this.searchTerms,
-      test: this.sorting,
-      data: this.data,
-      totalItems: this.totalItems,
-      total: this.pagination.total,
-      dataTable: this.dataTable,
-      amit: 'amt',
-    };
-    this.store.dispatch(new SearchData(payload));
   }
 }

@@ -1,22 +1,22 @@
 import * as faker from 'faker';
-export class Login {
+export class Sampledata {
   username?: string;
   password?: string;
   name?: string;
   surname?: string;
   age?: number;
-  email?: string;
+  mail?: string;
   id?: number;
   pageSize?: number = 8;
   pageSizes?: number[] = [8, 16, 24];
   selectedRow?: any;
 }
-export const generateUser: any = (): Login => {
+export const generateUser: any = (): Sampledata => {
   return {
     id: faker.random.number(),
     name: faker.name.firstName(),
     surname: faker.name.lastName(),
-    email: faker.internet.email(),
+    mail: faker.internet.email(),
     age: faker.random.number(),
   };
 };

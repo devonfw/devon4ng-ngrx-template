@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add With NGRX</h1>
+<h1 mat-dialog-title>{{ title }}</h1>
 <form (ngSubmit)="dialogRef.close(items)" #dialogForm="ngForm">
   <mat-form-field>
     <input
@@ -36,23 +36,19 @@
     <input
       matInput
       type="string"
-      name="email"
-      [placeholder]="
-        'sampledatamanagement.SampleData.columns.email' | translate
-      "
-      [(ngModel)]="items.email"
+      name="mail"
+      [placeholder]="'sampledatamanagement.SampleData.columns.mail' | translate"
+      [(ngModel)]="items.mail"
       required
     />
   </mat-form-field>
 
-  <mat-dialog-actions
-    >ss
+  <mat-dialog-actions>
     <button type="button" mat-button mat-dialog-close>
       {{ 'buttons.cancel' | translate }}
     </button>
     <button type="submit" mat-button [disabled]="!dialogForm.form.valid">
       {{ 'buttons.save' | translate }}
     </button>
-    ss</mat-dialog-actions
-  >
+  </mat-dialog-actions>
 </form>

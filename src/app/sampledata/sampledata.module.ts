@@ -6,11 +6,11 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/app.states';
 import { EffectsModule } from '@ngrx/effects';
 import { SampleDataService } from './services/sampledata.service';
-import { SampledataGridDisplayComponent } from '../sampledata/sampledata-grid-display/sampledata-grid-display.component';
 import { SampleDataDialogComponent } from '../sampledata/sampledata-dialog/sampledata-dialog.component';
 import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { HomeModule } from '../home/home.module';
 import { effects } from './store/effects';
+import { SampleDataGridComponent } from './sampledata-grid/sampledata-grid.component';
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import { effects } from './store/effects';
     StoreModule.forFeature('sampledatareducer', reducers),
     EffectsModule.forFeature(effects),
   ],
-  declarations: [SampledataGridDisplayComponent, SampleDataDialogComponent],
+  declarations: [SampleDataGridComponent, SampleDataDialogComponent],
   entryComponents: [SampleDataDialogComponent],
   providers: [SampleDataService],
 })

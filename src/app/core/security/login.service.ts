@@ -17,6 +17,7 @@ export class LoginService {
   login(username: string, password: string): Observable<any> {
     let options: any;
 
+    // CSRF
     if (environment.security === 'csrf') {
       options = {
         withCredentials: true,
@@ -24,6 +25,7 @@ export class LoginService {
       };
     }
 
+    // JWT
     if (environment.security === 'jwt') {
       options = { responseType: 'text', observe: 'response' };
     }

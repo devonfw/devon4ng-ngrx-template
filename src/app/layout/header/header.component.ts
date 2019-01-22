@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../sampledata/store/app.states';
 import { LogOutAction } from '../../sampledata/store/actions/sampledata.actions';
+
 @Component({
   selector: 'public-header',
   templateUrl: './header.component.html',
@@ -37,7 +38,6 @@ export class HeaderComponent {
   isLogged(): boolean {
     return this.auth.isLogged() || false;
   }
-
   logout(): void {
     this.store.dispatch(new LogOutAction());
   }

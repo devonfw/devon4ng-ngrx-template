@@ -1,5 +1,5 @@
 import * as froasptempletes from './sampledata.actions';
-import { generateUser } from '../../models/login.model';
+import { generateUser } from '../../models/sampledata.model';
 import {
   SampleDataActionTypes,
   AddData,
@@ -13,7 +13,7 @@ describe('SampleDataActionTestCase', () => {
         const payload: any = {
           name: 'TESTNAME',
           surname: 'TESTSURNAME',
-          email: 'TESTEMAIL',
+          mail: 'TESTmail',
           age: 12,
         };
         const action: any = new AddData(payload);
@@ -39,7 +39,7 @@ describe('SampleDataActionTestCase', () => {
         const payload: any = {
           name: 'TESTNAME',
           surname: 'TESTSURNAME',
-          email: 'TESTEMAIL',
+          mail: 'TESTmail',
           age: 12,
         };
         const action: any = new froasptempletes.AddDataSuccess(payload);

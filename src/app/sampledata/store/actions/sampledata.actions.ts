@@ -22,7 +22,6 @@ export enum SampleDataActionTypes {
   EDIT_DATA_FAIL = '[EditData] EditDataFail',
   EDIT_DATA_SUCCESS = '[EditData] EditDataSuccess',
 }
-
 export class LogInAction implements Action {
   readonly type: SampleDataActionTypes.LOGIN = SampleDataActionTypes.LOGIN;
   constructor(public payload: any) {}
@@ -39,12 +38,10 @@ export class LogInFail implements Action {
 }
 export class LogOutAction implements Action {
   readonly type: SampleDataActionTypes.LOGOUT = SampleDataActionTypes.LOGOUT;
-  constructor() {}
 }
 export class LogOutSuccess implements Action {
   readonly type: SampleDataActionTypes.LOGOUT_SUCCESS =
     SampleDataActionTypes.LOGOUT_SUCCESS;
-  constructor() {}
 }
 export class LogOutFail implements Action {
   readonly type: SampleDataActionTypes.LOGOUT_FAIL =
@@ -104,12 +101,10 @@ export class SearchData implements Action {
 export class SearchDataSuccess implements Action {
   readonly type: SampleDataActionTypes.SEARCH_DATA_SUCCESS =
     SampleDataActionTypes.SEARCH_DATA_SUCCESS;
-  constructor(public payload: any) {}
 }
 export class LoadDataSuccess implements Action {
   readonly type: SampleDataActionTypes.LOAD_DATA_SUCCESS =
     SampleDataActionTypes.LOAD_DATA_SUCCESS;
-  constructor() {}
 }
 export class LoadDataFail implements Action {
   readonly type: SampleDataActionTypes.LOAD_DATA_FAIL =
@@ -119,7 +114,6 @@ export class LoadDataFail implements Action {
 export class LoadData implements Action {
   readonly type: SampleDataActionTypes.LOAD_DATA =
     SampleDataActionTypes.LOAD_DATA;
-  constructor() {}
 }
 export type All =
   | LogInAction

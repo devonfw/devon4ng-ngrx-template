@@ -23,6 +23,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     if (authHeader) {
       let authReq: HttpRequest<any>;
 
+      // CSRF
       if (environment.security === 'csrf') {
         authReq = req.clone({
           withCredentials: true,
@@ -30,6 +31,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
         });
       }
 
+      // JWT
       if (environment.security === 'jwt') {
         authReq = req.clone({
           setHeaders: { Authorization: authHeader },

@@ -1,13 +1,13 @@
-import { Login } from '../../models/login.model';
+import { Sampledata } from '../../models/sampledata.model';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { SampleDataActionTypes, All } from '../actions/sampledata.actions';
-export const sampledataAdapter: any = createEntityAdapter<Login>();
-export interface State extends EntityState<Login> {
+export const sampledataAdapter: any = createEntityAdapter<Sampledata>();
+export interface State extends EntityState<Sampledata> {
   currentContactId?: number;
 }
 export interface State {
   isAuthenticated: boolean;
-  user: Login | null;
+  user: Sampledata | null;
   errorMessage: string | null;
   successmassage: string | null;
   text: string | null;
@@ -54,7 +54,7 @@ export function reducer(state: State = initialState, action: All): State {
         user: {
           name: action.payload.name,
           surname: action.payload.surname,
-          email: action.payload.email,
+          mail: action.payload.mail,
           age: action.payload.age,
         },
         errorMessage: 'No error',
@@ -67,7 +67,7 @@ export function reducer(state: State = initialState, action: All): State {
           id: action.payload.id,
           name: action.payload.name,
           surname: action.payload.surname,
-          email: action.payload.email,
+          mail: action.payload.mail,
           age: action.payload.age,
         },
       };
@@ -85,7 +85,7 @@ export function reducer(state: State = initialState, action: All): State {
           id: action.payload.id,
           name: action.payload.name,
           surname: action.payload.surname,
-          email: action.payload.email,
+          mail: action.payload.mail,
           age: action.payload.age,
         },
         successmassage: 'successfully Remove Data',

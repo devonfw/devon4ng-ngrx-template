@@ -39,7 +39,7 @@
         <mat-icon>delete</mat-icon>
       </button>
 
-      <form (ngSubmit)="getSampleData_1()" #filterForm="ngForm">
+      <form (ngSubmit)="filter()" #filterForm="ngForm">
         <td-expansion-panel label="Filters">
           <div
             layout="row"
@@ -81,9 +81,9 @@
               <mat-form-field color="accent">
                 <input
                   matInput
-                  placeholder="eMail"
-                  [(ngModel)]="searchTerms.email"
-                  name="email"
+                  placeholder="Mail"
+                  [(ngModel)]="searchTerms.mail"
+                  name="mail"
                 />
               </mat-form-field>
             </div>
@@ -122,9 +122,9 @@
               <mat-form-field color="accent" class="pad-sm" flex>
                 <input
                   matInput
-                  placeholder="eMail"
-                  [(ngModel)]="searchTerms.email"
-                  name="email"
+                  placeholder="Mail"
+                  [(ngModel)]="searchTerms.mail"
+                  name="mail"
                 />
               </mat-form-field>
             </div>
