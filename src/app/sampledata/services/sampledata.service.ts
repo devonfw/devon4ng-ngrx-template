@@ -1,91 +1,70 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { PageData } from '../../core/interfaces/page-data';
-import { Login } from '../models/login.model';
-import { Subject } from 'rxjs/Subject';
-@Injectable()
+import { Observable, Subject } from 'rxjs';
+import { SearchCriteria } from '../../core/interfaces/search-criteria';
+import { Router } from '@angular/router';
+import { SampledataModel } from '../models/sampledata.model';
+
+@Injectable({
+  providedIn: 'root',
+})
 export class SampleDataService {
-  private urlService: string = environment.restServiceRoot +
-  'sampledatamanagement/v1/sampledata/';
-  constructor(private http: HttpClient) {}
-  getSampleData( size: number,
+  private urlService: string =
+    environment.restServiceRoot + 'sampledatamanagement/v1/sampledata/';
+
+  constructor(private http: HttpClient, public router: Router) {}
+  getSampleData(
+    size: number,
     page: number,
     searchTerms: any,
     sort: any[],
-  ): 
-  Observable<any> {
-    debugger
-    const pageData: PageData = {
-      pagination: {
-        size: size,
-        page: page,
-        total: 1,
+  ): Observable<SampledataModel[]> {
+    const searchCriteria: SearchCriteria = {
+      pageable: {
+        pageSize: size,
+        pageNumber: page,
+        sort: sort,
       },
       name: searchTerms.name,
       surname: searchTerms.surname,
       age: searchTerms.age,
-      email: searchTerms.email,
-      sort: sort,
+      mail: searchTerms.mail,
     };
-    return this.http.post<any>(this.urlService + 'search', pageData);
+    return this.http.post<SampledataModel[]>(
+      this.urlService + 'search',
+      searchCriteria,
+    );
   }
-
   saveSampleData(data: any): Observable<Object> {
-   // debugger;
-    
     const obj: any = {
       id: data.id,
       name: data.name,
       surname: data.surname,
       age: data.age,
-      email: data.email,
+      mail: data.mail,
     };
     return this.http.post(this.urlService, obj);
   }
-  deleteSampleData(id: number): Observable<Object> {
-   
-    return this.http.delete(this.urlService + id);
+  editSampleData(data: any): Observable<Object> {
+    const obj: any = {
+      id: data.id,
+      name: data.name,
+      modificationCounter: data.modificationCounter,
+      surname: data.surname,
+      age: data.age,
+      mail: data.mail,
+    };
+
+    return this.http.post(this.urlService, obj);
   }
   searchSampleData(criteria: any): Observable<Object> {
     return this.http.post(this.urlService + 'search', {
       criteria: criteria,
     });
   }
-  index(): Observable<Login[]> {
-    
-    return this.http.get<Login[]>(`${this.urlService}/contacts`);
 
+  deleteSampleData(id: number): Observable<Object> {
+    return this.http.delete(this.urlService + id);
   }
-
-  getSampleDatas1(): void {
-    
-  }
-private componentMethodCallSource = new Subject<any>();
-  
-  // Observable string streams
-  componentMethodCalled$ = this.componentMethodCallSource.asObservable();
-
-  // Service message commands
-  callComponentMethod() {
-    this.componentMethodCallSource.next();
-  }
-  callComponentMethod1( size: number,
-    page: number,
-    searchTerms: any,
-    sort: any[],) {
-    this.componentMethodCallSource.next();
-  }
-  
 }
-
-
-
-
-
-
-
-
-
-

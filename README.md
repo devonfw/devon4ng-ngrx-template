@@ -1,6 +1,35 @@
-# Oasp4jsNewTemplate
+# devon4ng Application Template
 
-This project has been updated to **Angular 6** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
+This application utilizes @ngrx/store to manage the state of the app,@angular/router to manage navigation between routes, @ngrx/effects to isolate side effects. This project has been updated to **Angular 7** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
+
+**Ngrx State Management**
+
+This application uses [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) version 7.0.0 to manage application state, [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) version 7.0.0 to manange side effects, and [@ngrx/router-store]
+(https://github.com/ngrx/platform/blob/master/docs/router-store/README.md) version 7.0.0 to connect the Angular Router with @ngrx/store.
+
+### Ngrx Store
+
+@ngrx/store is a controlled state container designed to help write performance, consistent applications on top of Angular.
+
+Installation:
+
+Run `npm install @ngrx/store` or `yarn add @ngrx/store`
+
+### Ngrx Effects
+
+@ngrx/effects provides an API to model event sources as actions. 
+
+Installation:
+
+Run `npm install @ngrx/effects --save` OR `yarn add @ngrx/effects`
+
+### Ngrx router-store
+
+Bindings to connect the Angular Router with @ngrx/store.
+
+Installation:
+
+Run `npm install @ngrx/router-store --save` OR `yarn add @ngrx/router-store`
 
 ## Development server
 

@@ -2,29 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { TranslateModule } from '@ngx-translate/core';
-import {StoreModule} from '@ngrx/store';
-import { reducers } from './store/app.states';
-import {EffectsModule} from '@ngrx/effects';
-import { SampleDataService } from './services/sampledata.service';
-import { AuthEffects } from './store//effects/login.effects';
-import { SampledataGridDisplayComponent } from '../sampledata/sampledata-grid-display/sampledata-grid-display.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/reducers/index';
+import { EffectsModule } from '@ngrx/effects';
 import { SampleDataDialogComponent } from '../sampledata/sampledata-dialog/sampledata-dialog.component';
-import { SampleDataRoutingModule } from './sampledata-routing.module'
-import { LandingComponent } from './landing/landing.component';
+import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { HomeModule } from '../home/home.module';
-import { AddDataEffects } from './store/effects/AddData.effects';
-import { DeleteDataEffects } from './store/effects/DeleteData.effects';
-import { EditataEffects } from './store/effects/EditData.effects';
-import { SearchDataEffects } from './store/effects/SearchData.effect';
+import { effects } from './store/effects';
+import { SampleDataGridComponent } from './sampledata-grid/sampledata-grid.component';
 
 @NgModule({
-  imports: [CommonModule, CoreModule, TranslateModule,SampleDataRoutingModule,HomeModule,
-   
-    StoreModule.forFeature('sampledatareducer',reducers),
-    EffectsModule.forFeature([AuthEffects,AddDataEffects,DeleteDataEffects,EditataEffects,SearchDataEffects]),
-   ],
-  declarations: [SampledataGridDisplayComponent, SampleDataDialogComponent,LandingComponent],
+  imports: [
+    CommonModule,
+    CoreModule,
+    TranslateModule,
+    SampleDataRoutingModule,
+    HomeModule,
+    StoreModule.forFeature('sampledatareducer', reducers),
+    EffectsModule.forFeature(effects),
+  ],
+  declarations: [SampleDataGridComponent, SampleDataDialogComponent],
   entryComponents: [SampleDataDialogComponent],
-  providers: [SampleDataService],
+  providers: [],
 })
 export class SampleDataModule {}

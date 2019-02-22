@@ -41,7 +41,6 @@ export class LoginService {
   }
 
   logout(): Observable<string> {
-    
     return this.http.get(this.BO.logout(), { responseType: 'text' });
   }
 

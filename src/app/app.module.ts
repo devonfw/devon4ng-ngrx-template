@@ -4,37 +4,28 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
-
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
-
 import { SampleDataModule } from './sampledata/sampledata.module';
-
-import { LogInComponent } from './sampledata/log-in/log-in.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-
-//import { RouterModule } from '@angular/router';
-import { reducers } from './sampledata/store/app.states';
-// import { AuthEffects } from './sampledata/store//effects/login.effects';
-// import { AddDataEffects } from './sampledata/store//effects/AddData.effects';
-// import { DeleteDataEffects } from './sampledata/store//effects/DeleteData.effects';
-// import {EditataEffects} from './sampledata/store//effects/EditData.effects'
-import { Loginservice } from './sampledata/services/login.service';
-import { ErrorPageComponent } from './sampledata/error-page/error-page.component';
-//import { SampledataGridDisplayComponent } from './sampledata/sampledata-grid-display/sampledata-grid-display.component';
 // AoT requires an exported function for factories
-
+import { reducers, CustomSerializer } from './store';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
+import { environment } from '../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HomeModule } from './home/home.module';
+import { LoginComponent } from './login/login.component';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
-
 @NgModule({
-  
-  declarations: [AppComponent,  LogInComponent, ErrorPageComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     BrowserModule,
     SampleDataModule,
@@ -42,8 +33,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     LayoutModule,
     AppRoutingModule,
     CoreModule,
-    
+    HomeModule,
     StoreModule.forRoot(reducers),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule,
     EffectsModule.forRoot([]),
     TranslateModule.forRoot({
       loader: {
@@ -52,9 +45,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient],
       },
     }),
-    
   ],
-  providers: [Loginservice],
+  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
