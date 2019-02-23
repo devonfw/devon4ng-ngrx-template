@@ -1,7 +1,7 @@
 import * as fromMyReducers from './sampledata.reducers';
 import * as froasptempletesaction from '../actions/sampledata.actions';
-import { Sampledata } from '../../models/sampledata.model';
-import { generateUser } from '../../models/sampledata.model';
+import { SampledataModel } from '../../models/sampledata.model';
+import { generateUser } from '../../models/datadetailstest.model';
 describe('SampleDataReducersTestCase', () => {
   describe('Add Action  Reducer', () => {
     it('should return the default state', () => {
@@ -12,7 +12,7 @@ describe('SampleDataReducersTestCase', () => {
     });
 
     it('should add the New Details in array', () => {
-      const detailsdata: Sampledata = {
+      const detailsdata: SampledataModel = {
         name: 'TESTNAME',
         surname: 'TESTSURNAME',
         mail: 'TESTmail',

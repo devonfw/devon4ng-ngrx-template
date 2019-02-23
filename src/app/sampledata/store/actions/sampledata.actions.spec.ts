@@ -1,5 +1,5 @@
 import * as froasptempletes from './sampledata.actions';
-import { generateUser } from '../../models/sampledata.model';
+import { generateUser } from '../../models/datadetailstest.model';
 import {
   SampleDataActionTypes,
   AddData,

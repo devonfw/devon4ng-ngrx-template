@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import { Sampledata } from '../models/sampledata.model';
 
 @Component({
   selector: 'public-sampledata-dialog',
@@ -15,7 +14,7 @@ export class SampleDataDialogComponent {
     age: '',
     mail: '',
   };
-  userDetails: Sampledata = new Sampledata();
+
   constructor(
     private translate: TranslateService,
     public dialogRef: MatDialogRef<SampleDataDialogComponent>,

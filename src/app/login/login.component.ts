@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Sampledata } from '../sampledata/models/sampledata.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, selectAuthState } from '../sampledata/store/app.states';
-import { LogInAction } from '../sampledata/store/actions/sampledata.actions';
+// import { AppState, selectAuthState } from '../sampledata/store/app.states';
+import { AppState, getAppState } from '../sampledata/store/reducers/index';
+import { LogInAction } from '../sampledata/store/actions/authentication.actions';
+import { AuthenticateModel } from '../sampledata/models/authentication.model';
 
 @Component({
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
-  user: Sampledata = new Sampledata();
-  getState: Observable<any>;
+  user: AuthenticateModel;
+  getState: Observable<LoginComponent>;
   // errorMessage: string | null;
 
   constructor(private store: Store<AppState>) {
-    this.getState = this.store.select(selectAuthState);
+    this.getState = this.store.select(getAppState);
   }
   ngOnInit(): void {
     this.getState.subscribe((state: any) => {
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(login: any): void {
-    const payload: Sampledata = {
+    const payload: AuthenticateModel = {
       username: login.value.username,
       password: login.value.password,
     };

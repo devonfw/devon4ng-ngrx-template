@@ -3,8 +3,9 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { AuthService } from '../../core/security/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../sampledata/store/app.states';
-import { LogOutAction } from '../../sampledata/store/actions/sampledata.actions';
+/// import { AppState } from '../../sampledata/store/app.states';
+import { AppState } from '../../sampledata/store/reducers/index';
+import { LogOutAction } from '../../sampledata/store/actions/authentication.actions';
 
 @Component({
   selector: 'public-header',

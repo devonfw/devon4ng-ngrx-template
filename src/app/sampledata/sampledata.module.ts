@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/app.states';
+import { reducers } from './store/reducers/index';
 import { EffectsModule } from '@ngrx/effects';
-import { SampleDataService } from './services/sampledata.service';
 import { SampleDataDialogComponent } from '../sampledata/sampledata-dialog/sampledata-dialog.component';
 import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { HomeModule } from '../home/home.module';
@@ -24,6 +23,6 @@ import { SampleDataGridComponent } from './sampledata-grid/sampledata-grid.compo
   ],
   declarations: [SampleDataGridComponent, SampleDataDialogComponent],
   entryComponents: [SampleDataDialogComponent],
-  providers: [SampleDataService],
+  providers: [],
 })
 export class SampleDataModule {}

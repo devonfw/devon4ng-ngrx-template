@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 describe('SidenavSharedService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SampleDataService],
+      providers: [],
       imports: [
         RouterTestingModule,
         CoreModule,

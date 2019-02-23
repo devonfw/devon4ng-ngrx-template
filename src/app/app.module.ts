@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { SampleDataModule } from './sampledata/sampledata.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { SampleDataService } from './sampledata/services/sampledata.service';
 // AoT requires an exported function for factories
 import { reducers, CustomSerializer } from './store';
 import {
@@ -47,10 +46,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
   ],
-  providers: [
-    SampleDataService,
-    { provide: RouterStateSerializer, useClass: CustomSerializer },
-  ],
+  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

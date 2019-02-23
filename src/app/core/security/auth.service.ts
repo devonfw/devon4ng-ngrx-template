@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
-  private logged: boolean = false;
+  private loggedIn: boolean = false;
   private token: string;
 
   constructor(public router: Router) {}
 
   public isLogged(): boolean {
-    return this.logged || false;
+    return this.loggedIn || false;
   }
 
   public setLogged(login: boolean): void {
-    this.logged = login;
+    this.loggedIn = login;
   }
 
   public getToken(): string {
