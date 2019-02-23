@@ -113,31 +113,31 @@ export class SampleDataGridComponent implements OnInit {
     };
     this.store.dispatch(new LoadData(payload));
   }
-  // getSampleData(): void {
-  //   this.dataGridService
-  //     .getSampleData(
-  //       this.pageable.pageSize,
-  //       this.pageable.pageNumber,
-  //       this.searchTerms,
-  //       (this.pageable.sort = this.sorting),
-  //     )
-  //     .subscribe(
-  //       (res: any) => {
-  //         this.data = res.content;
-  //         this.totalItems = res.totalElements;
-  //         this.dataTable.refresh();
-  //       },
-  //       (error: any) => {
-  //         setTimeout(() => {
-  //           this._dialogService.openAlert({
-  //             message: error.message,
-  //             title: this.getTranslation('ERROR'),
-  //             closeButton: 'CLOSE',
-  //           });
-  //         });
-  //       },
-  //     );
-  // }
+  getSampleData(): void {
+    this.dataGridService
+      .getSampleData(
+        this.pageable.pageSize,
+        this.pageable.pageNumber,
+        this.searchTerms,
+        (this.pageable.sort = this.sorting),
+      )
+      .subscribe(
+        (res: any) => {
+          this.data = res.content;
+          this.totalItems = res.totalElements;
+          this.dataTable.refresh();
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this._dialogService.openAlert({
+              message: error.message,
+              title: this.getTranslation('ERROR'),
+              closeButton: 'CLOSE',
+            });
+          });
+        },
+      );
+  }
   getTranslation(text: string): string {
     let value: string;
     this.translate.get(text).subscribe((res: string) => {
