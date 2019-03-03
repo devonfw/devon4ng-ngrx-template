@@ -10,7 +10,6 @@ export class BusinessOperationsService {
     return this.serverPath + 'login';
   }
   logout(): string {
-    
     return this.serverPath + 'logout';
   }
   getCsrf(): string {

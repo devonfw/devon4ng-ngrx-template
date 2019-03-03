@@ -17,13 +17,7 @@ import { InitialPageComponent } from './initial-page/initial-page.component';
     TranslateModule,
   ],
   providers: [],
-  declarations: [
-    HomeComponent,
-    InitialPageComponent,
-  ],
-  exports: [
-    HomeComponent,
-    InitialPageComponent,
-  ],
+  declarations: [HomeComponent, InitialPageComponent],
+  exports: [HomeComponent, InitialPageComponent],
 })
 export class HomeModule {}
