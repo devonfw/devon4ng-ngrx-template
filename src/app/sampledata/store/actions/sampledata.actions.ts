@@ -87,7 +87,7 @@ export class SearchDataSuccess implements Action {
     SampleDataActionTypes.SEARCH_DATA_SUCCESS;
 }
 
-export type All =
+export type SampleDataAction =
   | AddData
   | AddDataSuccess
   | AddDataFail

@@ -15,6 +15,7 @@ export interface RouterStateUrl {
 export interface State {
   routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
+
 export const reducers: ActionReducerMap<State> = {
   routerReducer: fromRouter.routerReducer,
 };

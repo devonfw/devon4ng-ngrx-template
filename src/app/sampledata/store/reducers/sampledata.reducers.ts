@@ -1,23 +1,26 @@
 import { SampledataModel } from '../../models/sampledata.model';
 
-import { SampleDataActionTypes, All } from '../actions/sampledata.actions';
+import {
+  SampleDataActionTypes,
+  SampleDataAction,
+} from '../actions/sampledata.actions';
 
 export interface SampleDataState {
-  sampledata: SampledataModel[];
+  sampleData: SampledataModel[];
   loaded: boolean;
   loading: boolean;
-  textmassege: string;
+  textMessage: string;
 }
 
 export const initialState: SampleDataState = {
-  sampledata: [],
+  sampleData: [],
   loaded: false,
   loading: false,
-  textmassege: undefined,
+  textMessage: undefined,
 };
 export function reducer(
   state: SampleDataState = initialState,
-  action: All,
+  action: SampleDataAction,
 ): SampleDataState {
   switch (action.type) {
     case SampleDataActionTypes.LOAD_DATA: {
@@ -26,7 +29,7 @@ export function reducer(
     case SampleDataActionTypes.LOAD_DATA_SUCCESS: {
       return {
         ...state,
-        sampledata: action.payload,
+        sampleData: action.payload,
         loading: false,
         loaded: true,
       };
@@ -41,13 +44,13 @@ export function reducer(
       const data: any = action.payload;
       return {
         ...state,
-        sampledata: data,
+        sampleData: data,
         loading: false,
         loaded: false,
       };
     }
     case SampleDataActionTypes.ADD_DATA_FAIL: {
-      return { ...state, textmassege: 'Add Data Fail' };
+      return { ...state, textMessage: 'Add Data Fail' };
     }
     case SampleDataActionTypes.EDIT_DATA: {
       return { ...state };
@@ -56,33 +59,35 @@ export function reducer(
       const data: any = action.payload;
       return {
         ...state,
-        sampledata: data,
-        textmassege: 'Edit Data Success',
+        sampleData: data,
+        textMessage: 'Edit Data Success',
       };
     }
     case SampleDataActionTypes.EDIT_DATA_FAIL: {
-      return { ...state, textmassege: 'Edit Data Fail' };
+      return { ...state, textMessage: 'Edit Data Fail' };
     }
     case SampleDataActionTypes.DELETE_DATA: {
       return { ...state };
     }
     case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
+      const data: any = action.payload;
       return {
         ...state,
-        textmassege: 'delete Data Success',
+        textMessage: 'delete Data Success',
         loading: false,
         loaded: true,
       };
     }
     case SampleDataActionTypes.DELETE_DATA_FAIL: {
-      return { ...state, textmassege: 'delete Data Fail' };
+      return { ...state, textMessage: 'delete Data Fail' };
     }
     default: {
       return state;
     }
   }
 }
-export const getSampleDataDetails: any = (state: SampleDataState) =>
-  state.sampledata;
-export const getDataLoading: any = (state: SampleDataState) => state.loading;
-export const getDataLoaded: any = (state: SampleDataState) => state.loaded;
+export const getSampleData: any = (state: SampleDataState) => state.sampleData;
+export const getSampleDataLoading: any = (state: SampleDataState) =>
+  state.loading;
+export const getSampleDataLoaded: any = (state: SampleDataState) =>
+  state.loaded;

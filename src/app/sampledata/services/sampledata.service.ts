@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SearchCriteria } from '../../core/interfaces/search-criteria';
 import { Router } from '@angular/router';
 import { SampledataModel } from '../models/sampledata.model';
@@ -31,6 +31,7 @@ export class SampleDataService {
       age: searchTerms.age,
       mail: searchTerms.mail,
     };
+
     return this.http.post<SampledataModel[]>(
       this.urlService + 'search',
       searchCriteria,

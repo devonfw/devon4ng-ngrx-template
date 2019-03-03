@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of, Observable } from 'rxjs';
-import { tap, map, switchMap, catchError, exhaustMap } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
 import { SampledataModel } from '../../models/sampledata.model';

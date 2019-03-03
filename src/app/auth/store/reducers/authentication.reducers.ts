@@ -44,6 +44,6 @@ export function reducer(
   }
 }
 
-export const getselectUser: any = (state: AuthState) => state.isLoggedIn;
-export const getselectError: any = (state: AuthState) => state.errorMessage;
-export const gettextMassege: any = (state: AuthState) => state.textMessage;
+export const getSelectUser: any = (state: AuthState) => state.isLoggedIn;
+export const getSelectError: any = (state: AuthState) => state.errorMessage;
+export const getTextMessage: any = (state: AuthState) => state.textMessage;

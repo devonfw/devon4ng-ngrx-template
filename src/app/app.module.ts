@@ -10,8 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SampleDataModule } from './sampledata/sampledata.module';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-// AoT requires an exported function for factories
+import { StoreModule, MetaReducer } from '@ngrx/store';
 import { reducers, CustomSerializer } from './store';
 import {
   StoreRouterConnectingModule,
@@ -20,7 +19,12 @@ import {
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeModule } from './home/home.module';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/components/login.component';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { AuthDataModule } from './auth/auth.module';
+export const metaReducers: MetaReducer<any>[] = !environment.production
+  ? [storeFreeze]
+  : [];
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
@@ -28,13 +32,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [AppComponent, LoginComponent],
   imports: [
     BrowserModule,
+    AuthDataModule,
     SampleDataModule,
+
     BrowserAnimationsModule,
     LayoutModule,
     AppRoutingModule,
     CoreModule,
     HomeModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule,
     EffectsModule.forRoot([]),

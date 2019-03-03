@@ -13,7 +13,7 @@ describe('SampleDataActionTestCase', () => {
         const payload: any = {
           name: 'TESTNAME',
           surname: 'TESTSURNAME',
-          mail: 'TESTmail',
+          mail: 'TESTMAIL',
           age: 12,
         };
         const action: any = new AddData(payload);
@@ -39,7 +39,7 @@ describe('SampleDataActionTestCase', () => {
         const payload: any = {
           name: 'TESTNAME',
           surname: 'TESTSURNAME',
-          mail: 'TESTmail',
+          mail: 'TESTMAIL',
           age: 12,
         };
         const action: any = new froasptempletes.AddDataSuccess(payload);

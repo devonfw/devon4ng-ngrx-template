@@ -5,7 +5,7 @@ import { of, Observable } from 'rxjs';
 import { tap, map, catchError, exhaustMap, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../../core/security/auth.service';
 import { LoginService } from '../../../core/security/login.service';
-import { SampledataModel } from '../../models/sampledata.model';
+import { SampledataModel } from '../../../sampledata/models/sampledata.model';
 import {
   AuthenticationActionTypes,
   LogInAction,
@@ -16,7 +16,7 @@ import {
   LogOutFail,
 } from '../actions/authentication.actions';
 import { Action } from '@ngrx/store';
-import { AuthenticateModel } from '../../models/authentication.model';
+import { AuthenticateModel } from '../../../auth/models/authentication.model';
 @Injectable()
 export class AuthenticationEffects {
   @Effect()

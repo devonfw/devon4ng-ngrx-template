@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 /// import { AppState } from '../../sampledata/store/app.states';
 import { AppState } from '../../sampledata/store/reducers/index';
-import { LogOutAction } from '../../sampledata/store/actions/authentication.actions';
+import { LogOutAction } from '../../auth/store/actions/authentication.actions';
 
 @Component({
   selector: 'public-header',

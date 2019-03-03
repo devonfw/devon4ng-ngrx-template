@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { SampledataModel } from '../../models/sampledata.model';
-import { AuthenticateModel } from '../../models/authentication.model';
+import { SampledataModel } from '../../../sampledata/models/sampledata.model';
+import { AuthenticateModel } from '../../../auth/models/authentication.model';
 export enum AuthenticationActionTypes {
   LOGIN = '[SampleData] Login ',
   LOGIN_SUCCESS = '[SampleData] LoginSuccess',
