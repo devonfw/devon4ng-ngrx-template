@@ -70,6 +70,7 @@ export function reducer(
       return { ...state };
     }
     case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
+      const data: any = action.payload;
       return {
         ...state,
         textMessage: 'delete Data Success',
