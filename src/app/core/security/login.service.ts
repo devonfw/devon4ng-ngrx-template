@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 import { BusinessOperationsService } from '../../core/shared/business-operations.service';
 import { environment } from '../../../environments/environment';
-
 @Injectable()
 export class LoginService {
   constructor(
@@ -41,7 +40,6 @@ export class LoginService {
   }
 
   logout(): Observable<string> {
-    
     return this.http.get(this.BO.logout(), { responseType: 'text' });
   }
 
