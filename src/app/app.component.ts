@@ -4,11 +4,22 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
+/* @export
+ * @class AppComponent
+ */
 @Component({
   selector: 'public-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+
+  /* Creates an instance of AppComponent.
+   * @param {Router} router
+   * @param {TranslateService} translate
+   * @param {MatIconRegistry} iconReg
+   * @param {DomSanitizer} sanitizer
+   * @memberof AppComponent
+   */
   constructor(
     public router: Router,
     public translate: TranslateService,

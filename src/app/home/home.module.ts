@@ -8,6 +8,9 @@ import { LayoutModule } from '../layout/layout.module';
 import { HomeComponent } from './home.component';
 import { InitialPageComponent } from './initial-page/initial-page.component';
 
+/* @export
+ * @class HomeModule
+ */
 @NgModule({
   imports: [
     CommonModule,

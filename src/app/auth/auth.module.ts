@@ -5,6 +5,9 @@ import { NgModule } from '@angular/core';
 import { AuthDataRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './components/login.component';
 
+/* @export
+ * @class AuthDataModule
+ */
 @NgModule({
   imports: [
     AuthDataRoutingModule,

@@ -17,19 +17,31 @@ import {
 } from '../actions/authentication.actions';
 import { Action } from '@ngrx/store';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
+
+/* @export
+ * @class AuthenticationEffects
+ */
 @Injectable()
 export class AuthenticationEffects {
+
+  /* @type {Observable<Action>}
+   * @memberof AuthenticationEffects
+   */
   @Effect()
-  login$: Observable<Action> = this.actions.pipe(
+    login$: Observable<Action> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN),
     map((action: LogInAction) => action.payload),
-    exhaustMap((payload: AuthenticateModel) =>
-      this.loginservice.login(payload.username, payload.password).pipe(
+    switchMap((payload: AuthenticateModel) => {
+      return this.loginservice.login(payload.username, payload.password).pipe(
         map((user: SampledataModel) => new LogInSuccess({ user })),
         catchError((error: Error) => of(new LogInFail({ error: error }))),
-      ),
-    ),
+      );
+    }),
   );
+
+  /* @type {Observable<Action>}
+   * @memberof AuthenticationEffects
+   */
   @Effect({ dispatch: false })
   loginRedirect: Observable<Action> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_SUCCESS),
@@ -41,6 +53,10 @@ export class AuthenticationEffects {
       });
     }),
   );
+
+  /* @type {Observable<Action>}
+   * @memberof AuthenticationEffects
+   */
   @Effect()
   logout: Observable<Action> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGOUT),
@@ -55,6 +71,14 @@ export class AuthenticationEffects {
       );
     }),
   );
+
+  /* Creates an instance of AuthenticationEffects.
+   * @param {Actions} actions
+   * @param {Router} router
+   * @param {AuthService} authservice
+   * @param {LoginService} loginservice
+   * @memberof AuthenticationEffects
+   */
   constructor(
     private actions: Actions,
     private router: Router,

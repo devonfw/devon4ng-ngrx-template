@@ -11,6 +11,9 @@ import { HomeModule } from '../home/home.module';
 import { effects } from './store/effects';
 import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
 
+/* @export
+ * @class SampleDataModule
+ */
 @NgModule({
   imports: [
     CommonModule,

@@ -1,3 +1,6 @@
+/* @export
+ * @interface SampledataModel
+ */
 export interface SampledataModel {
   name?: string;
   surname?: string;

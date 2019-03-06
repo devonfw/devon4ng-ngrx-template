@@ -13,7 +13,20 @@ export class SampleDataService {
   private urlService: string =
     environment.restServiceRoot + 'sampledatamanagement/v1/sampledata/';
 
+  /* Creates an instance of SampleDataService.
+   * @param {HttpClient} http
+   * @param {Router} router
+   * @memberof SampleDataService
+   */
   constructor(private http: HttpClient, public router: Router) {}
+
+  /* @param {number} size
+   * @param {number} page
+   * @param {*} searchTerms
+   * @param {any[]} sort
+   * @returns {Observable<SampledataModel[]>}
+   * @memberof SampleDataService
+   */
   getSampleData(
     size: number,
     page: number,
@@ -37,6 +50,11 @@ export class SampleDataService {
       searchCriteria,
     );
   }
+
+  /* @param {*} data
+   * @returns {Observable<Object>}
+   * @memberof SampleDataService
+   */
   saveSampleData(data: any): Observable<Object> {
     const obj: any = {
       id: data.id,
@@ -47,6 +65,11 @@ export class SampleDataService {
     };
     return this.http.post(this.urlService, obj);
   }
+
+  /* @param {*} data
+   * @returns {Observable<Object>}
+   * @memberof SampleDataService
+   */
   editSampleData(data: any): Observable<Object> {
     const obj: any = {
       id: data.id,
@@ -59,12 +82,21 @@ export class SampleDataService {
 
     return this.http.post(this.urlService, obj);
   }
+
+  /* @param {*} criteria
+   * @returns {Observable<Object>}
+   * @memberof SampleDataService
+   */
   searchSampleData(criteria: any): Observable<Object> {
     return this.http.post(this.urlService + 'search', {
       criteria: criteria,
     });
   }
 
+  /* @param {number} id
+   * @returns {Observable<Object>}
+   * @memberof SampleDataService
+   */
   deleteSampleData(id: number): Observable<Object> {
     return this.http.delete(this.urlService + id);
   }

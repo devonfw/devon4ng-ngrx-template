@@ -22,8 +22,16 @@ import {
 } from '../actions/sampledata.actions';
 import { Action } from '@ngrx/store';
 import { LoadDataFail } from '../actions/sampledata.actions';
+
+/* @export
+ * @class SampleDataEffects
+ */
 @Injectable()
 export class SampleDataEffects {
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   loadData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.LOAD_DATA),
@@ -40,10 +48,14 @@ export class SampleDataEffects {
           map(
             (sampledata: SampledataModel[]) => new LoadDataSuccess(sampledata),
           ),
-          catchError((error: any) => of(new LoadDataFail({ error: error }))),
+          catchError((error: Error) => of(new LoadDataFail({ error: error }))),
         );
     }),
   );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   addData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.ADD_DATA),
@@ -56,6 +68,9 @@ export class SampleDataEffects {
     }),
   );
 
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   deleteData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.DELETE_DATA),
@@ -68,6 +83,9 @@ export class SampleDataEffects {
     }),
   );
 
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   editData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.EDIT_DATA),
@@ -80,6 +98,12 @@ export class SampleDataEffects {
     }),
   );
 
+  /* Creates an instance of SampleDataEffects.
+   * @param {Actions} actions
+   * @param {AuthService} authservice
+   * @param {SampleDataService} sampledataservice
+   * @memberof SampleDataEffects
+   */
   constructor(
     private actions: Actions,
     public authservice: AuthService,

@@ -1,23 +1,30 @@
 import { SampledataModel } from '../../models/sampledata.model';
-
 import {
   SampleDataActionTypes,
   SampleDataAction,
 } from '../actions/sampledata.actions';
 
+/* @export
+ * @interface SampleDataState
+ */
 export interface SampleDataState {
   sampleData: SampledataModel[];
   loaded: boolean;
   loading: boolean;
   textMessage: string;
 }
-
 export const initialState: SampleDataState = {
   sampleData: [],
   loaded: false,
   loading: false,
   textMessage: undefined,
 };
+
+/* @export
+ * @param {SampleDataState} [state=initialState]
+ * @param {SampleDataAction} action
+ * @returns {SampleDataState}
+ */
 export function reducer(
   state: SampleDataState = initialState,
   action: SampleDataAction,

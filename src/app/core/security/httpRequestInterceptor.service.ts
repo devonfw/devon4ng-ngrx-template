@@ -12,8 +12,17 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class HttpRequestInterceptorService implements HttpInterceptor {
+  /* Creates an instance of HttpRequestInterceptorService.
+   * @param {AuthService} auth
+   * @memberof HttpRequestInterceptorService
+   */
   constructor(private auth: AuthService) {}
 
+  /* @param {HttpRequest<any>} req
+   * @param {HttpHandler} next
+   * @returns {Observable<HttpEvent<any>>}
+   * @memberof HttpRequestInterceptorService
+   */
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler,
@@ -30,7 +39,6 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
           setHeaders: { 'x-csrf-token': authHeader },
         });
       }
-
       // JWT
       if (environment.security === 'jwt') {
         authReq = req.clone({

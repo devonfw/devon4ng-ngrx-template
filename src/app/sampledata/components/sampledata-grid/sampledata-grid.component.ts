@@ -25,6 +25,10 @@ import {
 } from '../../store/actions/sampledata.actions';
 import { SampledataModel } from '../../models/sampledata.model';
 
+/* @export
+ * @class SampleDataGridComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'public-app-sampledata-grid-display',
   templateUrl: './sampledata-grid.component.html',
@@ -46,6 +50,9 @@ export class SampleDataGridComponent implements OnInit {
   @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
   @ViewChild('dataTable') dataTable: TdDataTableComponent;
   data: any = [];
+  /* @type {ITdDataTableColumn[]}
+   * @memberof SampleDataGridComponent
+   */
   columns: ITdDataTableColumn[] = [
     {
       name: 'name',
@@ -75,6 +82,9 @@ export class SampleDataGridComponent implements OnInit {
   selectedRow: any;
   dialogRef: MatDialogRef<SampleDataDialogComponent>;
   totalItems: number;
+  /* @type {*}
+   * @memberof SampleDataGridComponent
+   */
   searchTerms: any = {
     id: undefined,
     name: undefined,
@@ -93,6 +103,16 @@ export class SampleDataGridComponent implements OnInit {
     sort: this.pageable.sort = this.sorting,
   };
   sampledata$: Observable<SampledataModel[]>;
+  /* Creates an instance of SampleDataGridComponent.
+   * @param {Store<fromStore.AppState>} store
+   * @param {TranslateService} translate
+   * @param {MatDialog} dialog
+   * @param {AuthService} authService
+   * @param {Router} router
+   * @param {SampleDataService} dataGridService
+   * @param {TdDialogService} _dialogService
+   * @memberof SampleDataGridComponent
+   */
   constructor(
     private store: Store<fromStore.AppState>,
     private translate: TranslateService,
@@ -117,17 +137,15 @@ export class SampleDataGridComponent implements OnInit {
         this.dataTable.refresh();
       },
       (error: any) => {
-        // setTimeout(() => {
-        //   this._dialogService.openAlert({
-        //     message: error.message,
-        //     title: this.getTranslation('ERROR'),
-        //     closeButton: 'CLOSE',
-        //   });
-        // });
+        //
       },
     );
   }
 
+  /* @param {string} text
+   * @returns {string}
+   * @memberof SampleDataGridComponent
+   */
   getTranslation(text: string): string {
     let value: string;
 
@@ -149,6 +167,9 @@ export class SampleDataGridComponent implements OnInit {
     });
     return value;
   }
+  /* @param {IPageChangeEvent} pagingEvent
+   * @memberof SampleDataGridComponent
+   */
   page(pagingEvent: IPageChangeEvent): void {
     this.pageable = {
       pageSize: pagingEvent.pageSize,
@@ -163,6 +184,9 @@ export class SampleDataGridComponent implements OnInit {
     };
     this.store.dispatch(new LoadData(payload));
   }
+  /* @param {ITdDataTableSortChangeEvent} sortEvent
+   * @memberof SampleDataGridComponent
+   */
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sorting = [];
     this.sorting.push({
@@ -185,6 +209,9 @@ export class SampleDataGridComponent implements OnInit {
       }
     });
   }
+  /* @param {*} e
+   * @memberof SampleDataGridComponent
+   */
   selectEvent(e: any): void {
     e.selected ? (this.selectedRow = e.row) : (this.selectedRow = undefined);
   }
@@ -234,6 +261,10 @@ export class SampleDataGridComponent implements OnInit {
   filter(): void {
     this.pagingBar.firstPage();
   }
+
+  /* @param {*} form
+   * @memberof SampleDataGridComponent
+   */
   searchReset(form: any): void {
     form.reset();
   }
