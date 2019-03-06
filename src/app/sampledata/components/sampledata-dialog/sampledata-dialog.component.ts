@@ -2,6 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 
+/* @export
+ * @class SampleDataDialogComponent
+ */
 @Component({
   selector: 'public-sampledata-dialog',
   templateUrl: './sampledata-dialog.component.html',
@@ -15,6 +18,12 @@ export class SampleDataDialogComponent {
     mail: '',
   };
 
+  /* Creates an instance of SampleDataDialogComponent.
+   * @param {TranslateService} translate
+   * @param {MatDialogRef<SampleDataDialogComponent>} dialogRef
+   * @param {*} dialogData
+   * @memberof SampleDataDialogComponent
+   */
   constructor(
     private translate: TranslateService,
     public dialogRef: MatDialogRef<SampleDataDialogComponent>,
@@ -28,6 +37,10 @@ export class SampleDataDialogComponent {
     }
   }
 
+  /* @param {string} text
+   * @returns {string}
+   * @memberof SampleDataDialogComponent
+   */
   getTranslation(text: string): string {
     let value: string;
     this.translate.get(text).subscribe((res: any) => {

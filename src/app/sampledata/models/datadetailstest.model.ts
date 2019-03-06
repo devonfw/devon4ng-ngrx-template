@@ -1,4 +1,8 @@
 import * as faker from 'faker';
+
+/* @export
+ * @class TestDataDetails
+ */
 export class TestDataDetails {
   name?: string;
   surname?: string;

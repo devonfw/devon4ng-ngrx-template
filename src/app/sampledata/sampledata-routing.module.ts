@@ -3,14 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../core/security/auth-guard.service';
 import { HomeComponent } from '../home/home.component';
 import { InitialPageComponent } from '../home/initial-page/initial-page.component';
-import { SampleDataGridComponent } from './sampledata-grid/sampledata-grid.component';
-import { LoginComponent } from '../login/login.component';
+import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
 
 const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
   {
     path: 'home',
     component: HomeComponent,

@@ -1,22 +1,20 @@
 import { createSelector } from '@ngrx/store';
 import { getAppState } from '../reducers';
 import { AppState } from '../reducers/index';
-import * as authenticationState from '../reducers/authentication.reducers';
 import * as sampleDataState from '../reducers/sampledata.reducers';
 export const getSampleDataState: any = createSelector(
   getAppState,
-  (state: AppState) => state.sampledata,
+  (state: AppState) => state.sampleData,
 );
-
 export const getSampleDataDetails: any = createSelector(
   getSampleDataState,
-  sampleDataState.getSampleDataDetails,
+  sampleDataState.getSampleData,
 );
 export const getDataLoading: any = createSelector(
   getSampleDataState,
-  sampleDataState.getDataLoading,
+  sampleDataState.getSampleDataLoading,
 );
 export const getDataLoaded: any = createSelector(
   getSampleDataState,
-  sampleDataState.getDataLoaded,
+  sampleDataState.getSampleDataLoaded,
 );

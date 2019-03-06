@@ -5,12 +5,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/reducers/index';
 import { EffectsModule } from '@ngrx/effects';
-import { SampleDataDialogComponent } from '../sampledata/sampledata-dialog/sampledata-dialog.component';
+import { SampleDataDialogComponent } from '../sampledata/components/sampledata-dialog/sampledata-dialog.component';
 import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { HomeModule } from '../home/home.module';
 import { effects } from './store/effects';
-import { SampleDataGridComponent } from './sampledata-grid/sampledata-grid.component';
+import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
 
+/* @export
+ * @class SampleDataModule
+ */
 @NgModule({
   imports: [
     CommonModule,

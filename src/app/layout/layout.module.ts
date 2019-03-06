@@ -8,6 +8,9 @@ import { AppRoutingModule } from '../app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { TdMediaService } from '@covalent/core';
 
+/* @export
+ * @class LayoutModule
+ */
 @NgModule({
   imports: [CommonModule, CoreModule, AppRoutingModule, TranslateModule],
   providers: [TdMediaService],

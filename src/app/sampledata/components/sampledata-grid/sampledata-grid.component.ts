@@ -10,23 +10,25 @@ import {
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { SampleDataService } from '../services/sampledata.service';
-import { AuthService } from '../../core/security/auth.service';
-import { SampleDataDialogComponent } from '../../sampledata/sampledata-dialog/sampledata-dialog.component';
-import { Pageable } from '../../core/interfaces/pageable';
+import { SampleDataService } from '../../services/sampledata.service';
+import { AuthService } from '../../../core/security/auth.service';
+import { SampleDataDialogComponent } from '../../components/sampledata-dialog/sampledata-dialog.component';
+import { Pageable } from '../../../core/interfaces/pageable';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-// import { AppState } from '../store/app.states';
-import * as appState from '../store/reducers/index';
-import * as fromStore from '../store';
+import * as fromStore from '../../store';
 import {
   AddData,
   EditData,
   DeleteData,
   LoadData,
-} from '../store/actions/sampledata.actions';
-import { SampledataModel } from '../models/sampledata.model';
+} from '../../store/actions/sampledata.actions';
+import { SampledataModel } from '../../models/sampledata.model';
 
+/* @export
+ * @class SampleDataGridComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'public-app-sampledata-grid-display',
   templateUrl: './sampledata-grid.component.html',
@@ -43,14 +45,14 @@ export class SampleDataGridComponent implements OnInit {
       },
     ],
   };
-  // private sorting: any[] = [];
-  // user: Sampledata = new Sampledata();
-  // @ViewChild('dataTable') dataTable: TdDataTableComponent;
 
   private sorting: any[] = [];
   @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
   @ViewChild('dataTable') dataTable: TdDataTableComponent;
   data: any = [];
+  /* @type {ITdDataTableColumn[]}
+   * @memberof SampleDataGridComponent
+   */
   columns: ITdDataTableColumn[] = [
     {
       name: 'name',
@@ -80,6 +82,9 @@ export class SampleDataGridComponent implements OnInit {
   selectedRow: any;
   dialogRef: MatDialogRef<SampleDataDialogComponent>;
   totalItems: number;
+  /* @type {*}
+   * @memberof SampleDataGridComponent
+   */
   searchTerms: any = {
     id: undefined,
     name: undefined,
@@ -91,7 +96,23 @@ export class SampleDataGridComponent implements OnInit {
     pagination: undefined,
     searchTerms: undefined,
   };
+  loaddata: any = {
+    size: this.pageable.pageSize,
+    page: this.pageable.pageNumber,
+    searchTerms: this.searchTerms,
+    sort: this.pageable.sort = this.sorting,
+  };
   sampledata$: Observable<SampledataModel[]>;
+  /* Creates an instance of SampleDataGridComponent.
+   * @param {Store<fromStore.AppState>} store
+   * @param {TranslateService} translate
+   * @param {MatDialog} dialog
+   * @param {AuthService} authService
+   * @param {Router} router
+   * @param {SampleDataService} dataGridService
+   * @param {TdDialogService} _dialogService
+   * @memberof SampleDataGridComponent
+   */
   constructor(
     private store: Store<fromStore.AppState>,
     private translate: TranslateService,
@@ -105,44 +126,33 @@ export class SampleDataGridComponent implements OnInit {
     this.sampledata$ = this.store.select<SampledataModel[]>(
       fromStore.getSampleDataDetails,
     );
-    const payload: any = {
-      size: this.pageable.pageSize,
-      page: this.pageable.pageNumber,
-      searchTerms: this.searchTerms,
-      sort: this.pageable.sort = this.sorting,
-    };
-    this.store.dispatch(new LoadData(payload));
+    this.store.dispatch(new LoadData(this.loaddata));
+    this.getSampleData();
   }
   getSampleData(): void {
-    this.dataGridService
-      .getSampleData(
-        this.pageable.pageSize,
-        this.pageable.pageNumber,
-        this.searchTerms,
-        (this.pageable.sort = this.sorting),
-      )
-      .subscribe(
-        (res: any) => {
-          this.data = res.content;
-          this.totalItems = res.totalElements;
-          this.dataTable.refresh();
-        },
-        (error: any) => {
-          setTimeout(() => {
-            this._dialogService.openAlert({
-              message: error.message,
-              title: this.getTranslation('ERROR'),
-              closeButton: 'CLOSE',
-            });
-          });
-        },
-      );
+    this.sampledata$.subscribe(
+      (res: any) => {
+        this.data = res.content;
+        this.totalItems = res.totalElements;
+        this.dataTable.refresh();
+      },
+      (error: any) => {
+        //
+      },
+    );
   }
+
+  /* @param {string} text
+   * @returns {string}
+   * @memberof SampleDataGridComponent
+   */
   getTranslation(text: string): string {
     let value: string;
+
     this.translate.get(text).subscribe((res: string) => {
       value = res;
     });
+
     this.translate.onLangChange.subscribe(() => {
       this.columns.forEach((column: any) => {
         if (text.endsWith(column.name)) {
@@ -157,34 +167,51 @@ export class SampleDataGridComponent implements OnInit {
     });
     return value;
   }
+  /* @param {IPageChangeEvent} pagingEvent
+   * @memberof SampleDataGridComponent
+   */
   page(pagingEvent: IPageChangeEvent): void {
     this.pageable = {
       pageSize: pagingEvent.pageSize,
       pageNumber: pagingEvent.page - 1,
       sort: this.pageable.sort,
     };
+    const payload: any = {
+      size: this.pageable.pageSize,
+      page: this.pageable.pageNumber,
+      searchTerms: this.searchTerms,
+      sort: this.pageable.sort = this.sorting,
+    };
+    this.store.dispatch(new LoadData(payload));
   }
+  /* @param {ITdDataTableSortChangeEvent} sortEvent
+   * @memberof SampleDataGridComponent
+   */
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sorting = [];
     this.sorting.push({
       property: sortEvent.name.split('.').pop(),
       direction: '' + sortEvent.order,
     });
+    const payload: any = {
+      size: this.pageable.pageSize,
+      page: this.pageable.pageNumber,
+      searchTerms: this.searchTerms,
+      sort: this.pageable.sort = this.sorting,
+    };
+    this.store.dispatch(new LoadData(payload));
   }
   openDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const payload: any = {
-          name: result.name,
-          surname: result.surname,
-          age: result.age,
-          mail: result.mail,
-        };
-        this.store.dispatch(new AddData(payload));
+        this.store.dispatch(new AddData(result));
       }
     });
   }
+  /* @param {*} e
+   * @memberof SampleDataGridComponent
+   */
   selectEvent(e: any): void {
     e.selected ? (this.selectedRow = e.row) : (this.selectedRow = undefined);
   }
@@ -195,17 +222,16 @@ export class SampleDataGridComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         {
-          const payload: any = {
-            id: result.id,
-            name: result.name,
-            surname: result.surname,
-            age: result.age,
-            mail: result.mail,
-            modificationCounter: result.modificationCounter,
-          };
-          this.store.dispatch(new EditData(payload));
+          this.store.dispatch(new EditData(result));
         }
       }
+      const payload: any = {
+        size: this.pageable.pageSize,
+        page: this.pageable.pageNumber,
+        searchTerms: this.searchTerms,
+        sort: this.pageable.sort = this.sorting,
+      };
+      this.store.dispatch(new LoadData(payload));
     });
   }
   openConfirm(): void {
@@ -228,6 +254,7 @@ export class SampleDataGridComponent implements OnInit {
         if (accept) {
           this.store.dispatch(new DeleteData(payload));
           this.selectedRow = undefined;
+          // this.getSampleData();
         }
       });
   }
@@ -235,6 +262,9 @@ export class SampleDataGridComponent implements OnInit {
     this.pagingBar.firstPage();
   }
 
+  /* @param {*} form
+   * @memberof SampleDataGridComponent
+   */
   searchReset(form: any): void {
     form.reset();
   }

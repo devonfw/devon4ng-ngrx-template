@@ -15,14 +15,15 @@ describe('SampleDataReducersTestCase', () => {
       const detailsdata: SampledataModel = {
         name: 'TESTNAME',
         surname: 'TESTSURNAME',
-        mail: 'TESTmail',
+        mail: 'TESTMAIL',
         age: 12,
       };
       const { initialState } = fromMyReducers;
       const previousState: any = { ...initialState };
       const action: any = new froasptempletesaction.AddDataSuccess(detailsdata);
       const state: any = fromMyReducers.reducer(previousState, action);
-      expect(state.user).toEqual(detailsdata);
+
+      expect(state.sampleData).toEqual(detailsdata);
     });
   });
   describe('Edit Action Reducer ', () => {
@@ -32,7 +33,6 @@ describe('SampleDataReducersTestCase', () => {
       const state: any = fromMyReducers.reducer(undefined, action);
       expect(state).toBe(initialState);
     });
-
     it('should Edit Details in array', () => {
       const detailsdata: any = generateUser();
       const { initialState } = fromMyReducers;
@@ -41,7 +41,8 @@ describe('SampleDataReducersTestCase', () => {
         detailsdata,
       );
       const state: any = fromMyReducers.reducer(previousState, action);
-      expect(state.user).toEqual(detailsdata);
+
+      expect(state.sampleData).toEqual(detailsdata);
     });
   });
   describe('Remove Action Reducer ', () => {
@@ -52,14 +53,15 @@ describe('SampleDataReducersTestCase', () => {
       expect(state).toBe(initialState);
     });
     it('should Remove the Detils from array', () => {
-      const detailsdata: any = generateUser();
+      const textMessage: any = 'delete Data Success';
       const { initialState } = fromMyReducers;
       const previousState: any = { ...initialState };
       const action: any = new froasptempletesaction.DeleteDataSuccess(
-        detailsdata,
+        textMessage,
       );
       const state: any = fromMyReducers.reducer(previousState, action);
-      expect(state.user).toEqual(detailsdata);
+
+      expect(state.textMessage).toEqual(textMessage);
     });
   });
 });

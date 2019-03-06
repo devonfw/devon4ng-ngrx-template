@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of, Observable } from 'rxjs';
-import { tap, map, switchMap, catchError, exhaustMap } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
 import { SampledataModel } from '../../models/sampledata.model';
@@ -22,8 +22,15 @@ import {
 } from '../actions/sampledata.actions';
 import { Action } from '@ngrx/store';
 import { LoadDataFail } from '../actions/sampledata.actions';
+
+/* @export
+ * @class SampleDataEffects
+ */
 @Injectable()
 export class SampleDataEffects {
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   loadData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.LOAD_DATA),
@@ -40,10 +47,14 @@ export class SampleDataEffects {
           map(
             (sampledata: SampledataModel[]) => new LoadDataSuccess(sampledata),
           ),
-          catchError((error: any) => of(new LoadDataFail({ error: error }))),
+          catchError((error: Error) => of(new LoadDataFail({ error: error }))),
         );
     }),
   );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   addData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.ADD_DATA),
@@ -56,6 +67,9 @@ export class SampleDataEffects {
     }),
   );
 
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   deleteData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.DELETE_DATA),
@@ -68,6 +82,9 @@ export class SampleDataEffects {
     }),
   );
 
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
   @Effect()
   editData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.EDIT_DATA),
@@ -80,6 +97,12 @@ export class SampleDataEffects {
     }),
   );
 
+  /* Creates an instance of SampleDataEffects.
+   * @param {Actions} actions
+   * @param {AuthService} authservice
+   * @param {SampleDataService} sampledataservice
+   * @memberof SampleDataEffects
+   */
   constructor(
     private actions: Actions,
     public authservice: AuthService,
