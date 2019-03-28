@@ -23,19 +23,20 @@ import { AuthenticateModel } from '../../../auth/models/authentication.model';
  */
 @Injectable()
 export class AuthenticationEffects {
+
   /* @type {Observable<Action>}
    * @memberof AuthenticationEffects
    */
   @Effect()
-  login$: Observable<Action> = this.actions.pipe(
+    login$: Observable<Action> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN),
     map((action: LogInAction) => action.payload),
-    exhaustMap((payload: AuthenticateModel) =>
-      this.loginservice.login(payload.username, payload.password).pipe(
-        map((user: AuthenticateModel) => new LogInSuccess({ user })),
+    switchMap((payload: AuthenticateModel) => {
+      return this.loginservice.login(payload.username, payload.password).pipe(
+        map((user: SampledataModel) => new LogInSuccess({ user })),
         catchError((error: Error) => of(new LogInFail({ error: error }))),
-      ),
-    ),
+      );
+    }),
   );
 
   /* @type {Observable<Action>}
