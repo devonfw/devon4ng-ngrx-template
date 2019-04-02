@@ -207,6 +207,7 @@ export class SampleDataGridComponent implements OnInit {
       if (result) {
         this.store.dispatch(new AddData(result));
       }
+      this.store.dispatch(new LoadData(this.loaddata));
     });
   }
   /* @param {*} e
@@ -254,6 +255,7 @@ export class SampleDataGridComponent implements OnInit {
         if (accept) {
           this.store.dispatch(new DeleteData(payload));
           this.selectedRow = undefined;
+          this.store.dispatch(new LoadData(this.loaddata));
           // this.getSampleData();
         }
       });
