@@ -205,9 +205,12 @@ export class SampleDataGridComponent implements OnInit {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
+        result['size'] = this.pageable.pageSize;
+        result['page'] = this.pageable.pageNumber;
+        result['searchTerms'] = this.searchTerms;
+        result['sort'] = this.pageable.sort = this.sorting;
         this.store.dispatch(new AddData(result));
       }
-      this.store.dispatch(new LoadData(this.loaddata));
     });
   }
   /* @param {*} e
@@ -222,22 +225,22 @@ export class SampleDataGridComponent implements OnInit {
     });
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        {
-          this.store.dispatch(new EditData(result));
-        }
+        result['size'] = this.pageable.pageSize;
+        result['page'] = this.pageable.pageNumber;
+        result['searchTerms'] = this.searchTerms;
+        result['sort'] = this.pageable.sort = this.sorting;
+        this.store.dispatch(new EditData(result));
       }
-      const payload: any = {
-        size: this.pageable.pageSize,
-        page: this.pageable.pageNumber,
-        searchTerms: this.searchTerms,
-        sort: this.pageable.sort = this.sorting,
-      };
-      this.store.dispatch(new LoadData(payload));
+      this.selectedRow = undefined;
     });
   }
   openConfirm(): void {
     const payload: any = {
       id: this.selectedRow.id,
+      size: this.pageable.pageSize,
+      page: this.pageable.pageNumber,
+      searchTerms: this.searchTerms,
+      sort: this.pageable.sort = this.sorting,
     };
     this._dialogService
       .openConfirm({
@@ -255,8 +258,6 @@ export class SampleDataGridComponent implements OnInit {
         if (accept) {
           this.store.dispatch(new DeleteData(payload));
           this.selectedRow = undefined;
-          this.store.dispatch(new LoadData(this.loaddata));
-          // this.getSampleData();
         }
       });
   }
