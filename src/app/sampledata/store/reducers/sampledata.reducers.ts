@@ -78,7 +78,7 @@ export function reducer(
     }
     case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
       return {
-        ...state,
+       ...state,
         textMessage: 'delete Data Success',
         loading: false,
         loaded: true,

@@ -44,6 +44,7 @@ export class SampleDataService {
       age: searchTerms.age,
       mail: searchTerms.mail,
     };
+
     return this.http.post<SampledataModel[]>(
       this.urlService + 'search',
       searchCriteria,

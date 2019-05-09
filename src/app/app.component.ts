@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+
   /* Creates an instance of AppComponent.
    * @param {Router} router
    * @param {TranslateService} translate
