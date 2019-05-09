@@ -30,12 +30,12 @@ export class AuthenticationEffects {
   login$: Observable<Action> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN),
     map((action: LogInAction) => action.payload),
-    exhaustMap((payload: AuthenticateModel) =>
-      this.loginservice.login(payload.username, payload.password).pipe(
+    switchMap((payload: AuthenticateModel) => {
+      return this.loginservice.login(payload.username, payload.password).pipe(
         map((user: AuthenticateModel) => new LogInSuccess({ user })),
         catchError((error: Error) => of(new LogInFail({ error: error }))),
-      ),
-    ),
+      );
+    }),
   );
 
   /* @type {Observable<Action>}

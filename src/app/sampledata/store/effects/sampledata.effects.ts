@@ -28,6 +28,7 @@ import { LoadDataFail } from '../actions/sampledata.actions';
  */
 @Injectable()
 export class SampleDataEffects {
+
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */

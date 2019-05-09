@@ -13,12 +13,16 @@ import { AuthService } from './auth.service';
  */
 @Injectable()
 export class AuthGuard implements CanActivate {
+
   /* Creates an instance of AuthGuard.
    * @param {AuthService} authService
    * @param {Router} router
    * @memberof AuthGuard
    */
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) { }
 
   /* @param {ActivatedRouteSnapshot} route
    * @param {RouterStateSnapshot} state
@@ -37,7 +41,4 @@ export class AuthGuard implements CanActivate {
     }
     return false;
   }
-  // checkStoreAuthentication(): any {
-  //   return this.store.select(fromStore.selectIsLoggedIn).pipe(take(1));
-  // }
 }

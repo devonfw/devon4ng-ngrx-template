@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { SampledataModel } from '../../../sampledata/models/sampledata.model';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
 
 /* @export
@@ -38,7 +39,7 @@ export class LogInSuccess implements Action {
  * @implements {Action}
  */
 export class LogInFail implements Action {
-  readonly type: AuthenticationActionTypes.LOGIN_FAIL =
+    readonly type: AuthenticationActionTypes.LOGIN_FAIL =
     AuthenticationActionTypes.LOGIN_FAIL;
   constructor(public payload: { error: Error }) {}
 }
