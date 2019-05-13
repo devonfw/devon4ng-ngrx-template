@@ -1,24 +1,31 @@
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { SampledataModel } from '../../models/sampledata.model';
 import {
   SampleDataActionTypes,
   SampleDataAction,
+  LoadDataSuccess,
+  AddDataSuccess,
+  EditDataSuccess,
 } from '../actions/sampledata.actions';
 
 /* @export
  * @interface SampleDataState
  */
-export interface SampleDataState {
-  sampleData: SampledataModel[];
+export interface SampleDataState extends EntityState<SampledataModel> {
   loaded: boolean;
   loading: boolean;
   textMessage: string;
 }
-export const initialState: SampleDataState = {
-  sampleData: [],
+
+export const adapter: EntityAdapter<SampledataModel> = createEntityAdapter<
+  SampledataModel
+>();
+
+export const initialState: SampleDataState = adapter.getInitialState({
   loaded: false,
   loading: false,
   textMessage: undefined,
-};
+});
 
 /* @export
  * @param {SampleDataState} [state=initialState]
@@ -33,43 +40,52 @@ export function reducer(
     case SampleDataActionTypes.LOAD_DATA: {
       return { ...state, loading: true };
     }
+
     case SampleDataActionTypes.LOAD_DATA_SUCCESS: {
-      return {
+      const data: SampledataModel[] = (<LoadDataSuccess>action).payload;
+      state = {
         ...state,
-        sampleData: action.payload,
         loading: false,
         loaded: true,
       };
+      return adapter.addAll(data, state);
     }
+
     case SampleDataActionTypes.LOAD_DATA_FAIL: {
       return { ...state, loading: false, loaded: false };
     }
+
     case SampleDataActionTypes.ADD_DATA: {
       return { ...state };
     }
+
     case SampleDataActionTypes.ADD_DATA_SUCCESS: {
-      const data: any = action.payload;
-      return {
+      const data: SampledataModel = (<AddDataSuccess>action).payload;
+      state = {
         ...state,
-        sampleData: data,
         loading: false,
         loaded: false,
       };
+      return adapter.addOne(data, state);
     }
+
     case SampleDataActionTypes.ADD_DATA_FAIL: {
       return { ...state, textMessage: 'Add Data Fail' };
     }
+
     case SampleDataActionTypes.EDIT_DATA: {
       return { ...state };
     }
+
     case SampleDataActionTypes.EDIT_DATA_SUCCESS: {
-      const data: any = action.payload;
-      return {
+      const data: SampledataModel = (<EditDataSuccess>action).payload;
+      state = {
         ...state,
-        sampleData: data,
         textMessage: 'Edit Data Success',
       };
+      return adapter.addOne(data, state);
     }
+
     case SampleDataActionTypes.EDIT_DATA_FAIL: {
       return { ...state, textMessage: 'Edit Data Fail' };
     }
@@ -78,7 +94,7 @@ export function reducer(
     }
     case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
       return {
-       ...state,
+        ...state,
         textMessage: 'delete Data Success',
         loading: false,
         loaded: true,
@@ -92,7 +108,7 @@ export function reducer(
     }
   }
 }
-export const getSampleData: any = (state: SampleDataState) => state.sampleData;
+export const getSampleData: any = (state: SampleDataState) => state.entities;
 export const getSampleDataLoading: any = (state: SampleDataState) =>
   state.loading;
 export const getSampleDataLoaded: any = (state: SampleDataState) =>
