@@ -21,8 +21,7 @@ export enum SampleDataActionTypes {
  * @implements {Action}
  */
 export class LoadData implements Action {
-  readonly type: SampleDataActionTypes.LOAD_DATA =
-    SampleDataActionTypes.LOAD_DATA;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.LOAD_DATA;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -31,7 +30,7 @@ export class LoadData implements Action {
  * @implements {Action}
  */
 export class LoadDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.LOAD_DATA_SUCCESS =
+  readonly type: SampleDataActionTypes =
     SampleDataActionTypes.LOAD_DATA_SUCCESS;
   constructor(public payload: SampledataModel[]) {}
 }
@@ -41,8 +40,7 @@ export class LoadDataSuccess implements Action {
  * @implements {Action}
  */
 export class LoadDataFail implements Action {
-  readonly type: SampleDataActionTypes.LOAD_DATA_FAIL =
-    SampleDataActionTypes.LOAD_DATA_FAIL;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.LOAD_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -51,8 +49,7 @@ export class LoadDataFail implements Action {
  * @implements {Action}
  */
 export class AddData implements Action {
-  readonly type: SampleDataActionTypes.ADD_DATA =
-    SampleDataActionTypes.ADD_DATA;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -61,8 +58,7 @@ export class AddData implements Action {
  * @implements {Action}
  */
 export class AddDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.ADD_DATA_SUCCESS =
-    SampleDataActionTypes.ADD_DATA_SUCCESS;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA_SUCCESS;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -71,8 +67,7 @@ export class AddDataSuccess implements Action {
  * @implements {Action}
  */
 export class AddDataFail implements Action {
-  readonly type: SampleDataActionTypes.ADD_DATA_FAIL =
-    SampleDataActionTypes.ADD_DATA_FAIL;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -81,8 +76,7 @@ export class AddDataFail implements Action {
  * @implements {Action}
  */
 export class DeleteData implements Action {
-  readonly type: SampleDataActionTypes.DELETE_DATA =
-    SampleDataActionTypes.DELETE_DATA;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -91,7 +85,7 @@ export class DeleteData implements Action {
  * @implements {Action}
  */
 export class DeleteDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.DELETE_DATA_SUCCESS =
+  readonly type: SampleDataActionTypes =
     SampleDataActionTypes.DELETE_DATA_SUCCESS;
   constructor(public payload: SampledataModel) {}
 }
@@ -101,8 +95,7 @@ export class DeleteDataSuccess implements Action {
  * @implements {Action}
  */
 export class EditData implements Action {
-  readonly type: SampleDataActionTypes.EDIT_DATA =
-    SampleDataActionTypes.EDIT_DATA;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.EDIT_DATA;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -111,7 +104,7 @@ export class EditData implements Action {
  * @implements {Action}
  */
 export class EditDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.EDIT_DATA_SUCCESS =
+  readonly type: SampleDataActionTypes =
     SampleDataActionTypes.EDIT_DATA_SUCCESS;
   constructor(public payload: SampledataModel) {}
 }
@@ -121,8 +114,7 @@ export class EditDataSuccess implements Action {
  * @implements {Action}
  */
 export class EditDataFail implements Action {
-  readonly type: SampleDataActionTypes.EDIT_DATA_FAIL =
-    SampleDataActionTypes.EDIT_DATA_FAIL;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.EDIT_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -131,8 +123,7 @@ export class EditDataFail implements Action {
  * @implements {Action}
  */
 export class DeleteDataFail implements Action {
-  readonly type: SampleDataActionTypes.DELETE_DATA_FAIL =
-    SampleDataActionTypes.DELETE_DATA_FAIL;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -141,8 +132,7 @@ export class DeleteDataFail implements Action {
  * @implements {Action}
  */
 export class SearchData implements Action {
-  readonly type: SampleDataActionTypes.SEARCH_DATA =
-    SampleDataActionTypes.SEARCH_DATA;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.SEARCH_DATA;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -151,7 +141,7 @@ export class SearchData implements Action {
  * @implements {Action}
  */
 export class SearchDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.SEARCH_DATA_SUCCESS =
+  readonly type: SampleDataActionTypes =
     SampleDataActionTypes.SEARCH_DATA_SUCCESS;
 }
 
