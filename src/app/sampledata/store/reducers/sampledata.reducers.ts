@@ -108,7 +108,7 @@ export function reducer(
     }
   }
 }
-export const getSampleData: any = (state: SampleDataState) => state.entities;
+
 export const getSampleDataLoading: any = (state: SampleDataState) =>
   state.loading;
 export const getSampleDataLoaded: any = (state: SampleDataState) =>
