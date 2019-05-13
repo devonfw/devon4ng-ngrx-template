@@ -31,7 +31,7 @@ export class LogInAction implements Action {
 export class LogInSuccess implements Action {
   readonly type: AuthenticationActionTypes.LOGIN_SUCCESS =
     AuthenticationActionTypes.LOGIN_SUCCESS;
-  constructor(public payload: { user: AuthenticateModel }) {}
+  constructor(public payload: { token: string }) {}
 }
 
 /* @export
@@ -39,7 +39,7 @@ export class LogInSuccess implements Action {
  * @implements {Action}
  */
 export class LogInFail implements Action {
-    readonly type: AuthenticationActionTypes.LOGIN_FAIL =
+  readonly type: AuthenticationActionTypes.LOGIN_FAIL =
     AuthenticationActionTypes.LOGIN_FAIL;
   constructor(public payload: { error: Error }) {}
 }
