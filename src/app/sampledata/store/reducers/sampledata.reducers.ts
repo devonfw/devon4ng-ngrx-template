@@ -1,4 +1,9 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import {
+  EntityState,
+  EntityAdapter,
+  createEntityAdapter,
+  Update,
+} from '@ngrx/entity';
 import { SampledataModel } from '../../models/sampledata.model';
 import {
   SampleDataActionTypes,
@@ -6,6 +11,7 @@ import {
   LoadDataSuccess,
   AddDataSuccess,
   EditDataSuccess,
+  DeleteDataSuccess,
 } from '../actions/sampledata.actions';
 
 /* @export
@@ -78,12 +84,12 @@ export function reducer(
     }
 
     case SampleDataActionTypes.EDIT_DATA_SUCCESS: {
-      const data: SampledataModel = (<EditDataSuccess>action).payload;
+      const data: Update<SampledataModel> = (<EditDataSuccess>action).payload;
       state = {
         ...state,
         textMessage: 'Edit Data Success',
       };
-      return adapter.addOne(data, state);
+      return adapter.updateOne(data, state);
     }
 
     case SampleDataActionTypes.EDIT_DATA_FAIL: {
@@ -93,12 +99,15 @@ export function reducer(
       return { ...state };
     }
     case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
-      return {
+      const dataId: number = (<DeleteDataSuccess>action).payload.id;
+      state = {
         ...state,
         textMessage: 'delete Data Success',
         loading: false,
         loaded: true,
       };
+
+      return adapter.removeOne(dataId, state);
     }
     case SampleDataActionTypes.DELETE_DATA_FAIL: {
       return { ...state, textMessage: 'delete Data Fail' };

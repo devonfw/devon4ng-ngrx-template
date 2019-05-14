@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { SampledataModel } from '../../models/sampledata.model';
+import { Update } from '@ngrx/entity';
 export enum SampleDataActionTypes {
   LOAD_DATA = '[SampleData] LoadData ',
   LOAD_DATA_SUCCESS = '[SampleData] LoadDataSuccess ',
@@ -106,7 +107,7 @@ export class EditData implements Action {
 export class EditDataSuccess implements Action {
   readonly type: SampleDataActionTypes =
     SampleDataActionTypes.EDIT_DATA_SUCCESS;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: Update<SampledataModel>) {}
 }
 
 /* @export

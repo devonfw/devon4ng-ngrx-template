@@ -22,13 +22,13 @@ import {
 } from '../actions/sampledata.actions';
 import { Action } from '@ngrx/store';
 import { LoadDataFail } from '../actions/sampledata.actions';
+import { Update } from '@ngrx/entity';
 
 /* @export
  * @class SampleDataEffects
  */
 @Injectable()
 export class SampleDataEffects {
-
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
@@ -46,7 +46,8 @@ export class SampleDataEffects {
         )
         .pipe(
           map(
-            (sampledata: SampledataModel[]) => new LoadDataSuccess(sampledata),
+            (sampledataRes: { content: SampledataModel[] }) =>
+              new LoadDataSuccess(sampledataRes.content),
           ),
           catchError((error: Error) => of(new LoadDataFail({ error: error }))),
         );
@@ -92,7 +93,19 @@ export class SampleDataEffects {
     map((action: EditData) => action.payload),
     switchMap((payload: SampledataModel) => {
       return this.sampledataservice.editSampleData(payload).pipe(
-        map((editdata: SampledataModel) => new EditDataSuccess(editdata)),
+        map((editdata: SampledataModel) => {
+          const update: Update<SampledataModel> = {
+            id: editdata.id,
+            changes: {
+              name: editdata.name,
+              surname: editdata.surname,
+              age: editdata.age,
+              mail: editdata.mail,
+            },
+          };
+
+          return new EditDataSuccess(update);
+        }),
         catchError((error: Error) => of(new EditDataFail({ error: error }))),
       );
     }),

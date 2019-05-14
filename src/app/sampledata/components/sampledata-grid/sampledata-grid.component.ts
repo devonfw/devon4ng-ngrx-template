@@ -124,16 +124,16 @@ export class SampleDataGridComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.sampledata$ = this.store.select<SampledataModel[]>(
-      fromStore.getSampleDataDetails,
+      fromStore.getSampleDataArray,
     );
     this.store.dispatch(new LoadData(this.loaddata));
     this.getSampleData();
   }
   getSampleData(): void {
     this.sampledata$.subscribe(
-      (res: any) => {
-        this.data = res.content;
-        this.totalItems = res.totalElements;
+      (res: SampledataModel[]) => {
+        this.data = res;
+        this.totalItems = res.length;
         this.dataTable.refresh();
       },
       (error: any) => {

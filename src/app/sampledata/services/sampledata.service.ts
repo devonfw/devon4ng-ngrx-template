@@ -32,7 +32,7 @@ export class SampleDataService {
     page: number,
     searchTerms: any,
     sort: any[],
-  ): Observable<SampledataModel[]> {
+  ): Observable<{ content: SampledataModel[] }> {
     const searchCriteria: SearchCriteria = {
       pageable: {
         pageSize: size,
@@ -45,7 +45,7 @@ export class SampleDataService {
       mail: searchTerms.mail,
     };
 
-    return this.http.post<SampledataModel[]>(
+    return this.http.post<{ content: SampledataModel[] }>(
       this.urlService + 'search',
       searchCriteria,
     );
