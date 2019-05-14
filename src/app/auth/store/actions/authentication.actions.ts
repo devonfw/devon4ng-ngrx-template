@@ -48,8 +48,7 @@ export class LogInFail implements Action {
  * @implements {Action}
  */
 export class LogOutAction implements Action {
-  readonly type: AuthenticationActionTypes =
-    AuthenticationActionTypes.LOGOUT;
+  readonly type: AuthenticationActionTypes = AuthenticationActionTypes.LOGOUT;
 }
 
 /* @export
