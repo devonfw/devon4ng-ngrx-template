@@ -5,6 +5,7 @@ import {
   Update,
 } from '@ngrx/entity';
 import { SampledataModel } from '../../models/sampledata.model';
+import { HttpResponseModel } from '../../models/httpresponse.model';
 import {
   SampleDataActionTypes,
   SampleDataAction,
@@ -20,6 +21,7 @@ import {
 export interface SampleDataState extends EntityState<SampledataModel> {
   loaded: boolean;
   loading: boolean;
+  totalElements: number;
   textMessage: string;
 }
 
@@ -30,6 +32,7 @@ export const adapter: EntityAdapter<SampledataModel> = createEntityAdapter<
 export const initialState: SampleDataState = adapter.getInitialState({
   loaded: false,
   loading: false,
+  totalElements: 0,
   textMessage: undefined,
 });
 
@@ -48,11 +51,14 @@ export function reducer(
     }
 
     case SampleDataActionTypes.LOAD_DATA_SUCCESS: {
-      const data: SampledataModel[] = (<LoadDataSuccess>action).payload;
+      const response: HttpResponseModel = (<LoadDataSuccess>action).payload;
+      const data: SampledataModel[] = response.content;
+
       state = {
         ...state,
         loading: false,
         loaded: true,
+        totalElements: response.totalElements,
       };
       return adapter.addAll(data, state);
     }
@@ -66,7 +72,7 @@ export function reducer(
     }
 
     case SampleDataActionTypes.ADD_DATA_SUCCESS: {
-      const data: SampledataModel = (<AddDataSuccess>action).payload;
+      const data: SampledataModel = (<AddDataSuccess>action).payload.data;
       state = {
         ...state,
         loading: false,
@@ -84,7 +90,8 @@ export function reducer(
     }
 
     case SampleDataActionTypes.EDIT_DATA_SUCCESS: {
-      const data: Update<SampledataModel> = (<EditDataSuccess>action).payload;
+      const data: Update<SampledataModel> = (<EditDataSuccess>action).payload
+        .data;
       state = {
         ...state,
         textMessage: 'Edit Data Success',
@@ -99,7 +106,7 @@ export function reducer(
       return { ...state };
     }
     case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
-      const dataId: number = (<DeleteDataSuccess>action).payload.id;
+      const dataId: number = (<DeleteDataSuccess>action).payload.data.id;
       state = {
         ...state,
         textMessage: 'delete Data Success',
@@ -118,6 +125,8 @@ export function reducer(
   }
 }
 
+export const getSampleDataTotal: any = (state: SampleDataState) =>
+  state.totalElements;
 export const getSampleDataLoading: any = (state: SampleDataState) =>
   state.loading;
 export const getSampleDataLoaded: any = (state: SampleDataState) =>

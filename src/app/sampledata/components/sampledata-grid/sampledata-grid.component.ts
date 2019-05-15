@@ -96,6 +96,7 @@ export class SampleDataGridComponent implements OnInit {
     pagination: undefined,
     searchTerms: undefined,
   };
+
   loaddata: any = {
     size: this.pageable.pageSize,
     page: this.pageable.pageNumber,
@@ -103,6 +104,7 @@ export class SampleDataGridComponent implements OnInit {
     sort: this.pageable.sort = this.sorting,
   };
   sampledata$: Observable<SampledataModel[]>;
+  sampledataTotal$: Observable<number>;
   /* Creates an instance of SampleDataGridComponent.
    * @param {Store<fromStore.AppState>} store
    * @param {TranslateService} translate
@@ -126,14 +128,28 @@ export class SampleDataGridComponent implements OnInit {
     this.sampledata$ = this.store.select<SampledataModel[]>(
       fromStore.getSampleDataArray,
     );
+
+    this.sampledataTotal$ = this.store.select<number>(
+      fromStore.getSampleDataTotal,
+    );
+
     this.store.dispatch(new LoadData(this.loaddata));
     this.getSampleData();
   }
   getSampleData(): void {
+    this.sampledataTotal$.subscribe(
+      (res: number) => {
+        this.totalItems = res;
+        this.dataTable.refresh();
+      },
+      (error: any) => {
+        //
+      },
+    );
+
     this.sampledata$.subscribe(
       (res: SampledataModel[]) => {
         this.data = res;
-        this.totalItems = res.length;
         this.dataTable.refresh();
       },
       (error: any) => {
@@ -167,6 +183,15 @@ export class SampleDataGridComponent implements OnInit {
     });
     return value;
   }
+
+  getSearchCriteria(): {} {
+    return {
+      size: this.pageable.pageSize,
+      page: this.pageable.pageNumber,
+      searchTerms: this.searchTerms,
+      sort: this.pageable.sort = this.sorting,
+    };
+  }
   /* @param {IPageChangeEvent} pagingEvent
    * @memberof SampleDataGridComponent
    */
@@ -176,13 +201,8 @@ export class SampleDataGridComponent implements OnInit {
       pageNumber: pagingEvent.page - 1,
       sort: this.pageable.sort,
     };
-    const payload: any = {
-      size: this.pageable.pageSize,
-      page: this.pageable.pageNumber,
-      searchTerms: this.searchTerms,
-      sort: this.pageable.sort = this.sorting,
-    };
-    this.store.dispatch(new LoadData(payload));
+
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
   }
   /* @param {ITdDataTableSortChangeEvent} sortEvent
    * @memberof SampleDataGridComponent
@@ -193,19 +213,16 @@ export class SampleDataGridComponent implements OnInit {
       property: sortEvent.name.split('.').pop(),
       direction: '' + sortEvent.order,
     });
-    const payload: any = {
-      size: this.pageable.pageSize,
-      page: this.pageable.pageNumber,
-      searchTerms: this.searchTerms,
-      sort: this.pageable.sort = this.sorting,
-    };
-    this.store.dispatch(new LoadData(payload));
+
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
   }
   openDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        this.store.dispatch(new AddData(result));
+        this.store.dispatch(
+          new AddData({ criteria: this.getSearchCriteria(), data: result }),
+        );
       }
     });
   }
@@ -222,16 +239,12 @@ export class SampleDataGridComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         {
-          this.store.dispatch(new EditData(result));
+          this.selectedRow = undefined;
+          this.store.dispatch(
+            new EditData({ criteria: this.getSearchCriteria(), data: result }),
+          );
         }
       }
-      const payload: any = {
-        size: this.pageable.pageSize,
-        page: this.pageable.pageNumber,
-        searchTerms: this.searchTerms,
-        sort: this.pageable.sort = this.sorting,
-      };
-      this.store.dispatch(new LoadData(payload));
     });
   }
   openConfirm(): void {
@@ -252,9 +265,13 @@ export class SampleDataGridComponent implements OnInit {
       .afterClosed()
       .subscribe((accept: boolean) => {
         if (accept) {
-          this.store.dispatch(new DeleteData(payload));
+          this.store.dispatch(
+            new DeleteData({
+              criteria: this.getSearchCriteria(),
+              data: payload,
+            }),
+          );
           this.selectedRow = undefined;
-          // this.getSampleData();
         }
       });
   }

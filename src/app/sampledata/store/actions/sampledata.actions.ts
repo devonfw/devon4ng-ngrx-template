@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { SampledataModel } from '../../models/sampledata.model';
 import { Update } from '@ngrx/entity';
+import { HttpResponseModel } from '../../models/httpresponse.model';
 export enum SampleDataActionTypes {
   LOAD_DATA = '[SampleData] LoadData ',
   LOAD_DATA_SUCCESS = '[SampleData] LoadDataSuccess ',
@@ -33,7 +34,7 @@ export class LoadData implements Action {
 export class LoadDataSuccess implements Action {
   readonly type: SampleDataActionTypes =
     SampleDataActionTypes.LOAD_DATA_SUCCESS;
-  constructor(public payload: SampledataModel[]) {}
+  constructor(public payload: HttpResponseModel) {}
 }
 
 /* @export
@@ -51,7 +52,7 @@ export class LoadDataFail implements Action {
  */
 export class AddData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
 }
 
 /* @export
@@ -60,7 +61,7 @@ export class AddData implements Action {
  */
 export class AddDataSuccess implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA_SUCCESS;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
 }
 
 /* @export
@@ -78,7 +79,7 @@ export class AddDataFail implements Action {
  */
 export class DeleteData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
 }
 
 /* @export
@@ -88,7 +89,7 @@ export class DeleteData implements Action {
 export class DeleteDataSuccess implements Action {
   readonly type: SampleDataActionTypes =
     SampleDataActionTypes.DELETE_DATA_SUCCESS;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
 }
 
 /* @export
@@ -97,7 +98,7 @@ export class DeleteDataSuccess implements Action {
  */
 export class EditData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.EDIT_DATA;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
 }
 
 /* @export
@@ -107,7 +108,9 @@ export class EditData implements Action {
 export class EditDataSuccess implements Action {
   readonly type: SampleDataActionTypes =
     SampleDataActionTypes.EDIT_DATA_SUCCESS;
-  constructor(public payload: Update<SampledataModel>) {}
+  constructor(
+    public payload: { criteria: {}; data: Update<SampledataModel> },
+  ) {}
 }
 
 /* @export

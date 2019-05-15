@@ -20,9 +20,9 @@ export const getSampleDataArray: any = createSelector(
   selectAll,
 );
 
-export const getSampleDataSize: any = createSelector(
+export const getSampleDataTotal: any = createSelector(
   getSampleDataState,
-  selectTotal,
+  fromSampleData.getSampleDataTotal,
 );
 
 export const getDataLoading: any = createSelector(

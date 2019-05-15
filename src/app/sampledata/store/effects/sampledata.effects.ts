@@ -23,6 +23,7 @@ import {
 import { Action } from '@ngrx/store';
 import { LoadDataFail } from '../actions/sampledata.actions';
 import { Update } from '@ngrx/entity';
+import { HttpResponseModel } from '../../models/httpresponse.model';
 
 /* @export
  * @class SampleDataEffects
@@ -46,8 +47,8 @@ export class SampleDataEffects {
         )
         .pipe(
           map(
-            (sampledataRes: { content: SampledataModel[] }) =>
-              new LoadDataSuccess(sampledataRes.content),
+            (sampledataRes: HttpResponseModel) =>
+              new LoadDataSuccess(sampledataRes),
           ),
           catchError((error: Error) => of(new LoadDataFail({ error: error }))),
         );
@@ -61,9 +62,12 @@ export class SampleDataEffects {
   addData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.ADD_DATA),
     map((action: AddData) => action.payload),
-    switchMap((payload: SampledataModel) => {
-      return this.sampledataservice.saveSampleData(payload).pipe(
-        map((adddata: SampledataModel) => new AddDataSuccess(adddata)),
+    switchMap((payload: { criteria: {}; data: SampledataModel }) => {
+      return this.sampledataservice.saveSampleData(payload.data).pipe(
+        map(
+          (adddata: SampledataModel) =>
+            new AddDataSuccess({ criteria: payload.criteria, data: adddata }),
+        ),
         catchError((error: Error) => of(new AddDataFail({ error: error }))),
       );
     }),
@@ -73,12 +77,21 @@ export class SampleDataEffects {
    * @memberof SampleDataEffects
    */
   @Effect()
+  addDataSuccess: Observable<Action> = this.actions.pipe(
+    ofType(SampleDataActionTypes.ADD_DATA_SUCCESS),
+    map((action: AddDataSuccess) => new LoadData(action.payload.criteria)),
+  );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
+  @Effect()
   deleteData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.DELETE_DATA),
     map((action: DeleteData) => action.payload),
-    switchMap((payload: SampledataModel) => {
-      return this.sampledataservice.deleteSampleData(payload.id).pipe(
-        map(() => new DeleteDataSuccess({ id: payload.id })),
+    switchMap((payload: { criteria: {}; data: SampledataModel }) => {
+      return this.sampledataservice.deleteSampleData(payload.data.id).pipe(
+        map(() => new DeleteDataSuccess(payload)),
         catchError((error: Error) => of(new DeleteDataFail({ error: error }))),
       );
     }),
@@ -88,11 +101,20 @@ export class SampleDataEffects {
    * @memberof SampleDataEffects
    */
   @Effect()
+  deleteDataSuccess: Observable<Action> = this.actions.pipe(
+    ofType(SampleDataActionTypes.DELETE_DATA_SUCCESS),
+    map((action: DeleteDataSuccess) => new LoadData(action.payload.criteria)),
+  );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
+  @Effect()
   editData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.EDIT_DATA),
     map((action: EditData) => action.payload),
-    switchMap((payload: SampledataModel) => {
-      return this.sampledataservice.editSampleData(payload).pipe(
+    switchMap((payload: { criteria: {}; data: SampledataModel }) => {
+      return this.sampledataservice.editSampleData(payload.data).pipe(
         map((editdata: SampledataModel) => {
           const update: Update<SampledataModel> = {
             id: editdata.id,
@@ -104,11 +126,23 @@ export class SampleDataEffects {
             },
           };
 
-          return new EditDataSuccess(update);
+          return new EditDataSuccess({
+            criteria: payload.criteria,
+            data: update,
+          });
         }),
         catchError((error: Error) => of(new EditDataFail({ error: error }))),
       );
     }),
+  );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
+  @Effect()
+  editDataSuccess: Observable<Action> = this.actions.pipe(
+    ofType(SampleDataActionTypes.EDIT_DATA_SUCCESS),
+    map((action: EditDataSuccess) => new LoadData(action.payload.criteria)),
   );
 
   /* Creates an instance of SampleDataEffects.
