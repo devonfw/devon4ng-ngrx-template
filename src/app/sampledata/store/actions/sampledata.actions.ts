@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { SampledataModel } from '../../models/sampledata.model';
 import { Update } from '@ngrx/entity';
 import { HttpResponseModel } from '../../models/httpresponse.model';
+import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 export enum SampleDataActionTypes {
   LOAD_DATA = '[SampleData] LoadData ',
   LOAD_DATA_SUCCESS = '[SampleData] LoadDataSuccess ',
@@ -52,7 +53,7 @@ export class LoadDataFail implements Action {
  */
 export class AddData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA;
-  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
@@ -61,7 +62,7 @@ export class AddData implements Action {
  */
 export class AddDataSuccess implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA_SUCCESS;
-  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
@@ -79,7 +80,7 @@ export class AddDataFail implements Action {
  */
 export class DeleteData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA;
-  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
@@ -89,7 +90,7 @@ export class DeleteData implements Action {
 export class DeleteDataSuccess implements Action {
   readonly type: SampleDataActionTypes =
     SampleDataActionTypes.DELETE_DATA_SUCCESS;
-  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
@@ -98,7 +99,7 @@ export class DeleteDataSuccess implements Action {
  */
 export class EditData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.EDIT_DATA;
-  constructor(public payload: { criteria: {}; data: SampledataModel }) {}
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export

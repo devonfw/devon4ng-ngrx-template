@@ -24,6 +24,7 @@ import { Action } from '@ngrx/store';
 import { LoadDataFail } from '../actions/sampledata.actions';
 import { Update } from '@ngrx/entity';
 import { HttpResponseModel } from '../../models/httpresponse.model';
+import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 
 /* @export
  * @class SampleDataEffects
@@ -62,7 +63,7 @@ export class SampleDataEffects {
   addData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.ADD_DATA),
     map((action: AddData) => action.payload),
-    switchMap((payload: { criteria: {}; data: SampledataModel }) => {
+    switchMap((payload: SearchCriteriaDataModel) => {
       return this.sampledataservice.saveSampleData(payload.data).pipe(
         map(
           (adddata: SampledataModel) =>
@@ -89,7 +90,7 @@ export class SampleDataEffects {
   deleteData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.DELETE_DATA),
     map((action: DeleteData) => action.payload),
-    switchMap((payload: { criteria: {}; data: SampledataModel }) => {
+    switchMap((payload: SearchCriteriaDataModel) => {
       return this.sampledataservice.deleteSampleData(payload.data.id).pipe(
         map(() => new DeleteDataSuccess(payload)),
         catchError((error: Error) => of(new DeleteDataFail({ error: error }))),
@@ -113,7 +114,7 @@ export class SampleDataEffects {
   editData: Observable<Action> = this.actions.pipe(
     ofType(SampleDataActionTypes.EDIT_DATA),
     map((action: EditData) => action.payload),
-    switchMap((payload: { criteria: {}; data: SampledataModel }) => {
+    switchMap((payload: SearchCriteriaDataModel) => {
       return this.sampledataservice.editSampleData(payload.data).pipe(
         map((editdata: SampledataModel) => {
           const update: Update<SampledataModel> = {
