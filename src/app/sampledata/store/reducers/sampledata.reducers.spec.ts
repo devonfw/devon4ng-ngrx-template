@@ -1,6 +1,5 @@
 import * as fromMyReducers from './sampledata.reducers';
 import * as froasptempletesaction from '../actions/sampledata.actions';
-import { generateUser } from '../../models/datadetailstest.model';
 import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 import { Update } from '@ngrx/entity';
 import { SampledataModel } from '../../models/sampledata.model';
