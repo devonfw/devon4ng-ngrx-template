@@ -9,15 +9,15 @@ export enum SampleDataActionTypes {
   LOAD_DATA_FAIL = '[SampleData] LoadDataFail',
   SEARCH_DATA = '[SampleData] SearchData',
   SEARCH_DATA_SUCCESS = '[SampleData] SearchDataSuccess',
-  ADD_DATA = '[SampleData] Add',
-  ADD_DATA_SUCCESS = '[SampleData] AddDataSuccess',
-  ADD_DATA_FAIL = '[SampleData] AddDataFail',
-  DELETE_DATA = '[SampleData] Delete',
+  CREATE_DATA = '[SampleData] CreateData',
+  CREATE_DATA_SUCCESS = '[SampleData] CreateDataSuccess',
+  CREATE_DATA_FAIL = '[SampleData] CreateDataFail',
+  DELETE_DATA = '[SampleData] DeleteData',
   DELETE_DATA_SUCCESS = '[SampleData] DeleteSuccess',
   DELETE_DATA_FAIL = '[SampleData] DeleteDataFail',
-  EDIT_DATA = '[SampleData] EditData',
-  EDIT_DATA_FAIL = '[SampleData] EditDataFail',
-  EDIT_DATA_SUCCESS = '[SampleData] EditDataSuccess',
+  UPDATE_DATA = '[SampleData] UpdateData',
+  UPDATE_DATA_FAIL = '[SampleData] UpdateDataFail',
+  UPDATE_DATA_SUCCESS = '[SampleData] UpdateDataSuccess',
 }
 /* @export
  * @class LoadData
@@ -48,29 +48,30 @@ export class LoadDataFail implements Action {
 }
 
 /* @export
- * @class AddData
+ * @class CreateData
  * @implements {Action}
  */
-export class AddData implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA;
+export class CreateData implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.CREATE_DATA;
   constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
- * @class AddDataSuccess
+ * @class CreateDataSuccess
  * @implements {Action}
  */
-export class AddDataSuccess implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA_SUCCESS;
+export class CreateDataSuccess implements Action {
+  readonly type: SampleDataActionTypes =
+    SampleDataActionTypes.CREATE_DATA_SUCCESS;
   constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
- * @class AddDataFail
+ * @class CreateDataFail
  * @implements {Action}
  */
-export class AddDataFail implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.ADD_DATA_FAIL;
+export class CreateDataFail implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.CREATE_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -94,32 +95,32 @@ export class DeleteDataSuccess implements Action {
 }
 
 /* @export
- * @class EditData
+ * @class UpdateData
  * @implements {Action}
  */
-export class EditData implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.EDIT_DATA;
+export class UpdateData implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.UPDATE_DATA;
   constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
- * @class EditDataSuccess
+ * @class UpdateDataSuccess
  * @implements {Action}
  */
-export class EditDataSuccess implements Action {
+export class UpdateDataSuccess implements Action {
   readonly type: SampleDataActionTypes =
-    SampleDataActionTypes.EDIT_DATA_SUCCESS;
+    SampleDataActionTypes.UPDATE_DATA_SUCCESS;
   constructor(
     public payload: { criteria: {}; data: Update<SampledataModel> },
   ) {}
 }
 
 /* @export
- * @class EditDataFail
+ * @class UpdateDataFail
  * @implements {Action}
  */
-export class EditDataFail implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.EDIT_DATA_FAIL;
+export class UpdateDataFail implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.UPDATE_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -151,15 +152,15 @@ export class SearchDataSuccess implements Action {
 }
 
 export type SampleDataAction =
-  | AddData
-  | AddDataSuccess
-  | AddDataFail
+  | CreateData
+  | CreateDataSuccess
+  | CreateDataFail
   | DeleteDataSuccess
   | DeleteData
   | DeleteDataFail
-  | EditData
-  | EditDataSuccess
-  | EditDataFail
+  | UpdateData
+  | UpdateDataSuccess
+  | UpdateDataFail
   | SearchData
   | LoadData
   | LoadDataSuccess

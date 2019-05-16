@@ -10,8 +10,8 @@ import {
   SampleDataActionTypes,
   SampleDataAction,
   LoadDataSuccess,
-  AddDataSuccess,
-  EditDataSuccess,
+  CreateDataSuccess,
+  UpdateDataSuccess,
   DeleteDataSuccess,
 } from '../actions/sampledata.actions';
 
@@ -67,12 +67,12 @@ export function reducer(
       return { ...state, loading: false, loaded: false };
     }
 
-    case SampleDataActionTypes.ADD_DATA: {
+    case SampleDataActionTypes.CREATE_DATA: {
       return { ...state };
     }
 
-    case SampleDataActionTypes.ADD_DATA_SUCCESS: {
-      const data: SampledataModel = (<AddDataSuccess>action).payload.data;
+    case SampleDataActionTypes.CREATE_DATA_SUCCESS: {
+      const data: SampledataModel = (<CreateDataSuccess>action).payload.data;
       state = {
         ...state,
         loading: false,
@@ -81,16 +81,16 @@ export function reducer(
       return adapter.addOne(data, state);
     }
 
-    case SampleDataActionTypes.ADD_DATA_FAIL: {
+    case SampleDataActionTypes.CREATE_DATA_FAIL: {
       return { ...state, textMessage: 'Add Data Fail' };
     }
 
-    case SampleDataActionTypes.EDIT_DATA: {
+    case SampleDataActionTypes.UPDATE_DATA: {
       return { ...state };
     }
 
-    case SampleDataActionTypes.EDIT_DATA_SUCCESS: {
-      const data: Update<SampledataModel> = (<EditDataSuccess>action).payload
+    case SampleDataActionTypes.UPDATE_DATA_SUCCESS: {
+      const data: Update<SampledataModel> = (<UpdateDataSuccess>action).payload
         .data;
       state = {
         ...state,
@@ -99,7 +99,7 @@ export function reducer(
       return adapter.updateOne(data, state);
     }
 
-    case SampleDataActionTypes.EDIT_DATA_FAIL: {
+    case SampleDataActionTypes.UPDATE_DATA_FAIL: {
       return { ...state, textMessage: 'Edit Data Fail' };
     }
     case SampleDataActionTypes.DELETE_DATA: {

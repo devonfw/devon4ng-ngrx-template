@@ -30,33 +30,33 @@ describe('SampleDataffectsTestCase', () => {
     });
   });
   describe('SampleDataEffectsTestCase', () => {
-    describe('AddData', () => {
-      it('AddData Effects should work also', () => {
-        const action: any = { type: SampleDataActionTypes.ADD_DATA };
+    describe('CreateData', () => {
+      it('CreateData Effects should work also', () => {
+        const action: any = { type: SampleDataActionTypes.CREATE_DATA };
         const response: any = cold('-b', { b: true });
         const expected: any = cold('--c', { c: true });
         const effect$: any = new Actions(hot('-a', { a: action }))
-          .pipe(ofType(SampleDataActionTypes.ADD_DATA))
+          .pipe(ofType(SampleDataActionTypes.CREATE_DATA))
           .pipe(switchMap(() => response));
         expect(effect$).toBeObservable(expected);
       });
 
-      it('AddDataSuccess Effects should work also', () => {
-        const action: any = { type: SampleDataActionTypes.ADD_DATA_SUCCESS };
+      it('CreateDataSuccess Effects should work also', () => {
+        const action: any = { type: SampleDataActionTypes.CREATE_DATA_SUCCESS };
         const response: any = cold('-b', { b: true });
         const expected: any = cold('--c', { c: true });
         const effect$: any = new Actions(hot('-a', { a: action }))
-          .pipe(ofType(SampleDataActionTypes.ADD_DATA_SUCCESS))
+          .pipe(ofType(SampleDataActionTypes.CREATE_DATA_SUCCESS))
           .pipe(switchMap(() => response));
         expect(effect$).toBeObservable(expected);
       });
     });
-    it('AddDatafail Effects should work also ', () => {
-      const action: any = { type: SampleDataActionTypes.ADD_DATA_FAIL };
+    it('CreateDatafail Effects should work also ', () => {
+      const action: any = { type: SampleDataActionTypes.CREATE_DATA_FAIL };
       const response: any = cold('-b', { b: true });
       const expected: any = cold('--c', { c: true });
       const effect$: any = new Actions(hot('-a', { a: action }))
-        .pipe(ofType(SampleDataActionTypes.ADD_DATA_FAIL))
+        .pipe(ofType(SampleDataActionTypes.CREATE_DATA_FAIL))
         .pipe(switchMap(() => response));
       expect(effect$).toBeObservable(expected);
     });

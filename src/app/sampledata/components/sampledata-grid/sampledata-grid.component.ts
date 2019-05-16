@@ -18,8 +18,8 @@ import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import {
-  AddData,
-  EditData,
+  CreateData,
+  UpdateData,
   DeleteData,
   LoadData,
 } from '../../store/actions/sampledata.actions';
@@ -238,7 +238,10 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       .subscribe((result: any) => {
         if (result) {
           this.store.dispatch(
-            new AddData({ criteria: this.getSearchCriteria(), data: result }),
+            new CreateData({
+              criteria: this.getSearchCriteria(),
+              data: result,
+            }),
           );
         }
       });
@@ -261,7 +264,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
           {
             this.selectedRow = undefined;
             this.store.dispatch(
-              new EditData({
+              new UpdateData({
                 criteria: this.getSearchCriteria(),
                 data: result,
               }),

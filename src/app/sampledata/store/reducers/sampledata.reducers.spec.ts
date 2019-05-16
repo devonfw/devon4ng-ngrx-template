@@ -28,7 +28,9 @@ describe('SampleDataReducersTestCase', () => {
     it('should add the New Details in array', () => {
       const { initialState } = fromMyReducers;
       const previousState: any = { ...initialState };
-      const action: any = new froasptempletesaction.AddDataSuccess(detailsdata);
+      const action: any = new froasptempletesaction.CreateDataSuccess(
+        detailsdata,
+      );
       const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         previousState,
         action,
@@ -47,7 +49,9 @@ describe('SampleDataReducersTestCase', () => {
     it('should Edit Details in array', () => {
       // Add entity
       const { initialState } = fromMyReducers;
-      const action: any = new froasptempletesaction.AddDataSuccess(detailsdata);
+      const action: any = new froasptempletesaction.CreateDataSuccess(
+        detailsdata,
+      );
       const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         { ...initialState },
         action,
@@ -71,7 +75,9 @@ describe('SampleDataReducersTestCase', () => {
 
       // Update added entity
       const afterAddState: fromMyReducers.SampleDataState = { ...state };
-      const actionUpdate: any = new froasptempletesaction.EditDataSuccess(edit);
+      const actionUpdate: any = new froasptempletesaction.UpdateDataSuccess(
+        edit,
+      );
       const stateUpdated: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         afterAddState,
         actionUpdate,
@@ -94,7 +100,9 @@ describe('SampleDataReducersTestCase', () => {
     it('should Remove the Details from array', () => {
       // Add entity
       const { initialState } = fromMyReducers;
-      const action: any = new froasptempletesaction.AddDataSuccess(detailsdata);
+      const action: any = new froasptempletesaction.CreateDataSuccess(
+        detailsdata,
+      );
       const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         { ...initialState },
         action,

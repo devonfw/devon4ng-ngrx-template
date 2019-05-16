@@ -8,14 +8,14 @@ import { SampleDataService } from '../../../sampledata/services/sampledata.servi
 import { SampledataModel } from '../../models/sampledata.model';
 import {
   SampleDataActionTypes,
-  AddData,
-  AddDataSuccess,
-  AddDataFail,
+  CreateData,
+  CreateDataSuccess,
+  CreateDataFail,
   DeleteDataSuccess,
   DeleteDataFail,
-  EditData,
-  EditDataSuccess,
-  EditDataFail,
+  UpdateData,
+  UpdateDataSuccess,
+  UpdateDataFail,
   DeleteData,
   LoadData,
   LoadDataSuccess,
@@ -61,15 +61,18 @@ export class SampleDataEffects {
    */
   @Effect()
   addData: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.ADD_DATA),
-    map((action: AddData) => action.payload),
+    ofType(SampleDataActionTypes.CREATE_DATA),
+    map((action: CreateData) => action.payload),
     switchMap((payload: SearchCriteriaDataModel) => {
       return this.sampledataservice.saveSampleData(payload.data).pipe(
         map(
           (adddata: SampledataModel) =>
-            new AddDataSuccess({ criteria: payload.criteria, data: adddata }),
+            new CreateDataSuccess({
+              criteria: payload.criteria,
+              data: adddata,
+            }),
         ),
-        catchError((error: Error) => of(new AddDataFail({ error: error }))),
+        catchError((error: Error) => of(new CreateDataFail({ error: error }))),
       );
     }),
   );
@@ -79,8 +82,8 @@ export class SampleDataEffects {
    */
   @Effect()
   addDataSuccess: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.ADD_DATA_SUCCESS),
-    map((action: AddDataSuccess) => new LoadData(action.payload.criteria)),
+    ofType(SampleDataActionTypes.CREATE_DATA_SUCCESS),
+    map((action: CreateDataSuccess) => new LoadData(action.payload.criteria)),
   );
 
   /* @type {Observable<Action>}
@@ -112,8 +115,8 @@ export class SampleDataEffects {
    */
   @Effect()
   editData: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.EDIT_DATA),
-    map((action: EditData) => action.payload),
+    ofType(SampleDataActionTypes.UPDATE_DATA),
+    map((action: UpdateData) => action.payload),
     switchMap((payload: SearchCriteriaDataModel) => {
       return this.sampledataservice.editSampleData(payload.data).pipe(
         map((editdata: SampledataModel) => {
@@ -127,12 +130,12 @@ export class SampleDataEffects {
             },
           };
 
-          return new EditDataSuccess({
+          return new UpdateDataSuccess({
             criteria: payload.criteria,
             data: update,
           });
         }),
-        catchError((error: Error) => of(new EditDataFail({ error: error }))),
+        catchError((error: Error) => of(new UpdateDataFail({ error: error }))),
       );
     }),
   );
@@ -142,8 +145,8 @@ export class SampleDataEffects {
    */
   @Effect()
   editDataSuccess: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.EDIT_DATA_SUCCESS),
-    map((action: EditDataSuccess) => new LoadData(action.payload.criteria)),
+    ofType(SampleDataActionTypes.UPDATE_DATA_SUCCESS),
+    map((action: UpdateDataSuccess) => new LoadData(action.payload.criteria)),
   );
 
   /* Creates an instance of SampleDataEffects.
