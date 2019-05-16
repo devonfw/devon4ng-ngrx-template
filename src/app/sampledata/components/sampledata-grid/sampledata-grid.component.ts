@@ -24,7 +24,7 @@ import {
   LoadData,
 } from '../../store/actions/sampledata.actions';
 import { SampledataModel } from '../../models/sampledata.model';
-import { takeUntil } from 'rxjs/operators';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 /* @export
  * @class SampleDataGridComponent
@@ -51,7 +51,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
 
   private sampledata$: Observable<SampledataModel[]>;
   private sampledataTotal$: Observable<number>;
-
   private unsubscribe$: Subject<void> = new Subject();
 
   @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
@@ -144,13 +143,11 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     this.getSampleData();
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+  /* Method necessary to manage unsubcriptions,  it must not be deleted*/
+  ngOnDestroy(): void {}
 
   getSampleData(): void {
-    this.sampledataTotal$.pipe(takeUntil(this.unsubscribe$)).subscribe(
+    this.sampledataTotal$.pipe(untilDestroyed(this)).subscribe(
       (res: number) => {
         this.totalItems = res;
         this.dataTable.refresh();
@@ -160,7 +157,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       },
     );
 
-    this.sampledata$.pipe(takeUntil(this.unsubscribe$)).subscribe(
+    this.sampledata$.pipe(untilDestroyed(this)).subscribe(
       (res: SampledataModel[]) => {
         this.data = res;
         this.dataTable.refresh();
@@ -180,26 +177,24 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
 
     this.translate
       .get(text)
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(untilDestroyed(this))
       .subscribe((res: string) => {
         value = res;
       });
 
-    this.translate.onLangChange
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => {
-        this.columns.forEach((column: any) => {
-          if (text.endsWith(column.name)) {
-            this.translate
-              .get('sampledatamanagement.SampleData.columns.' + column.name)
-              .pipe(takeUntil(this.unsubscribe$))
-              .subscribe((res: string) => {
-                column.label = res;
-              });
-          }
-        });
-        this.dataTable.refresh();
+    this.translate.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
+      this.columns.forEach((column: any) => {
+        if (text.endsWith(column.name)) {
+          this.translate
+            .get('sampledatamanagement.SampleData.columns.' + column.name)
+            .pipe(untilDestroyed(this))
+            .subscribe((res: string) => {
+              column.label = res;
+            });
+        }
       });
+      this.dataTable.refresh();
+    });
     return value;
   }
 
@@ -239,7 +234,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
     this.dialogRef
       .afterClosed()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(untilDestroyed(this))
       .subscribe((result: any) => {
         if (result) {
           this.store.dispatch(
@@ -260,7 +255,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     });
     this.dialogRef
       .afterClosed()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(untilDestroyed(this))
       .subscribe((result: any) => {
         if (result) {
           {
@@ -291,7 +286,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
         ),
       })
       .afterClosed()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(untilDestroyed(this))
       .subscribe((accept: boolean) => {
         if (accept) {
           this.store.dispatch(
