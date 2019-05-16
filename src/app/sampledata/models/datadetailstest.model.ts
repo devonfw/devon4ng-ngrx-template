@@ -1,5 +1,3 @@
-// import * as faker from 'faker';
-
 /* @export
  * @class TestDataDetails
  */
@@ -19,10 +17,10 @@ export class TestDataDetails {
 }
 export const generateUser: any = (): TestDataDetails => {
   return {
-    id: 0, // faker.random.number(),
-    name: 'a', // faker.name.firstName(),
-    surname: 'b', // faker.name.lastName(),
-    mail: 'cap@captureEvents.com', //faker.internet.email(),
-    age: 21, //faker.random.number(),
+    id: 0,
+    name: 'name',
+    surname: 'surname',
+    mail: 'mail@mail.com',
+    age: 20,
   };
 };
