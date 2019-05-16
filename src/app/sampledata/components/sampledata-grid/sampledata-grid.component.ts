@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   ITdDataTableColumn,
   TdDataTableComponent,
@@ -14,7 +14,7 @@ import { SampleDataService } from '../../services/sampledata.service';
 import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataDialogComponent } from '../../components/sampledata-dialog/sampledata-dialog.component';
 import { Pageable } from '../../../core/interfaces/pageable';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import {
@@ -24,6 +24,7 @@ import {
   LoadData,
 } from '../../store/actions/sampledata.actions';
 import { SampledataModel } from '../../models/sampledata.model';
+import { takeUntil } from 'rxjs/operators';
 
 /* @export
  * @class SampleDataGridComponent
@@ -34,7 +35,7 @@ import { SampledataModel } from '../../models/sampledata.model';
   templateUrl: './sampledata-grid.component.html',
   styleUrls: ['./sampledata-grid.component.scss'],
 })
-export class SampleDataGridComponent implements OnInit {
+export class SampleDataGridComponent implements OnInit, OnDestroy {
   private pageable: Pageable = {
     pageSize: 8,
     pageNumber: 0,
@@ -47,6 +48,12 @@ export class SampleDataGridComponent implements OnInit {
   };
 
   private sorting: any[] = [];
+
+  private sampledata$: Observable<SampledataModel[]>;
+  private sampledataTotal$: Observable<number>;
+
+  private unsubscribe$: Subject<void> = new Subject();
+
   @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
   @ViewChild('dataTable') dataTable: TdDataTableComponent;
   data: any = [];
@@ -103,8 +110,7 @@ export class SampleDataGridComponent implements OnInit {
     searchTerms: this.searchTerms,
     sort: this.pageable.sort = this.sorting,
   };
-  sampledata$: Observable<SampledataModel[]>;
-  sampledataTotal$: Observable<number>;
+
   /* Creates an instance of SampleDataGridComponent.
    * @param {Store<fromStore.AppState>} store
    * @param {TranslateService} translate
@@ -124,6 +130,7 @@ export class SampleDataGridComponent implements OnInit {
     public dataGridService: SampleDataService,
     private _dialogService: TdDialogService,
   ) {}
+
   ngOnInit(): void {
     this.sampledata$ = this.store.select<SampledataModel[]>(
       fromStore.getSampleDataArray,
@@ -136,8 +143,14 @@ export class SampleDataGridComponent implements OnInit {
     this.store.dispatch(new LoadData(this.loaddata));
     this.getSampleData();
   }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   getSampleData(): void {
-    this.sampledataTotal$.subscribe(
+    this.sampledataTotal$.pipe(takeUntil(this.unsubscribe$)).subscribe(
       (res: number) => {
         this.totalItems = res;
         this.dataTable.refresh();
@@ -147,7 +160,7 @@ export class SampleDataGridComponent implements OnInit {
       },
     );
 
-    this.sampledata$.subscribe(
+    this.sampledata$.pipe(takeUntil(this.unsubscribe$)).subscribe(
       (res: SampledataModel[]) => {
         this.data = res;
         this.dataTable.refresh();
@@ -165,22 +178,28 @@ export class SampleDataGridComponent implements OnInit {
   getTranslation(text: string): string {
     let value: string;
 
-    this.translate.get(text).subscribe((res: string) => {
-      value = res;
-    });
-
-    this.translate.onLangChange.subscribe(() => {
-      this.columns.forEach((column: any) => {
-        if (text.endsWith(column.name)) {
-          this.translate
-            .get('sampledatamanagement.SampleData.columns.' + column.name)
-            .subscribe((res: string) => {
-              column.label = res;
-            });
-        }
+    this.translate
+      .get(text)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: string) => {
+        value = res;
       });
-      this.dataTable.refresh();
-    });
+
+    this.translate.onLangChange
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.columns.forEach((column: any) => {
+          if (text.endsWith(column.name)) {
+            this.translate
+              .get('sampledatamanagement.SampleData.columns.' + column.name)
+              .pipe(takeUntil(this.unsubscribe$))
+              .subscribe((res: string) => {
+                column.label = res;
+              });
+          }
+        });
+        this.dataTable.refresh();
+      });
     return value;
   }
 
@@ -218,13 +237,16 @@ export class SampleDataGridComponent implements OnInit {
   }
   openDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
-    this.dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.store.dispatch(
-          new AddData({ criteria: this.getSearchCriteria(), data: result }),
-        );
-      }
-    });
+    this.dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((result: any) => {
+        if (result) {
+          this.store.dispatch(
+            new AddData({ criteria: this.getSearchCriteria(), data: result }),
+          );
+        }
+      });
   }
   /* @param {*} e
    * @memberof SampleDataGridComponent
@@ -236,16 +258,22 @@ export class SampleDataGridComponent implements OnInit {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent, {
       data: this.selectedRow,
     });
-    this.dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        {
-          this.selectedRow = undefined;
-          this.store.dispatch(
-            new EditData({ criteria: this.getSearchCriteria(), data: result }),
-          );
+    this.dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((result: any) => {
+        if (result) {
+          {
+            this.selectedRow = undefined;
+            this.store.dispatch(
+              new EditData({
+                criteria: this.getSearchCriteria(),
+                data: result,
+              }),
+            );
+          }
         }
-      }
-    });
+      });
   }
   openConfirm(): void {
     const payload: any = {
@@ -263,6 +291,7 @@ export class SampleDataGridComponent implements OnInit {
         ),
       })
       .afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((accept: boolean) => {
         if (accept) {
           this.store.dispatch(
