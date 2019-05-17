@@ -307,5 +307,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
    */
   searchReset(form: any): void {
     form.reset();
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
   }
 }
