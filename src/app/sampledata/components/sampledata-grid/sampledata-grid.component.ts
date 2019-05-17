@@ -14,7 +14,7 @@ import { SampleDataService } from '../../services/sampledata.service';
 import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataDialogComponent } from '../../components/sampledata-dialog/sampledata-dialog.component';
 import { Pageable } from '../../../core/interfaces/pageable';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import {
@@ -51,11 +51,10 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
 
   private sampledata$: Observable<SampledataModel[]>;
   private sampledataTotal$: Observable<number>;
-  private unsubscribe$: Subject<void> = new Subject();
 
   @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
   @ViewChild('dataTable') dataTable: TdDataTableComponent;
-  data: any = [];
+
   /* @type {ITdDataTableColumn[]}
    * @memberof SampleDataGridComponent
    */
@@ -83,15 +82,18 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       ),
     },
   ];
+
+  data: any[] = [];
+  totalItems: number;
   pageSize: number = 8;
   pageSizes: number[] = [8, 16, 24];
   selectedRow: any;
   dialogRef: MatDialogRef<SampleDataDialogComponent>;
-  totalItems: number;
+
   /* @type {*}
    * @memberof SampleDataGridComponent
    */
-  searchTerms: any = {
+  searchTerms: {} = {
     id: undefined,
     name: undefined,
     surname: undefined,
@@ -101,13 +103,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     pageSize: undefined,
     pagination: undefined,
     searchTerms: undefined,
-  };
-
-  loaddata: any = {
-    size: this.pageable.pageSize,
-    page: this.pageable.pageNumber,
-    searchTerms: this.searchTerms,
-    sort: this.pageable.sort = this.sorting,
   };
 
   /* Creates an instance of SampleDataGridComponent.
@@ -139,7 +134,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       fromStore.getSampleDataTotal,
     );
 
-    this.store.dispatch(new LoadData(this.loaddata));
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
     this.getSampleData();
   }
 
@@ -202,7 +197,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     return {
       size: this.pageable.pageSize,
       page: this.pageable.pageNumber,
-      searchTerms: this.searchTerms,
+      searchTerms: { ...this.searchTerms },
       sort: this.pageable.sort = this.sorting,
     };
   }
@@ -303,6 +298,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       });
   }
   filter(): void {
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
     this.pagingBar.firstPage();
   }
 
