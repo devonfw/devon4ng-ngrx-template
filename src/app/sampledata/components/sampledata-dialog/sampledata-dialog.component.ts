@@ -33,7 +33,7 @@ export class SampleDataDialogComponent {
       this.title = this.getTranslation('sampledatamanagement.addTitle');
     } else {
       this.title = this.getTranslation('sampledatamanagement.editTitle');
-      this.items = dialogData;
+      this.items = { ...dialogData };
     }
   }
 

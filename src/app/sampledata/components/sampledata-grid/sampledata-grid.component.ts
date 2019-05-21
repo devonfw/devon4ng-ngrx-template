@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   ITdDataTableColumn,
   TdDataTableComponent,
@@ -18,12 +18,13 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import {
-  AddData,
-  EditData,
+  CreateData,
+  UpdateData,
   DeleteData,
   LoadData,
 } from '../../store/actions/sampledata.actions';
 import { SampledataModel } from '../../models/sampledata.model';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 /* @export
  * @class SampleDataGridComponent
@@ -34,7 +35,7 @@ import { SampledataModel } from '../../models/sampledata.model';
   templateUrl: './sampledata-grid.component.html',
   styleUrls: ['./sampledata-grid.component.scss'],
 })
-export class SampleDataGridComponent implements OnInit {
+export class SampleDataGridComponent implements OnInit, OnDestroy {
   private pageable: Pageable = {
     pageSize: 8,
     pageNumber: 0,
@@ -47,9 +48,13 @@ export class SampleDataGridComponent implements OnInit {
   };
 
   private sorting: any[] = [];
+
+  private sampledata$: Observable<SampledataModel[]>;
+  private sampledataTotal$: Observable<number>;
+
   @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
   @ViewChild('dataTable') dataTable: TdDataTableComponent;
-  data: any = [];
+
   /* @type {ITdDataTableColumn[]}
    * @memberof SampleDataGridComponent
    */
@@ -77,15 +82,18 @@ export class SampleDataGridComponent implements OnInit {
       ),
     },
   ];
+
+  data: any[] = [];
+  totalItems: number;
   pageSize: number = 8;
   pageSizes: number[] = [8, 16, 24];
   selectedRow: any;
   dialogRef: MatDialogRef<SampleDataDialogComponent>;
-  totalItems: number;
+
   /* @type {*}
    * @memberof SampleDataGridComponent
    */
-  searchTerms: any = {
+  searchTerms: {} = {
     id: undefined,
     name: undefined,
     surname: undefined,
@@ -96,13 +104,7 @@ export class SampleDataGridComponent implements OnInit {
     pagination: undefined,
     searchTerms: undefined,
   };
-  loaddata: any = {
-    size: this.pageable.pageSize,
-    page: this.pageable.pageNumber,
-    searchTerms: this.searchTerms,
-    sort: this.pageable.sort = this.sorting,
-  };
-  sampledata$: Observable<SampledataModel[]>;
+
   /* Creates an instance of SampleDataGridComponent.
    * @param {Store<fromStore.AppState>} store
    * @param {TranslateService} translate
@@ -122,18 +124,37 @@ export class SampleDataGridComponent implements OnInit {
     public dataGridService: SampleDataService,
     private _dialogService: TdDialogService,
   ) {}
+
   ngOnInit(): void {
     this.sampledata$ = this.store.select<SampledataModel[]>(
-      fromStore.getSampleDataDetails,
+      fromStore.getSampleDataArray,
     );
-    this.store.dispatch(new LoadData(this.loaddata));
+
+    this.sampledataTotal$ = this.store.select<number>(
+      fromStore.getSampleDataTotal,
+    );
+
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
     this.getSampleData();
   }
+
+  /* Method necessary to manage unsubcriptions,  it must not be deleted*/
+  ngOnDestroy(): void {}
+
   getSampleData(): void {
-    this.sampledata$.subscribe(
-      (res: any) => {
-        this.data = res.content;
-        this.totalItems = res.totalElements;
+    this.sampledataTotal$.pipe(untilDestroyed(this)).subscribe(
+      (res: number) => {
+        this.totalItems = res;
+        this.dataTable.refresh();
+      },
+      (error: any) => {
+        //
+      },
+    );
+
+    this.sampledata$.pipe(untilDestroyed(this)).subscribe(
+      (res: SampledataModel[]) => {
+        this.data = res;
         this.dataTable.refresh();
       },
       (error: any) => {
@@ -149,15 +170,19 @@ export class SampleDataGridComponent implements OnInit {
   getTranslation(text: string): string {
     let value: string;
 
-    this.translate.get(text).subscribe((res: string) => {
-      value = res;
-    });
+    this.translate
+      .get(text)
+      .pipe(untilDestroyed(this))
+      .subscribe((res: string) => {
+        value = res;
+      });
 
-    this.translate.onLangChange.subscribe(() => {
+    this.translate.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
       this.columns.forEach((column: any) => {
         if (text.endsWith(column.name)) {
           this.translate
             .get('sampledatamanagement.SampleData.columns.' + column.name)
+            .pipe(untilDestroyed(this))
             .subscribe((res: string) => {
               column.label = res;
             });
@@ -166,6 +191,15 @@ export class SampleDataGridComponent implements OnInit {
       this.dataTable.refresh();
     });
     return value;
+  }
+
+  getSearchCriteria(): {} {
+    return {
+      size: this.pageable.pageSize,
+      page: this.pageable.pageNumber,
+      searchTerms: { ...this.searchTerms },
+      sort: this.pageable.sort = this.sorting,
+    };
   }
   /* @param {IPageChangeEvent} pagingEvent
    * @memberof SampleDataGridComponent
@@ -176,13 +210,8 @@ export class SampleDataGridComponent implements OnInit {
       pageNumber: pagingEvent.page - 1,
       sort: this.pageable.sort,
     };
-    const payload: any = {
-      size: this.pageable.pageSize,
-      page: this.pageable.pageNumber,
-      searchTerms: this.searchTerms,
-      sort: this.pageable.sort = this.sorting,
-    };
-    this.store.dispatch(new LoadData(payload));
+
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
   }
   /* @param {ITdDataTableSortChangeEvent} sortEvent
    * @memberof SampleDataGridComponent
@@ -193,21 +222,24 @@ export class SampleDataGridComponent implements OnInit {
       property: sortEvent.name.split('.').pop(),
       direction: '' + sortEvent.order,
     });
-    const payload: any = {
-      size: this.pageable.pageSize,
-      page: this.pageable.pageNumber,
-      searchTerms: this.searchTerms,
-      sort: this.pageable.sort = this.sorting,
-    };
-    this.store.dispatch(new LoadData(payload));
+
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
   }
   openDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
-    this.dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.store.dispatch(new AddData(result));
-      }
-    });
+    this.dialogRef
+      .afterClosed()
+      .pipe(untilDestroyed(this))
+      .subscribe((result: any) => {
+        if (result) {
+          this.store.dispatch(
+            new CreateData({
+              criteria: this.getSearchCriteria(),
+              data: result,
+            }),
+          );
+        }
+      });
   }
   /* @param {*} e
    * @memberof SampleDataGridComponent
@@ -219,20 +251,22 @@ export class SampleDataGridComponent implements OnInit {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent, {
       data: this.selectedRow,
     });
-    this.dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        {
-          this.store.dispatch(new EditData(result));
+    this.dialogRef
+      .afterClosed()
+      .pipe(untilDestroyed(this))
+      .subscribe((result: any) => {
+        if (result) {
+          {
+            this.selectedRow = undefined;
+            this.store.dispatch(
+              new UpdateData({
+                criteria: this.getSearchCriteria(),
+                data: result,
+              }),
+            );
+          }
         }
-      }
-      const payload: any = {
-        size: this.pageable.pageSize,
-        page: this.pageable.pageNumber,
-        searchTerms: this.searchTerms,
-        sort: this.pageable.sort = this.sorting,
-      };
-      this.store.dispatch(new LoadData(payload));
-    });
+      });
   }
   openConfirm(): void {
     const payload: any = {
@@ -250,15 +284,21 @@ export class SampleDataGridComponent implements OnInit {
         ),
       })
       .afterClosed()
+      .pipe(untilDestroyed(this))
       .subscribe((accept: boolean) => {
         if (accept) {
-          this.store.dispatch(new DeleteData(payload));
+          this.store.dispatch(
+            new DeleteData({
+              criteria: this.getSearchCriteria(),
+              data: payload,
+            }),
+          );
           this.selectedRow = undefined;
-          // this.getSampleData();
         }
       });
   }
   filter(): void {
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
     this.pagingBar.firstPage();
   }
 
@@ -267,5 +307,6 @@ export class SampleDataGridComponent implements OnInit {
    */
   searchReset(form: any): void {
     form.reset();
+    this.store.dispatch(new LoadData(this.getSearchCriteria()));
   }
 }

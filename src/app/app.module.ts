@@ -46,7 +46,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HomeModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot({ stateKey: 'routerReducer' }),
     EffectsModule.forRoot([]),
     TranslateModule.forRoot({
       loader: {

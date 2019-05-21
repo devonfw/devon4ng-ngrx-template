@@ -19,8 +19,7 @@ export enum AuthenticationActionTypes {
  * @implements {Action}
  */
 export class LogInAction implements Action {
-  readonly type: AuthenticationActionTypes.LOGIN =
-    AuthenticationActionTypes.LOGIN;
+  readonly type: AuthenticationActionTypes = AuthenticationActionTypes.LOGIN;
   constructor(public payload: AuthenticateModel) {}
 }
 
@@ -29,9 +28,9 @@ export class LogInAction implements Action {
  * @implements {Action}
  */
 export class LogInSuccess implements Action {
-  readonly type: AuthenticationActionTypes.LOGIN_SUCCESS =
+  readonly type: AuthenticationActionTypes =
     AuthenticationActionTypes.LOGIN_SUCCESS;
-  constructor(public payload: { user: AuthenticateModel }) {}
+  constructor(public payload: { token: string }) {}
 }
 
 /* @export
@@ -39,7 +38,7 @@ export class LogInSuccess implements Action {
  * @implements {Action}
  */
 export class LogInFail implements Action {
-    readonly type: AuthenticationActionTypes.LOGIN_FAIL =
+  readonly type: AuthenticationActionTypes =
     AuthenticationActionTypes.LOGIN_FAIL;
   constructor(public payload: { error: Error }) {}
 }
@@ -49,8 +48,7 @@ export class LogInFail implements Action {
  * @implements {Action}
  */
 export class LogOutAction implements Action {
-  readonly type: AuthenticationActionTypes.LOGOUT =
-    AuthenticationActionTypes.LOGOUT;
+  readonly type: AuthenticationActionTypes = AuthenticationActionTypes.LOGOUT;
 }
 
 /* @export
@@ -58,7 +56,7 @@ export class LogOutAction implements Action {
  * @implements {Action}
  */
 export class LogOutSuccess implements Action {
-  readonly type: AuthenticationActionTypes.LOGOUT_SUCCESS =
+  readonly type: AuthenticationActionTypes =
     AuthenticationActionTypes.LOGOUT_SUCCESS;
 }
 
@@ -67,7 +65,7 @@ export class LogOutSuccess implements Action {
  * @implements {Action}
  */
 export class LogOutFail implements Action {
-  readonly type: AuthenticationActionTypes.LOGOUT_FAIL =
+  readonly type: AuthenticationActionTypes =
     AuthenticationActionTypes.LOGOUT_FAIL;
   constructor(public payload: { error: Error }) {}
 }
