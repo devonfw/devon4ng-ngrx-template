@@ -284,12 +284,6 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@covalent/core@^2.0.0-rc.2":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@covalent/core/-/core-2.0.0.tgz#58912dc0ccc3bde09f8797e19e9e87cf157c796d"
-  dependencies:
-    tslib "^1.9.0"
-
 "@ngrx/effects@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.0.0.tgz#57ea3a42ed970b748e78292e54fe02a768027b05"

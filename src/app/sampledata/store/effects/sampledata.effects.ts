@@ -61,10 +61,19 @@ export class SampleDataEffects {
     map((action: AddData) => action.payload),
     switchMap((payload: SampledataModel) => {
       return this.sampledataservice.saveSampleData(payload).pipe(
-        map((adddata: SampledataModel) => new AddDataSuccess(adddata)),
+        map((adddata: SampledataModel) => new AddDataSuccess(payload)),
         catchError((error: Error) => of(new AddDataFail({ error: error }))),
       );
     }),
+  );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
+  @Effect()
+  addDataSuccess: Observable<Action> = this.actions.pipe(
+    ofType(SampleDataActionTypes.ADD_DATA_SUCCESS),
+    map((action: AddDataSuccess) => new LoadData(action.payload)),
   );
 
   /* @type {Observable<Action>}
@@ -76,10 +85,19 @@ export class SampleDataEffects {
     map((action: DeleteData) => action.payload),
     switchMap((payload: SampledataModel) => {
       return this.sampledataservice.deleteSampleData(payload.id).pipe(
-        map(() => new DeleteDataSuccess({ id: payload.id })),
+        map(() => new DeleteDataSuccess(payload)),
         catchError((error: Error) => of(new DeleteDataFail({ error: error }))),
       );
     }),
+  );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
+  @Effect()
+  deleteDataSuccess: Observable<Action> = this.actions.pipe(
+    ofType(SampleDataActionTypes.DELETE_DATA_SUCCESS),
+    map((action: DeleteDataSuccess) => new LoadData(action.payload)),
   );
 
   /* @type {Observable<Action>}
@@ -91,10 +109,19 @@ export class SampleDataEffects {
     map((action: EditData) => action.payload),
     switchMap((payload: SampledataModel) => {
       return this.sampledataservice.editSampleData(payload).pipe(
-        map((editdata: SampledataModel) => new EditDataSuccess(editdata)),
+        map((editdata: SampledataModel) => new EditDataSuccess(payload)),
         catchError((error: Error) => of(new EditDataFail({ error: error }))),
       );
     }),
+  );
+
+  /* @type {Observable<Action>}
+   * @memberof SampleDataEffects
+   */
+  @Effect()
+  editDataSuccess: Observable<Action> = this.actions.pipe(
+    ofType(SampleDataActionTypes.EDIT_DATA_SUCCESS),
+    map((action: EditDataSuccess) => new LoadData(action.payload)),
   );
 
   /* Creates an instance of SampleDataEffects.
