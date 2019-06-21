@@ -43,7 +43,7 @@ export class SampleDataGridComponent implements OnInit {
   };
 
   private sorting: any[] = [];
-  @ViewChild('pagingBar') pagingBar: MatPaginator;
+  @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
 
   data: any = [];
   /* @type {ITdDataTableColumn[]}

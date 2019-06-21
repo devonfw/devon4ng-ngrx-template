@@ -325,25 +325,30 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@ngrx/effects@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.0.0.tgz#57ea3a42ed970b748e78292e54fe02a768027b05"
+"@ngrx/effects@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-8.0.1.tgz#2420e264d96f9fde7fbe594703827f4e44a0b146"
+  integrity sha512-f15SjzZ670HdHVpu3byOiP5R6MOxh/DMQgP8PynKtmadmkKkM69imGsp+8qDEQNABw5O8oJGAn8aLm76QGPnjQ==
 
-"@ngrx/entity@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-7.0.0.tgz#c059e10f63d366e405f24a349d6f860afc80f91f"
+"@ngrx/entity@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-8.0.1.tgz#dcf627c7a1807a50efe051226a759629345a7599"
+  integrity sha512-mdsrKHxo/uYP+sIjgIWmVbIKrLpqvcUlUamV+QfMPTxQXN9nmFsvNsemcOHN1fCklaGWzLo0tfoF/NVwdhJb5w==
 
-"@ngrx/router-store@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-7.0.0.tgz#a273fc3288a2b256b07e9014e7b87d6ebfa3641d"
+"@ngrx/router-store@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-8.0.1.tgz#e943e24497729ac4a21041a35cf983f63a17d4fa"
+  integrity sha512-ItgyqjPtjpUmMRKe48pyBMzrntimJwImttxqRa0uMWooPGIJB6zAmbgjn2AtyUqX63IRl8BGT8V3pJ4FLrxIow==
 
-"@ngrx/store-devtools@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-7.0.0.tgz#8be35ad8b455019c9ac583c92ad8f0ec0d538c37"
+"@ngrx/store-devtools@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-8.0.1.tgz#4c4e5458994afe3eaa487375e13a9c60edc3a84e"
+  integrity sha512-TxOksSARaQ1hCZM0/qMCun6axbSFuhSEmuW9YLRhuU5m3gvJN4cr5tk960DDVGl8/06YX6Q2CQ7uIgx5qCwbsg==
 
-"@ngrx/store@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-7.0.0.tgz#5472000197c2a388b09afceb2d062cb37b03d334"
+"@ngrx/store@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-8.0.1.tgz#5391498d50978ff1bfdbf4e5b04cb647677a5168"
+  integrity sha512-B6HY8TCFZ4+bUfJAJatF42+F33Qboo7zKc+gxTi6eEioKvNqWkb22K4De5HV2j/l/blXvMOPMSO1Rf/sGqID0w==
 
 "@ngtools/webpack@8.0.3":
   version "8.0.3"
@@ -5913,7 +5918,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs@6.3.3, rxjs@^6.3.3:
+rxjs@6.3.3:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.3.3.tgz#3c6a7fa420e844a81390fb1158a9ec614f4bad55"
   dependencies:
@@ -5926,7 +5931,7 @@ rxjs@6.4.0:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^6.4.0:
+rxjs@^6.4.0, rxjs@^6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.2.tgz#2e35ce815cd46d84d02a209fb4e5921e051dbec7"
   integrity sha512-HUb7j3kvb7p7eCUHE3FqjoDsC1xfZQ4AHFWfTKSpZ+sAhhz5X1WX0ZuUqWbzB2QhSLp3DoLUG+hMdEDKqWo2Zg==

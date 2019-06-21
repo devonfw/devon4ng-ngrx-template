@@ -24,7 +24,7 @@ const routes: Routes = [
     BrowserModule,
     StoreModule.forRoot({
       router: routerReducer,
-    }),
+    }, { runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }}),
     RouterModule.forRoot(routes),
     StoreRouterConnectingModule.forRoot(),
   ],

@@ -16,7 +16,7 @@ import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeModule } from './home/home.module';
 import { LoginComponent } from './auth/components/login.component';
-import { storeFreeze } from 'ngrx-store-freeze';
+
 import { AuthDataModule } from './auth/auth.module';
 import {
   StoreRouterConnectingModule,
@@ -24,7 +24,7 @@ import {
 } from '@ngrx/router-store';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
-  ? [storeFreeze]
+  ? []
   : [];
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -44,9 +44,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppRoutingModule,
     CoreModule,
     HomeModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([]),
     TranslateModule.forRoot({
       loader: {
