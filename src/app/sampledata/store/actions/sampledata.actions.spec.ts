@@ -2,13 +2,13 @@ import * as froasptempletes from './sampledata.actions';
 import { generateUser } from '../../models/datadetailstest.model';
 import {
   SampleDataActionTypes,
-  AddData,
-  EditData,
+  CreateData,
+  UpdateData,
   DeleteData,
 } from './sampledata.actions';
 describe('SampleDataActionTestCase', () => {
   describe('Add Data Details', () => {
-    describe('AddData', () => {
+    describe('CreateData', () => {
       it('should create an action', () => {
         const payload: any = {
           name: 'TESTNAME',
@@ -16,25 +16,25 @@ describe('SampleDataActionTestCase', () => {
           mail: 'TESTMAIL',
           age: 12,
         };
-        const action: any = new AddData(payload);
+        const action: any = new CreateData(payload);
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.ADD_DATA,
+          type: SampleDataActionTypes.CREATE_DATA,
           payload,
         });
       });
     });
-    describe('AddDatafail', () => {
+    describe('CreateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = new froasptempletes.AddDataFail({ error });
+        const action: any = new froasptempletes.CreateDataFail({ error });
         const payload: any = { error: error };
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.ADD_DATA_FAIL,
+          type: SampleDataActionTypes.CREATE_DATA_FAIL,
           payload,
         });
       });
     });
-    describe('AddDataSuccess', () => {
+    describe('CreateDataSuccess', () => {
       it('should create an action', () => {
         const payload: any = {
           name: 'TESTNAME',
@@ -42,42 +42,42 @@ describe('SampleDataActionTestCase', () => {
           mail: 'TESTMAIL',
           age: 12,
         };
-        const action: any = new froasptempletes.AddDataSuccess(payload);
+        const action: any = new froasptempletes.CreateDataSuccess(payload);
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.ADD_DATA_SUCCESS,
+          type: SampleDataActionTypes.CREATE_DATA_SUCCESS,
           payload,
         });
       });
     });
   });
   describe('Edit Data Details', () => {
-    describe('EditData', () => {
+    describe('UpdateData', () => {
       it('should create an action', () => {
         const payload: any = generateUser();
-        const action: any = new EditData(payload);
+        const action: any = new UpdateData(payload);
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.EDIT_DATA,
+          type: SampleDataActionTypes.UPDATE_DATA,
           payload,
         });
       });
     });
-    describe('EditDatafail', () => {
+    describe('UpdateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = new froasptempletes.EditDataFail({ error });
+        const action: any = new froasptempletes.UpdateDataFail({ error });
         const payload: any = { error: error };
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.EDIT_DATA_FAIL,
+          type: SampleDataActionTypes.UPDATE_DATA_FAIL,
           payload,
         });
       });
     });
-    describe('EditDataSuccess', () => {
+    describe('UpdateDataSuccess', () => {
       it('should create an action', () => {
         const payload: any = generateUser();
-        const action: any = new froasptempletes.EditDataSuccess(payload);
+        const action: any = new froasptempletes.UpdateDataSuccess(payload);
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.EDIT_DATA_SUCCESS,
+          type: SampleDataActionTypes.UPDATE_DATA_SUCCESS,
           payload,
         });
       });

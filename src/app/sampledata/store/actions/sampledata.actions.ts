@@ -1,28 +1,30 @@
 import { Action } from '@ngrx/store';
 import { SampledataModel } from '../../models/sampledata.model';
+import { Update } from '@ngrx/entity';
+import { HttpResponseModel } from '../../models/httpresponse.model';
+import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 export enum SampleDataActionTypes {
   LOAD_DATA = '[SampleData] LoadData ',
   LOAD_DATA_SUCCESS = '[SampleData] LoadDataSuccess ',
   LOAD_DATA_FAIL = '[SampleData] LoadDataFail',
   SEARCH_DATA = '[SampleData] SearchData',
   SEARCH_DATA_SUCCESS = '[SampleData] SearchDataSuccess',
-  ADD_DATA = '[SampleData] Add',
-  ADD_DATA_SUCCESS = '[SampleData] AddDataSuccess',
-  ADD_DATA_FAIL = '[SampleData] AddDataFail',
-  DELETE_DATA = '[SampleData] Delete',
+  CREATE_DATA = '[SampleData] CreateData',
+  CREATE_DATA_SUCCESS = '[SampleData] CreateDataSuccess',
+  CREATE_DATA_FAIL = '[SampleData] CreateDataFail',
+  DELETE_DATA = '[SampleData] DeleteData',
   DELETE_DATA_SUCCESS = '[SampleData] DeleteSuccess',
   DELETE_DATA_FAIL = '[SampleData] DeleteDataFail',
-  EDIT_DATA = '[SampleData] EditData',
-  EDIT_DATA_FAIL = '[SampleData] EditDataFail',
-  EDIT_DATA_SUCCESS = '[SampleData] EditDataSuccess',
+  UPDATE_DATA = '[SampleData] UpdateData',
+  UPDATE_DATA_FAIL = '[SampleData] UpdateDataFail',
+  UPDATE_DATA_SUCCESS = '[SampleData] UpdateDataSuccess',
 }
 /* @export
  * @class LoadData
  * @implements {Action}
  */
 export class LoadData implements Action {
-  readonly type: SampleDataActionTypes.LOAD_DATA =
-    SampleDataActionTypes.LOAD_DATA;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.LOAD_DATA;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -31,9 +33,9 @@ export class LoadData implements Action {
  * @implements {Action}
  */
 export class LoadDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.LOAD_DATA_SUCCESS =
+  readonly type: SampleDataActionTypes =
     SampleDataActionTypes.LOAD_DATA_SUCCESS;
-  constructor(public payload: SampledataModel[]) {}
+  constructor(public payload: HttpResponseModel) {}
 }
 
 /* @export
@@ -41,38 +43,35 @@ export class LoadDataSuccess implements Action {
  * @implements {Action}
  */
 export class LoadDataFail implements Action {
-  readonly type: SampleDataActionTypes.LOAD_DATA_FAIL =
-    SampleDataActionTypes.LOAD_DATA_FAIL;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.LOAD_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
 /* @export
- * @class AddData
+ * @class CreateData
  * @implements {Action}
  */
-export class AddData implements Action {
-  readonly type: SampleDataActionTypes.ADD_DATA =
-    SampleDataActionTypes.ADD_DATA;
-  constructor(public payload: SampledataModel) {}
+export class CreateData implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.CREATE_DATA;
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
- * @class AddDataSuccess
+ * @class CreateDataSuccess
  * @implements {Action}
  */
-export class AddDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.ADD_DATA_SUCCESS =
-    SampleDataActionTypes.ADD_DATA_SUCCESS;
-  constructor(public payload: SampledataModel) {}
+export class CreateDataSuccess implements Action {
+  readonly type: SampleDataActionTypes =
+    SampleDataActionTypes.CREATE_DATA_SUCCESS;
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
- * @class AddDataFail
+ * @class CreateDataFail
  * @implements {Action}
  */
-export class AddDataFail implements Action {
-  readonly type: SampleDataActionTypes.ADD_DATA_FAIL =
-    SampleDataActionTypes.ADD_DATA_FAIL;
+export class CreateDataFail implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.CREATE_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -81,9 +80,8 @@ export class AddDataFail implements Action {
  * @implements {Action}
  */
 export class DeleteData implements Action {
-  readonly type: SampleDataActionTypes.DELETE_DATA =
-    SampleDataActionTypes.DELETE_DATA;
-  constructor(public payload: SampledataModel) {}
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA;
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
@@ -91,38 +89,38 @@ export class DeleteData implements Action {
  * @implements {Action}
  */
 export class DeleteDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.DELETE_DATA_SUCCESS =
+  readonly type: SampleDataActionTypes =
     SampleDataActionTypes.DELETE_DATA_SUCCESS;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
- * @class EditData
+ * @class UpdateData
  * @implements {Action}
  */
-export class EditData implements Action {
-  readonly type: SampleDataActionTypes.EDIT_DATA =
-    SampleDataActionTypes.EDIT_DATA;
-  constructor(public payload: SampledataModel) {}
+export class UpdateData implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.UPDATE_DATA;
+  constructor(public payload: SearchCriteriaDataModel) {}
 }
 
 /* @export
- * @class EditDataSuccess
+ * @class UpdateDataSuccess
  * @implements {Action}
  */
-export class EditDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.EDIT_DATA_SUCCESS =
-    SampleDataActionTypes.EDIT_DATA_SUCCESS;
-  constructor(public payload: SampledataModel) {}
+export class UpdateDataSuccess implements Action {
+  readonly type: SampleDataActionTypes =
+    SampleDataActionTypes.UPDATE_DATA_SUCCESS;
+  constructor(
+    public payload: { criteria: {}; data: Update<SampledataModel> },
+  ) {}
 }
 
 /* @export
- * @class EditDataFail
+ * @class UpdateDataFail
  * @implements {Action}
  */
-export class EditDataFail implements Action {
-  readonly type: SampleDataActionTypes.EDIT_DATA_FAIL =
-    SampleDataActionTypes.EDIT_DATA_FAIL;
+export class UpdateDataFail implements Action {
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.UPDATE_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -131,8 +129,7 @@ export class EditDataFail implements Action {
  * @implements {Action}
  */
 export class DeleteDataFail implements Action {
-  readonly type: SampleDataActionTypes.DELETE_DATA_FAIL =
-    SampleDataActionTypes.DELETE_DATA_FAIL;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA_FAIL;
   constructor(public payload: { error: Error }) {}
 }
 
@@ -141,8 +138,7 @@ export class DeleteDataFail implements Action {
  * @implements {Action}
  */
 export class SearchData implements Action {
-  readonly type: SampleDataActionTypes.SEARCH_DATA =
-    SampleDataActionTypes.SEARCH_DATA;
+  readonly type: SampleDataActionTypes = SampleDataActionTypes.SEARCH_DATA;
   constructor(public payload: SampledataModel) {}
 }
 
@@ -151,20 +147,20 @@ export class SearchData implements Action {
  * @implements {Action}
  */
 export class SearchDataSuccess implements Action {
-  readonly type: SampleDataActionTypes.SEARCH_DATA_SUCCESS =
+  readonly type: SampleDataActionTypes =
     SampleDataActionTypes.SEARCH_DATA_SUCCESS;
 }
 
 export type SampleDataAction =
-  | AddData
-  | AddDataSuccess
-  | AddDataFail
+  | CreateData
+  | CreateDataSuccess
+  | CreateDataFail
   | DeleteDataSuccess
   | DeleteData
   | DeleteDataFail
-  | EditData
-  | EditDataSuccess
-  | EditDataFail
+  | UpdateData
+  | UpdateDataSuccess
+  | UpdateDataFail
   | SearchData
   | LoadData
   | LoadDataSuccess

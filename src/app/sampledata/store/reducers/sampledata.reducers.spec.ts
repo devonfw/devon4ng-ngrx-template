@@ -1,7 +1,21 @@
 import * as fromMyReducers from './sampledata.reducers';
 import * as froasptempletesaction from '../actions/sampledata.actions';
+import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
+import { Update } from '@ngrx/entity';
 import { SampledataModel } from '../../models/sampledata.model';
-import { generateUser } from '../../models/datadetailstest.model';
+
+const TEST_ID: number = 0;
+const detailsdata: SearchCriteriaDataModel = {
+  criteria: {},
+  data: {
+    id: TEST_ID,
+    name: 'TESTNAME',
+    surname: 'TESTSURNAME',
+    mail: 'TESTMAIL',
+    age: 12,
+  },
+};
+
 describe('SampleDataReducersTestCase', () => {
   describe('Add Action  Reducer', () => {
     it('should return the default state', () => {
@@ -12,18 +26,17 @@ describe('SampleDataReducersTestCase', () => {
     });
 
     it('should add the New Details in array', () => {
-      const detailsdata: SampledataModel = {
-        name: 'TESTNAME',
-        surname: 'TESTSURNAME',
-        mail: 'TESTMAIL',
-        age: 12,
-      };
       const { initialState } = fromMyReducers;
       const previousState: any = { ...initialState };
-      const action: any = new froasptempletesaction.AddDataSuccess(detailsdata);
-      const state: any = fromMyReducers.reducer(previousState, action);
+      const action: any = new froasptempletesaction.CreateDataSuccess(
+        detailsdata,
+      );
+      const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
+        previousState,
+        action,
+      );
 
-      expect(state.sampleData).toEqual(detailsdata);
+      expect(state.entities[TEST_ID]).toEqual(detailsdata.data);
     });
   });
   describe('Edit Action Reducer ', () => {
@@ -34,15 +47,47 @@ describe('SampleDataReducersTestCase', () => {
       expect(state).toBe(initialState);
     });
     it('should Edit Details in array', () => {
-      const detailsdata: any = generateUser();
+      // Add entity
       const { initialState } = fromMyReducers;
-      const previousState: any = { ...initialState };
-      const action: any = new froasptempletesaction.EditDataSuccess(
+      const action: any = new froasptempletesaction.CreateDataSuccess(
         detailsdata,
       );
-      const state: any = fromMyReducers.reducer(previousState, action);
+      const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
+        { ...initialState },
+        action,
+      );
 
-      expect(state.sampleData).toEqual(detailsdata);
+      // Defiene changes
+      const update: Update<SampledataModel> = {
+        id: TEST_ID,
+        changes: {
+          id: TEST_ID,
+          name: 'TESTNAME2',
+          surname: 'TESTSURNAME2',
+          mail: 'TESTMAIL2',
+        },
+      };
+
+      const edit: any = {
+        criteria: {},
+        data: update,
+      };
+
+      // Update added entity
+      const afterAddState: fromMyReducers.SampleDataState = { ...state };
+      const actionUpdate: any = new froasptempletesaction.UpdateDataSuccess(
+        edit,
+      );
+      const stateUpdated: fromMyReducers.SampleDataState = fromMyReducers.reducer(
+        afterAddState,
+        actionUpdate,
+      );
+
+      expect(stateUpdated.entities[TEST_ID].name).toEqual(update.changes.name);
+      expect(stateUpdated.entities[TEST_ID].surname).toEqual(
+        update.changes.surname,
+      );
+      expect(stateUpdated.entities[TEST_ID].mail).toEqual(update.changes.mail);
     });
   });
   describe('Remove Action Reducer ', () => {
@@ -52,16 +97,29 @@ describe('SampleDataReducersTestCase', () => {
       const state: any = fromMyReducers.reducer(undefined, action);
       expect(state).toBe(initialState);
     });
-    it('should Remove the Detils from array', () => {
-      const textMessage: any = 'delete Data Success';
+    it('should Remove the Details from array', () => {
+      // Add entity
       const { initialState } = fromMyReducers;
-      const previousState: any = { ...initialState };
-      const action: any = new froasptempletesaction.DeleteDataSuccess(
-        textMessage,
+      const action: any = new froasptempletesaction.CreateDataSuccess(
+        detailsdata,
       );
-      const state: any = fromMyReducers.reducer(previousState, action);
+      const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
+        { ...initialState },
+        action,
+      );
 
-      expect(state.textMessage).toEqual(textMessage);
+      // Delete added entity
+      const textMessage: any = 'delete Data Success';
+      const afterAddState: any = { ...state };
+      const actionDelete: any = new froasptempletesaction.DeleteDataSuccess(
+        detailsdata,
+      );
+      const stateDeleted: any = fromMyReducers.reducer(
+        afterAddState,
+        actionDelete,
+      );
+
+      expect(stateDeleted.textMessage).toEqual(textMessage);
     });
   });
 });

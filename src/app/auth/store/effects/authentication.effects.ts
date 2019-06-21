@@ -5,7 +5,7 @@ import { of, Observable } from 'rxjs';
 import { tap, map, catchError, exhaustMap, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../../core/security/auth.service';
 import { LoginService } from '../../../core/security/login.service';
-import { SampledataModel } from '../../../sampledata/models/sampledata.model';
+import { environment } from '../../../../environments/environment';
 import {
   AuthenticationActionTypes,
   LogInAction,
@@ -17,6 +17,7 @@ import {
 } from '../actions/authentication.actions';
 import { Action } from '@ngrx/store';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
+import { HttpResponse } from '@angular/common/http';
 
 /* @export
  * @class AuthenticationEffects
@@ -30,12 +31,15 @@ export class AuthenticationEffects {
   login$: Observable<Action> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN),
     map((action: LogInAction) => action.payload),
-    exhaustMap((payload: AuthenticateModel) =>
-      this.loginservice.login(payload.username, payload.password).pipe(
-        map((user: AuthenticateModel) => new LogInSuccess({ user })),
+    switchMap((payload: AuthenticateModel) => {
+      return this.loginservice.login(payload.username, payload.password).pipe(
+        map((response: HttpResponse<any>) => {
+          let token: string = response.headers.get('authorization');
+          return new LogInSuccess({ token });
+        }),
         catchError((error: Error) => of(new LogInFail({ error: error }))),
-      ),
-    ),
+      );
+    }),
   );
 
   /* @type {Observable<Action>}
@@ -44,12 +48,20 @@ export class AuthenticationEffects {
   @Effect({ dispatch: false })
   loginRedirect: Observable<Action> = this.actions.pipe(
     ofType(AuthenticationActionTypes.LOGIN_SUCCESS),
-    tap(() => {
-      this.loginservice.getCsrf().subscribe((data: any) => {
-        this.authservice.setToken(data.token);
+    tap((action: LogInSuccess) => {
+      if (environment.security === 'csrf') {
+        this.loginservice.getCsrf().subscribe((data: any) => {
+          this.authservice.setToken(data.token);
+          this.authservice.setLogged(true);
+          this.router.navigate(['/home']);
+        });
+      }
+
+      if (environment.security === 'jwt') {
+        this.authservice.setToken(action.payload.token);
         this.authservice.setLogged(true);
         this.router.navigateByUrl('/home');
-      });
+      }
     }),
   );
 
