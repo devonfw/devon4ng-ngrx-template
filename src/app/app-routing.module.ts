@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: './sampledata/sampledata.module#SampleDataModule',
+    loadChildren: () => import('./sampledata/sampledata.module').then(m => m.SampleDataModule),
   },
 ];
 
@@ -24,7 +24,7 @@ const routes: Routes = [
     BrowserModule,
     StoreModule.forRoot({
       router: routerReducer,
-    }),
+    }, { runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }}),
     RouterModule.forRoot(routes),
     StoreRouterConnectingModule.forRoot(),
   ],

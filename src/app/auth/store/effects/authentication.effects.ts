@@ -34,7 +34,10 @@ export class AuthenticationEffects {
     switchMap((payload: AuthenticateModel) => {
       return this.loginservice.login(payload.username, payload.password).pipe(
         map((response: HttpResponse<any>) => {
-          let token: string = response.headers.get('authorization');
+          let token: string = '';
+          if (environment.security === 'jwt') {
+            token = response.headers.get('authorization');
+          }
           return new LogInSuccess({ token });
         }),
         catchError((error: Error) => of(new LogInFail({ error: error }))),

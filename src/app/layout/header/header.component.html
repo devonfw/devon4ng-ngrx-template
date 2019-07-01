@@ -1,14 +1,13 @@
-<div layout="row" layout-align="start center" flex>
+<div class="header-container">
   <mat-icon
-    class="mat-icon-logo cursor-pointer"
+    class="mat-icon-logo cursor-pointer devon-logo"
     svgIcon="logo"
-    hide-xs
   ></mat-icon>
   <button
     mat-icon-button
+    class="menu-button"
     *ngIf="isLogged()"
     (click)="toggleSideNav()"
-    hide-gt-sm
   >
     <mat-icon>menu</mat-icon>
   </button>
@@ -16,7 +15,7 @@
 
   <span flex></span>
 
-  <span class="pad-right-sm">
+  <span class="menu-items-right">
     <a mat-icon-button [mat-menu-trigger-for]="menu">
       <mat-icon
         *ngIf="isCurrentLang('en')"
@@ -47,7 +46,7 @@
     </mat-menu>
 
     <button mat-icon-button *ngIf="isLogged()" (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
+      <mat-icon>input</mat-icon>
     </button>
   </span>
 </div>

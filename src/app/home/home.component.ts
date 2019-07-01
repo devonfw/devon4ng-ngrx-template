@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TdMediaService } from '@covalent/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /* @export
  * @class HomeComponent
@@ -8,15 +8,20 @@ import { TdMediaService } from '@covalent/core';
 @Component({
   selector: 'public-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
   sideNavOpened: boolean = false;
+  isMobile: any;
   /* Creates an instance of HomeComponent.
    * @param {Router} router
-   * @param {TdMediaService} media
    * @memberof HomeComponent
    */
-  constructor(private router: Router, public media: TdMediaService) {}
+  constructor(private router: Router, private breakpoint: BreakpointObserver) {
+    this.breakpoint.observe(Breakpoints.Handset).subscribe((data: any) => {
+      this.isMobile = data.matches;
+    });
+  }
 
   /* @param {string} route
    * @memberof HomeComponent

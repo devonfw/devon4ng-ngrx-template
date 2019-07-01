@@ -1,13 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import {
-  ITdDataTableColumn,
-  TdDataTableComponent,
-  TdDialogService,
-  IPageChangeEvent,
-  ITdDataTableSortChangeEvent,
-  TdPagingBarComponent,
-} from '@covalent/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SampleDataService } from '../../services/sampledata.service';
@@ -24,6 +18,8 @@ import {
   LoadData,
 } from '../../store/actions/sampledata.actions';
 import { SampledataModel } from '../../models/sampledata.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { SampleDataAlertComponent } from '../sample-data-alert/sample-data-alert.component';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
 /* @export
@@ -47,18 +43,17 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     ],
   };
 
-  private sorting: any[] = [];
-
   private sampledata$: Observable<SampledataModel[]>;
   private sampledataTotal$: Observable<number>;
+  private sorting: any[] = [];
+  @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
 
-  @ViewChild('pagingBar') pagingBar: TdPagingBarComponent;
-  @ViewChild('dataTable') dataTable: TdDataTableComponent;
+  data: any = [];
 
   /* @type {ITdDataTableColumn[]}
    * @memberof SampleDataGridComponent
    */
-  columns: ITdDataTableColumn[] = [
+  columns: any[] = [
     {
       name: 'name',
       label: this.getTranslation(
@@ -82,13 +77,14 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       ),
     },
   ];
+  displayedColumns: string[] = ['select', 'name', 'surname', 'age', 'mail'];
 
-  data: any[] = [];
   totalItems: number;
   pageSize: number = 8;
   pageSizes: number[] = [8, 16, 24];
   selectedRow: any;
   dialogRef: MatDialogRef<SampleDataDialogComponent>;
+  selection: SelectionModel<any> = new SelectionModel<any>(false, []);
 
   /* @type {*}
    * @memberof SampleDataGridComponent
@@ -104,7 +100,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     pagination: undefined,
     searchTerms: undefined,
   };
-
   /* Creates an instance of SampleDataGridComponent.
    * @param {Store<fromStore.AppState>} store
    * @param {TranslateService} translate
@@ -112,7 +107,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
    * @param {AuthService} authService
    * @param {Router} router
    * @param {SampleDataService} dataGridService
-   * @param {TdDialogService} _dialogService
    * @memberof SampleDataGridComponent
    */
   constructor(
@@ -122,7 +116,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public router: Router,
     public dataGridService: SampleDataService,
-    private _dialogService: TdDialogService,
   ) {}
 
   ngOnInit(): void {
@@ -145,7 +138,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     this.sampledataTotal$.pipe(untilDestroyed(this)).subscribe(
       (res: number) => {
         this.totalItems = res;
-        this.dataTable.refresh();
       },
       (error: any) => {
         //
@@ -155,7 +147,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     this.sampledata$.pipe(untilDestroyed(this)).subscribe(
       (res: SampledataModel[]) => {
         this.data = res;
-        this.dataTable.refresh();
       },
       (error: any) => {
         //
@@ -188,7 +179,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
             });
         }
       });
-      this.dataTable.refresh();
     });
     return value;
   }
@@ -204,10 +194,10 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   /* @param {IPageChangeEvent} pagingEvent
    * @memberof SampleDataGridComponent
    */
-  page(pagingEvent: IPageChangeEvent): void {
+  page(pagingEvent: PageEvent): void {
     this.pageable = {
       pageSize: pagingEvent.pageSize,
-      pageNumber: pagingEvent.page - 1,
+      pageNumber: pagingEvent.pageIndex,
       sort: this.pageable.sort,
     };
 
@@ -216,14 +206,20 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   /* @param {ITdDataTableSortChangeEvent} sortEvent
    * @memberof SampleDataGridComponent
    */
-  sort(sortEvent: ITdDataTableSortChangeEvent): void {
+  sort(sortEvent: Sort): void {
     this.sorting = [];
-    this.sorting.push({
-      property: sortEvent.name.split('.').pop(),
-      direction: '' + sortEvent.order,
-    });
-
+    if (sortEvent.direction) {
+      this.sorting.push({
+        property: sortEvent.active.split('.').pop(),
+        direction: '' + sortEvent.direction,
+      });
+    }
     this.store.dispatch(new LoadData(this.getSearchCriteria()));
+  }
+  checkboxLabel(row?: any): string {
+    return `${
+      this.selection.isSelected(row) ? 'deselect' : 'select'
+    } row ${row.position + 1}`;
   }
   openDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
@@ -244,8 +240,11 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   /* @param {*} e
    * @memberof SampleDataGridComponent
    */
-  selectEvent(e: any): void {
-    e.selected ? (this.selectedRow = e.row) : (this.selectedRow = undefined);
+  selectEvent(row: any): void {
+    this.selection.toggle(row);
+    this.selection.isSelected(row)
+      ? (this.selectedRow = row)
+      : (this.selectedRow = undefined);
   }
   openEditDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent, {
@@ -271,17 +270,24 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   openConfirm(): void {
     const payload: any = {
       id: this.selectedRow.id,
+      size: this.pageable.pageSize,
+      page: this.pageable.pageNumber,
+      searchTerms: { ...this.searchTerms },
+      sort: this.pageable.sort = this.sorting,
     };
-    this._dialogService
-      .openConfirm({
-        message: this.getTranslation('sampledatamanagement.alert.message'),
-        title: this.getTranslation('sampledatamanagement.alert.title'),
-        cancelButton: this.getTranslation(
-          'sampledatamanagement.alert.cancelBtn',
-        ),
-        acceptButton: this.getTranslation(
-          'sampledatamanagement.alert.acceptBtn',
-        ),
+    this.dialog
+      .open(SampleDataAlertComponent, {
+        width: '400px',
+        data: {
+          message: this.getTranslation('sampledatamanagement.alert.message'),
+          title: this.getTranslation('sampledatamanagement.alert.title'),
+          cancelButton: this.getTranslation(
+            'sampledatamanagement.alert.cancelBtn',
+          ),
+          acceptButton: this.getTranslation(
+            'sampledatamanagement.alert.acceptBtn',
+          ),
+        },
       })
       .afterClosed()
       .pipe(untilDestroyed(this))

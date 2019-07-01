@@ -10,6 +10,7 @@ import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { HomeModule } from '../home/home.module';
 import { effects } from './store/effects';
 import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
+import { SampleDataAlertComponent } from './components/sample-data-alert/sample-data-alert.component';
 
 /* @export
  * @class SampleDataModule
@@ -24,8 +25,12 @@ import { SampleDataGridComponent } from './components/sampledata-grid/sampledata
     StoreModule.forFeature('sampledatareducer', reducers),
     EffectsModule.forFeature(effects),
   ],
-  declarations: [SampleDataGridComponent, SampleDataDialogComponent],
-  entryComponents: [SampleDataDialogComponent],
+  declarations: [
+    SampleDataGridComponent,
+    SampleDataDialogComponent,
+    SampleDataAlertComponent,
+  ],
+  entryComponents: [SampleDataDialogComponent, SampleDataAlertComponent],
   providers: [],
 })
 export class SampleDataModule {}
