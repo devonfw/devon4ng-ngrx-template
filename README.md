@@ -4,7 +4,7 @@ This application utilizes @ngrx/store to manage the state of the app,@angular/ro
 
 **Ngrx State Management**
 
-This application uses [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) version 8.0.1 to manage application state, [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) version 8.0.1 to manange side effects, and [@ngrx/router-store]
+This application uses [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) version 8.0.1 to manage application state, [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) version 8.0.1 to manage side effects, and [@ngrx/router-store]
 (https://github.com/ngrx/platform/blob/master/docs/router-store/README.md) version 8.0.1 to connect the Angular Router with @ngrx/store.
 
 ### Ngrx Store
