@@ -4,7 +4,7 @@ import {
   createEntityAdapter,
   Update,
 } from '@ngrx/entity';
-import { SampledataModel } from '../../models/sampledata.model';
+import { SampleDataModel } from '../../models/sampledata.model';
 import { HttpResponseModel } from '../../models/httpresponse.model';
 import {
   SampleDataActionTypes,
@@ -18,15 +18,15 @@ import {
 /* @export
  * @interface SampleDataState
  */
-export interface SampleDataState extends EntityState<SampledataModel> {
+export interface SampleDataState extends EntityState<SampleDataModel> {
   loaded: boolean;
   loading: boolean;
   totalElements: number;
   textMessage: string;
 }
 
-export const adapter: EntityAdapter<SampledataModel> = createEntityAdapter<
-  SampledataModel
+export const adapter: EntityAdapter<SampleDataModel> = createEntityAdapter<
+  SampleDataModel
 >();
 
 export const initialState: SampleDataState = adapter.getInitialState({
@@ -52,7 +52,7 @@ export function reducer(
 
     case SampleDataActionTypes.LOAD_DATA_SUCCESS: {
       const response: HttpResponseModel = (<LoadDataSuccess>action).payload;
-      const data: SampledataModel[] = response.content;
+      const data: SampleDataModel[] = response.content;
 
       state = {
         ...state,
@@ -72,7 +72,7 @@ export function reducer(
     }
 
     case SampleDataActionTypes.CREATE_DATA_SUCCESS: {
-      const data: SampledataModel = (<CreateDataSuccess>action).payload.data;
+      const data: SampleDataModel = (<CreateDataSuccess>action).payload.data;
       state = {
         ...state,
         loading: false,
@@ -90,7 +90,7 @@ export function reducer(
     }
 
     case SampleDataActionTypes.UPDATE_DATA_SUCCESS: {
-      const data: Update<SampledataModel> = (<UpdateDataSuccess>action).payload
+      const data: Update<SampleDataModel> = (<UpdateDataSuccess>action).payload
         .data;
       state = {
         ...state,

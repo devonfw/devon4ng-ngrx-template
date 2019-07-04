@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  templateUrl: './sample-data-alert.component.html',
-  styleUrls: ['./sample-data-alert.component.scss'],
+  templateUrl: './sampledata-alert.component.html',
+  styleUrls: ['./sampledata-alert.component.scss'],
 })
 export class SampleDataAlertComponent implements OnInit {
   message: string = '';

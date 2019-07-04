@@ -5,7 +5,7 @@ import { of, Observable } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
-import { SampledataModel } from '../../models/sampledata.model';
+import { SampleDataModel } from '../../models/sampledata.model';
 import {
   SampleDataActionTypes,
   CreateData,
@@ -66,7 +66,7 @@ export class SampleDataEffects {
     switchMap((payload: SearchCriteriaDataModel) => {
       return this.sampledataservice.saveSampleData(payload.data).pipe(
         map(
-          (adddata: SampledataModel) =>
+          (adddata: SampleDataModel) =>
             new CreateDataSuccess({
               criteria: payload.criteria,
               data: adddata,
@@ -119,8 +119,8 @@ export class SampleDataEffects {
     map((action: UpdateData) => action.payload),
     switchMap((payload: SearchCriteriaDataModel) => {
       return this.sampledataservice.editSampleData(payload.data).pipe(
-        map((editdata: SampledataModel) => {
-          const update: Update<SampledataModel> = {
+        map((editdata: SampleDataModel) => {
+          const update: Update<SampleDataModel> = {
             id: editdata.id,
             changes: {
               name: editdata.name,

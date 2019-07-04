@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { SampledataModel } from '../../../sampledata/models/sampledata.model';
+import { SampleDataModel } from '../../../sampledata/models/sampledata.model';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
 
 /* @export

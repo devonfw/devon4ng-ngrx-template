@@ -10,7 +10,7 @@ import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { HomeModule } from '../home/home.module';
 import { effects } from './store/effects';
 import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
-import { SampleDataAlertComponent } from './components/sample-data-alert/sample-data-alert.component';
+import { SampleDataAlertComponent } from './components/sampledata-alert/sampledata-alert.component';
 
 /* @export
  * @class SampleDataModule

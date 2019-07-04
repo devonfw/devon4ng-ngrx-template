@@ -1,7 +1,7 @@
 /* @export
- * @interface SampledataModel
+ * @interface SampleDataModel
  */
-export interface SampledataModel {
+export interface SampleDataModel {
   name?: string;
   surname?: string;
   age?: number;

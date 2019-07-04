@@ -1,9 +1,9 @@
-import { SampledataModel } from './sampledata.model';
+import { SampleDataModel } from './sampledata.model';
 
 /* @export
  * @interface SearchCriteriaDataModel
  */
 export interface SearchCriteriaDataModel {
   criteria: {};
-  data: SampledataModel;
+  data: SampleDataModel;
 }

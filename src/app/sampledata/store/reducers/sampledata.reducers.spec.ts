@@ -2,7 +2,7 @@ import * as fromMyReducers from './sampledata.reducers';
 import * as froasptempletesaction from '../actions/sampledata.actions';
 import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 import { Update } from '@ngrx/entity';
-import { SampledataModel } from '../../models/sampledata.model';
+import { SampleDataModel } from '../../models/sampledata.model';
 
 const TEST_ID: number = 0;
 const detailsdata: SearchCriteriaDataModel = {
@@ -58,7 +58,7 @@ describe('SampleDataReducersTestCase', () => {
       );
 
       // Defiene changes
-      const update: Update<SampledataModel> = {
+      const update: Update<SampleDataModel> = {
         id: TEST_ID,
         changes: {
           id: TEST_ID,

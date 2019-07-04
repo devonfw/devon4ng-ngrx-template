@@ -17,9 +17,9 @@ import {
   DeleteData,
   LoadData,
 } from '../../store/actions/sampledata.actions';
-import { SampledataModel } from '../../models/sampledata.model';
+import { SampleDataModel } from '../../models/sampledata.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SampleDataAlertComponent } from '../sample-data-alert/sample-data-alert.component';
+import { SampleDataAlertComponent } from '../sampledata-alert/sampledata-alert.component';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
 /* @export
@@ -43,7 +43,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     ],
   };
 
-  private sampledata$: Observable<SampledataModel[]>;
+  private sampledata$: Observable<SampleDataModel[]>;
   private sampledataTotal$: Observable<number>;
   private sorting: any[] = [];
   @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
@@ -89,7 +89,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   /* @type {*}
    * @memberof SampleDataGridComponent
    */
-  searchTerms: {} = {
+  searchTerms: Object = {
     id: undefined,
     name: undefined,
     surname: undefined,
@@ -119,7 +119,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.sampledata$ = this.store.select<SampledataModel[]>(
+    this.sampledata$ = this.store.select<SampleDataModel[]>(
       fromStore.getSampleDataArray,
     );
 
@@ -145,7 +145,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     );
 
     this.sampledata$.pipe(untilDestroyed(this)).subscribe(
-      (res: SampledataModel[]) => {
+      (res: SampleDataModel[]) => {
         this.data = res;
       },
       (error: any) => {
