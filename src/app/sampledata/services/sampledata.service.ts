@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { SearchCriteria } from '../../core/interfaces/search-criteria';
 import { Router } from '@angular/router';
-import { SampledataModel } from '../models/sampledata.model';
+import { SampleDataModel } from '../models/sampledata.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,7 @@ export class SampleDataService {
    * @param {number} page
    * @param {*} searchTerms
    * @param {any[]} sort
-   * @returns {Observable<SampledataModel[]>}
+   * @returns {Observable<SampleDataModel[]>}
    * @memberof SampleDataService
    */
   getSampleData(
@@ -32,7 +32,7 @@ export class SampleDataService {
     page: number,
     searchTerms: any,
     sort: any[],
-  ): Observable<{ content: SampledataModel[] }> {
+  ): Observable<any> {
     const searchCriteria: SearchCriteria = {
       pageable: {
         pageSize: size,
@@ -45,10 +45,7 @@ export class SampleDataService {
       mail: searchTerms.mail,
     };
 
-    return this.http.post<{ content: SampledataModel[] }>(
-      this.urlService + 'search',
-      searchCriteria,
-    );
+    return this.http.post<any>(this.urlService + 'search', searchCriteria);
   }
 
   /* @param {*} data

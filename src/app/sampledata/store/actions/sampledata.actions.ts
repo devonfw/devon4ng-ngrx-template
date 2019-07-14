@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { SampledataModel } from '../../models/sampledata.model';
+import { SampleDataModel } from '../../models/sampledata.model';
 import { Update } from '@ngrx/entity';
 import { HttpResponseModel } from '../../models/httpresponse.model';
 import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
@@ -25,7 +25,7 @@ export enum SampleDataActionTypes {
  */
 export class LoadData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.LOAD_DATA;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: SampleDataModel) {}
 }
 
 /* @export
@@ -111,7 +111,7 @@ export class UpdateDataSuccess implements Action {
   readonly type: SampleDataActionTypes =
     SampleDataActionTypes.UPDATE_DATA_SUCCESS;
   constructor(
-    public payload: { criteria: {}; data: Update<SampledataModel> },
+    public payload: { criteria: {}; data: Update<SampleDataModel> },
   ) {}
 }
 
@@ -139,7 +139,7 @@ export class DeleteDataFail implements Action {
  */
 export class SearchData implements Action {
   readonly type: SampleDataActionTypes = SampleDataActionTypes.SEARCH_DATA;
-  constructor(public payload: SampledataModel) {}
+  constructor(public payload: SampleDataModel) {}
 }
 
 /* @export

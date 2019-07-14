@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SampleDataAlertComponent } from './sample-data-alert.component';
+import { SampleDataAlertComponent } from './sampledata-alert.component';
 
 describe('SampleDataAlertComponent', () => {
   let component: SampleDataAlertComponent;
@@ -8,9 +8,8 @@ describe('SampleDataAlertComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SampleDataAlertComponent ]
-    })
-    .compileComponents();
+      declarations: [SampleDataAlertComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
