@@ -9,27 +9,23 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
         redirectTo: '/home/initialPage',
         pathMatch: 'full',
-        canActivate: [AuthGuard],
       },
       {
         path: 'initialPage',
         component: InitialPageComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'sampleData',
         component: SampleDataGridComponent,
-        canActivate: [AuthGuard],
       },
     ],
   },
-
   {
     path: '',
     redirectTo: '/login',
