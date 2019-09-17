@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
+  CanActivateChild,
   Router,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
@@ -9,27 +9,23 @@ import { AuthService } from './auth.service';
 
 /* @export
  * @class AuthGuard
- * @implements {CanActivate}
+ * @implements {CanActivateChild}
  */
 @Injectable()
-export class AuthGuard implements CanActivate {
-
+export class AuthGuard implements CanActivateChild {
   /* Creates an instance of AuthGuard.
    * @param {AuthService} authService
    * @param {Router} router
    * @memberof AuthGuard
    */
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   /* @param {ActivatedRouteSnapshot} route
    * @param {RouterStateSnapshot} state
    * @returns {boolean}
    * @memberof AuthGuard
    */
-  canActivate(
+  canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): boolean {
