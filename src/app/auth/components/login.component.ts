@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { LogInAction } from '../store/actions/authentication.actions';
+import { logInAction } from '../store/actions/authentication.actions';
 import { AuthenticateModel } from '../../auth/models/authentication.model';
 import * as fromStore from '../store';
 import { getAuthState } from '../store/reducers/index';
@@ -32,6 +32,6 @@ export class LoginComponent implements OnInit {
       username: login.value.username,
       password: login.value.password,
     };
-    this.store.dispatch(new LogInAction(payload));
+    this.store.dispatch(logInAction(payload));
   }
 }
