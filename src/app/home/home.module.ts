@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { LayoutModule } from '../layout/layout.module';
 
-import { HomeComponent } from './home.component';
 import { InitialPageComponent } from './initial-page/initial-page.component';
 
 /* @export
@@ -20,7 +19,7 @@ import { InitialPageComponent } from './initial-page/initial-page.component';
     TranslateModule,
   ],
   providers: [],
-  declarations: [HomeComponent, InitialPageComponent],
-  exports: [HomeComponent, InitialPageComponent],
+  declarations: [InitialPageComponent],
+  exports: [InitialPageComponent],
 })
 export class HomeModule {}

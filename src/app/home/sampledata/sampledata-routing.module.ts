@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../core/security/auth-guard.service';
-import { HomeComponent } from '../home/home.component';
-import { InitialPageComponent } from '../home/initial-page/initial-page.component';
+import { AuthGuard } from '../../core/security/auth-guard.service';
+import { NavBarComponent } from '../../layout/nav-bar/nav-bar.component';
+import { InitialPageComponent } from '../initial-page/initial-page.component';
 import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent,
+    component: NavBarComponent,
     canActivateChild: [AuthGuard],
     children: [
       {

@@ -1,5 +1,5 @@
 import { Action, createAction, union, Creator } from '@ngrx/store';
-import { SampleDataModel } from '../../../sampledata/models/sampledata.model';
+import { SampleDataModel } from '../../../home/sampledata/models/sampledata.model';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
 import {
   FunctionWithParametersType,

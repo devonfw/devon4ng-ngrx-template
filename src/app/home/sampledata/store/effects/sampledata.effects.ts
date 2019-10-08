@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { of, Observable } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
-import { AuthService } from '../../../core/security/auth.service';
+import { AuthService } from '../../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
 import { SampleDataModel } from '../../models/sampledata.model';
 import * as sampleDataActions from '../actions/sampledata.actions';

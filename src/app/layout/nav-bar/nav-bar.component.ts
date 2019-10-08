@@ -3,19 +3,19 @@ import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /* @export
- * @class HomeComponent
+ * @class NavBarComponent
  */
 @Component({
-  selector: 'public-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'public-nav-bar',
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.scss'],
 })
-export class HomeComponent {
+export class NavBarComponent {
   sideNavOpened: boolean = false;
   isMobile: any;
-  /* Creates an instance of HomeComponent.
+  /* Creates an instance of NavBarComponent.
    * @param {Router} router
-   * @memberof HomeComponent
+   * @memberof NavBarComponent
    */
   constructor(private router: Router, private breakpoint: BreakpointObserver) {
     this.breakpoint.observe(Breakpoints.Handset).subscribe((data: any) => {
@@ -24,14 +24,14 @@ export class HomeComponent {
   }
 
   /* @param {string} route
-   * @memberof HomeComponent
+   * @memberof NavBarComponent
    */
   navigateTo(route: string): void {
     this.router.navigate([route]);
   }
 
   /* @param {boolean} value
-   * @memberof HomeComponent
+   * @memberof NavBarComponent
    */
   onToggle(value: boolean): void {
     this.sideNavOpened = value;
