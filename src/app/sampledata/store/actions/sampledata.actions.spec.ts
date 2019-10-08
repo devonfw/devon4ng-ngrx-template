@@ -1,11 +1,6 @@
 import * as froasptempletes from './sampledata.actions';
 import { generateUser } from '../../models/datadetailstest.model';
-import {
-  SampleDataActionTypes,
-  CreateData,
-  UpdateData,
-  DeleteData,
-} from './sampledata.actions';
+import { SampleDataActionTypes } from './sampledata.actions';
 describe('SampleDataActionTestCase', () => {
   describe('Add Data Details', () => {
     describe('CreateData', () => {
@@ -16,7 +11,7 @@ describe('SampleDataActionTestCase', () => {
           mail: 'TESTMAIL',
           age: 12,
         };
-        const action: any = new CreateData(payload);
+        const action: any = froasptempletes.createData(payload);
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.CREATE_DATA,
           payload,
@@ -26,7 +21,7 @@ describe('SampleDataActionTestCase', () => {
     describe('CreateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = new froasptempletes.CreateDataFail({ error });
+        const action: any = froasptempletes.createDataFail({ error });
         const payload: any = { error: error };
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.CREATE_DATA_FAIL,
@@ -42,7 +37,7 @@ describe('SampleDataActionTestCase', () => {
           mail: 'TESTMAIL',
           age: 12,
         };
-        const action: any = new froasptempletes.CreateDataSuccess(payload);
+        const action: any = froasptempletes.createDataSuccess(payload);
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.CREATE_DATA_SUCCESS,
           payload,
@@ -54,7 +49,7 @@ describe('SampleDataActionTestCase', () => {
     describe('UpdateData', () => {
       it('should create an action', () => {
         const payload: any = generateUser();
-        const action: any = new UpdateData(payload);
+        const action: any = froasptempletes.updateData(payload);
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.UPDATE_DATA,
           payload,
@@ -64,7 +59,7 @@ describe('SampleDataActionTestCase', () => {
     describe('UpdateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = new froasptempletes.UpdateDataFail({ error });
+        const action: any = froasptempletes.updateDataFail({ error });
         const payload: any = { error: error };
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.UPDATE_DATA_FAIL,
@@ -75,7 +70,7 @@ describe('SampleDataActionTestCase', () => {
     describe('UpdateDataSuccess', () => {
       it('should create an action', () => {
         const payload: any = generateUser();
-        const action: any = new froasptempletes.UpdateDataSuccess(payload);
+        const action: any = froasptempletes.updateDataSuccess(payload);
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.UPDATE_DATA_SUCCESS,
           payload,
@@ -87,7 +82,7 @@ describe('SampleDataActionTestCase', () => {
     describe('RemoveData', () => {
       it('should create an action', () => {
         const payload: any = generateUser();
-        const action: any = new DeleteData(payload);
+        const action: any = froasptempletes.deleteData(payload);
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.DELETE_DATA,
           payload,
@@ -97,7 +92,7 @@ describe('SampleDataActionTestCase', () => {
     describe('RemoveDataFail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = new froasptempletes.DeleteDataFail({ error });
+        const action: any = froasptempletes.deleteDataFail({ error });
         const payload: any = { error: error };
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.DELETE_DATA_FAIL,
@@ -108,7 +103,7 @@ describe('SampleDataActionTestCase', () => {
     describe('RemoveDataSuccess', () => {
       it('should create an action', () => {
         const payload: any = generateUser();
-        const action: any = new froasptempletes.DeleteDataSuccess(payload);
+        const action: any = froasptempletes.deleteDataSuccess(payload);
         expect({ ...action }).toEqual({
           type: SampleDataActionTypes.DELETE_DATA_SUCCESS,
           payload,

@@ -11,12 +11,7 @@ import { Pageable } from '../../../core/interfaces/pageable';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
-import {
-  CreateData,
-  UpdateData,
-  DeleteData,
-  LoadData,
-} from '../../store/actions/sampledata.actions';
+import * as sampleDataActions from '../../store/actions/sampledata.actions';
 import { SampleDataModel } from '../../models/sampledata.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SampleDataAlertComponent } from '../sampledata-alert/sampledata-alert.component';
@@ -127,7 +122,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       fromStore.getSampleDataTotal,
     );
 
-    this.store.dispatch(new LoadData(this.getSearchCriteria()));
+    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
     this.getSampleData();
   }
 
@@ -201,7 +196,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       sort: this.pageable.sort,
     };
 
-    this.store.dispatch(new LoadData(this.getSearchCriteria()));
+    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
   }
   /* @param {ITdDataTableSortChangeEvent} sortEvent
    * @memberof SampleDataGridComponent
@@ -214,7 +209,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
         direction: '' + sortEvent.direction,
       });
     }
-    this.store.dispatch(new LoadData(this.getSearchCriteria()));
+    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
   }
   checkboxLabel(row?: any): string {
     return `${
@@ -229,7 +224,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       .subscribe((result: any) => {
         if (result) {
           this.store.dispatch(
-            new CreateData({
+            sampleDataActions.createData({
               criteria: this.getSearchCriteria(),
               data: result,
             }),
@@ -258,7 +253,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
           {
             this.selectedRow = undefined;
             this.store.dispatch(
-              new UpdateData({
+              sampleDataActions.updateData({
                 criteria: this.getSearchCriteria(),
                 data: result,
               }),
@@ -294,7 +289,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       .subscribe((accept: boolean) => {
         if (accept) {
           this.store.dispatch(
-            new DeleteData({
+            sampleDataActions.deleteData({
               criteria: this.getSearchCriteria(),
               data: payload,
             }),
@@ -304,7 +299,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       });
   }
   filter(): void {
-    this.store.dispatch(new LoadData(this.getSearchCriteria()));
+    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
     this.pagingBar.firstPage();
   }
 
@@ -313,6 +308,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
    */
   searchReset(form: any): void {
     form.reset();
-    this.store.dispatch(new LoadData(this.getSearchCriteria()));
+    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
   }
 }

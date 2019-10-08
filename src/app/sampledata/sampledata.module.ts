@@ -8,9 +8,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { SampleDataDialogComponent } from '../sampledata/components/sampledata-dialog/sampledata-dialog.component';
 import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { HomeModule } from '../home/home.module';
-import { effects } from './store/effects';
+
 import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
 import { SampleDataAlertComponent } from './components/sampledata-alert/sampledata-alert.component';
+import { SampleDataEffects } from './store/effects/sampledata.effects';
 
 /* @export
  * @class SampleDataModule
@@ -23,7 +24,7 @@ import { SampleDataAlertComponent } from './components/sampledata-alert/sampleda
     SampleDataRoutingModule,
     HomeModule,
     StoreModule.forFeature('sampledatareducer', reducers),
-    EffectsModule.forFeature(effects),
+    EffectsModule.forFeature([SampleDataEffects]),
   ],
   declarations: [
     SampleDataGridComponent,

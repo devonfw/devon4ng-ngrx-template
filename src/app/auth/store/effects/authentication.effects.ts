@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of, Observable } from 'rxjs';
 import { tap, map, catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../../core/security/auth.service';
@@ -12,6 +12,8 @@ import {
   logOutSuccess,
   logOutFail,
   AuthenticationActionTypes,
+  logInAction,
+  logOutAction,
 } from '../actions/authentication.actions';
 import { Action } from '@ngrx/store';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
@@ -28,7 +30,7 @@ export class AuthenticationEffects {
    */
   login$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
-      ofType(AuthenticationActionTypes.LOGIN),
+      ofType(logInAction),
       map(
         (
           action: {
@@ -90,7 +92,7 @@ export class AuthenticationEffects {
    */
   logout: Observable<Action> = createEffect(() =>
     this.actions.pipe(
-      ofType(AuthenticationActionTypes.LOGOUT),
+      ofType(logOutAction),
       map((action: any) => {
         //
       }),

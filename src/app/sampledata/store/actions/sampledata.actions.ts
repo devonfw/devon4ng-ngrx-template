@@ -1,8 +1,13 @@
-import { Action } from '@ngrx/store';
+import { Action, createAction } from '@ngrx/store';
 import { SampleDataModel } from '../../models/sampledata.model';
 import { Update } from '@ngrx/entity';
 import { HttpResponseModel } from '../../models/httpresponse.model';
 import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
+import {
+  FunctionWithParametersType,
+  TypedAction,
+  ActionCreator,
+} from '@ngrx/store/src/models';
 export enum SampleDataActionTypes {
   LOAD_DATA = '[SampleData] LoadData ',
   LOAD_DATA_SUCCESS = '[SampleData] LoadDataSuccess ',
@@ -23,146 +28,216 @@ export enum SampleDataActionTypes {
  * @class LoadData
  * @implements {Action}
  */
-export class LoadData implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.LOAD_DATA;
-  constructor(public payload: SampleDataModel) {}
-}
+export const loadData: FunctionWithParametersType<
+  [SampleDataModel],
+  {
+    payload: SampleDataModel;
+  } & TypedAction<SampleDataActionTypes.LOAD_DATA>
+> &
+  TypedAction<SampleDataActionTypes.LOAD_DATA> = createAction(
+  SampleDataActionTypes.LOAD_DATA,
+  (payload: SampleDataModel) => ({ payload }),
+);
 
 /* @export
  * @class LoadDataSuccess
  * @implements {Action}
  */
-export class LoadDataSuccess implements Action {
-  readonly type: SampleDataActionTypes =
-    SampleDataActionTypes.LOAD_DATA_SUCCESS;
-  constructor(public payload: HttpResponseModel) {}
-}
+export const loadDataSuccess: FunctionWithParametersType<
+  [HttpResponseModel],
+  {
+    payload: HttpResponseModel;
+  } & TypedAction<SampleDataActionTypes.LOAD_DATA_SUCCESS>
+> &
+  TypedAction<SampleDataActionTypes.LOAD_DATA_SUCCESS> = createAction(
+  SampleDataActionTypes.LOAD_DATA_SUCCESS,
+  (payload: HttpResponseModel) => ({ payload }),
+);
 
 /* @export
  * @class LoadDataFail
  * @implements {Action}
  */
-export class LoadDataFail implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.LOAD_DATA_FAIL;
-  constructor(public payload: { error: Error }) {}
-}
+export const loadDataFail: FunctionWithParametersType<
+  [
+    {
+      error: Error;
+    },
+  ],
+  {
+    payload: {
+      error: Error;
+    };
+  } & TypedAction<SampleDataActionTypes.LOAD_DATA_FAIL>
+> &
+  TypedAction<SampleDataActionTypes.LOAD_DATA_FAIL> = createAction(
+  SampleDataActionTypes.LOAD_DATA_FAIL,
+  (payload: { error: Error }) => ({ payload }),
+);
 
 /* @export
  * @class CreateData
  * @implements {Action}
  */
-export class CreateData implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.CREATE_DATA;
-  constructor(public payload: SearchCriteriaDataModel) {}
-}
+export const createData: FunctionWithParametersType<
+  [SearchCriteriaDataModel],
+  {
+    payload: SearchCriteriaDataModel;
+  } & TypedAction<SampleDataActionTypes.CREATE_DATA>
+> &
+  TypedAction<SampleDataActionTypes.CREATE_DATA> = createAction(
+  SampleDataActionTypes.CREATE_DATA,
+  (payload: SearchCriteriaDataModel) => ({ payload }),
+);
 
-/* @export
- * @class CreateDataSuccess
- * @implements {Action}
- */
-export class CreateDataSuccess implements Action {
-  readonly type: SampleDataActionTypes =
-    SampleDataActionTypes.CREATE_DATA_SUCCESS;
-  constructor(public payload: SearchCriteriaDataModel) {}
-}
+export const createDataSuccess: FunctionWithParametersType<
+  [SearchCriteriaDataModel],
+  {
+    payload: SearchCriteriaDataModel;
+  } & TypedAction<SampleDataActionTypes.CREATE_DATA_SUCCESS>
+> &
+  TypedAction<SampleDataActionTypes.CREATE_DATA_SUCCESS> = createAction(
+  SampleDataActionTypes.CREATE_DATA_SUCCESS,
+  (payload: SearchCriteriaDataModel) => ({ payload }),
+);
 
 /* @export
  * @class CreateDataFail
  * @implements {Action}
  */
-export class CreateDataFail implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.CREATE_DATA_FAIL;
-  constructor(public payload: { error: Error }) {}
-}
+export const createDataFail: FunctionWithParametersType<
+  [
+    {
+      error: Error;
+    },
+  ],
+  {
+    payload: {
+      error: Error;
+    };
+  } & TypedAction<SampleDataActionTypes.CREATE_DATA_FAIL>
+> &
+  TypedAction<SampleDataActionTypes.CREATE_DATA_FAIL> = createAction(
+  SampleDataActionTypes.CREATE_DATA_FAIL,
+  (payload: { error: Error }) => ({ payload }),
+);
 
 /* @export
  * @class DeleteData
  * @implements {Action}
  */
-export class DeleteData implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA;
-  constructor(public payload: SearchCriteriaDataModel) {}
-}
+export const deleteData: FunctionWithParametersType<
+  [SearchCriteriaDataModel],
+  {
+    payload: SearchCriteriaDataModel;
+  } & TypedAction<SampleDataActionTypes.DELETE_DATA>
+> &
+  TypedAction<SampleDataActionTypes.DELETE_DATA> = createAction(
+  SampleDataActionTypes.DELETE_DATA,
+  (payload: SearchCriteriaDataModel) => ({ payload }),
+);
 
 /* @export
  * @class DeleteDataSuccess
  * @implements {Action}
  */
-export class DeleteDataSuccess implements Action {
-  readonly type: SampleDataActionTypes =
-    SampleDataActionTypes.DELETE_DATA_SUCCESS;
-  constructor(public payload: SearchCriteriaDataModel) {}
-}
+export const deleteDataSuccess: FunctionWithParametersType<
+  [SearchCriteriaDataModel],
+  {
+    payload: SearchCriteriaDataModel;
+  } & TypedAction<SampleDataActionTypes.DELETE_DATA_SUCCESS>
+> &
+  TypedAction<SampleDataActionTypes.DELETE_DATA_SUCCESS> = createAction(
+  SampleDataActionTypes.DELETE_DATA_SUCCESS,
+  (payload: SearchCriteriaDataModel) => ({ payload }),
+);
 
 /* @export
  * @class UpdateData
  * @implements {Action}
  */
-export class UpdateData implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.UPDATE_DATA;
-  constructor(public payload: SearchCriteriaDataModel) {}
-}
+export const updateData: FunctionWithParametersType<
+  [SearchCriteriaDataModel],
+  {
+    payload: SearchCriteriaDataModel;
+  } & TypedAction<SampleDataActionTypes.UPDATE_DATA>
+> &
+  TypedAction<SampleDataActionTypes.UPDATE_DATA> = createAction(
+  SampleDataActionTypes.UPDATE_DATA,
+  (payload: SearchCriteriaDataModel) => ({ payload }),
+);
 
 /* @export
  * @class UpdateDataSuccess
  * @implements {Action}
  */
-export class UpdateDataSuccess implements Action {
-  readonly type: SampleDataActionTypes =
-    SampleDataActionTypes.UPDATE_DATA_SUCCESS;
-  constructor(
-    public payload: { criteria: {}; data: Update<SampleDataModel> },
-  ) {}
-}
+export const updateDataSuccess = createAction(
+  SampleDataActionTypes.UPDATE_DATA_SUCCESS,
+  (payload: { criteria: {}; data: Update<SampleDataModel> }) => ({ payload }),
+);
 
 /* @export
  * @class UpdateDataFail
  * @implements {Action}
  */
-export class UpdateDataFail implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.UPDATE_DATA_FAIL;
-  constructor(public payload: { error: Error }) {}
-}
+export const updateDataFail: FunctionWithParametersType<
+  [
+    {
+      error: Error;
+    },
+  ],
+  {
+    payload: {
+      error: Error;
+    };
+  } & TypedAction<SampleDataActionTypes.UPDATE_DATA_FAIL>
+> &
+  TypedAction<SampleDataActionTypes.UPDATE_DATA_FAIL> = createAction(
+  SampleDataActionTypes.UPDATE_DATA_FAIL,
+  (payload: { error: Error }) => ({ payload }),
+);
 
 /* @export
  * @class DeleteDataFail
  * @implements {Action}
  */
-export class DeleteDataFail implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.DELETE_DATA_FAIL;
-  constructor(public payload: { error: Error }) {}
-}
+export const deleteDataFail: FunctionWithParametersType<
+  [
+    {
+      error: Error;
+    },
+  ],
+  {
+    payload: {
+      error: Error;
+    };
+  } & TypedAction<SampleDataActionTypes.DELETE_DATA_FAIL>
+> &
+  TypedAction<SampleDataActionTypes.DELETE_DATA_FAIL> = createAction(
+  SampleDataActionTypes.DELETE_DATA_FAIL,
+  (payload: { error: Error }) => ({ payload }),
+);
 
 /* @export
  * @class SearchData
  * @implements {Action}
  */
-export class SearchData implements Action {
-  readonly type: SampleDataActionTypes = SampleDataActionTypes.SEARCH_DATA;
-  constructor(public payload: SampleDataModel) {}
-}
+export const searchData: FunctionWithParametersType<
+  [SampleDataModel],
+  {
+    payload: SampleDataModel;
+  } & TypedAction<SampleDataActionTypes.SEARCH_DATA>
+> &
+  TypedAction<SampleDataActionTypes.SEARCH_DATA> = createAction(
+  SampleDataActionTypes.SEARCH_DATA,
+  (payload: SampleDataModel) => ({ payload }),
+);
 
 /* @export
  * @class SearchDataSuccess
  * @implements {Action}
  */
-export class SearchDataSuccess implements Action {
-  readonly type: SampleDataActionTypes =
-    SampleDataActionTypes.SEARCH_DATA_SUCCESS;
-}
-
-export type SampleDataAction =
-  | CreateData
-  | CreateDataSuccess
-  | CreateDataFail
-  | DeleteDataSuccess
-  | DeleteData
-  | DeleteDataFail
-  | UpdateData
-  | UpdateDataSuccess
-  | UpdateDataFail
-  | SearchData
-  | LoadData
-  | LoadDataSuccess
-  | LoadDataFail
-  | SearchDataSuccess;
+export const searchDataSuccess: ActionCreator<
+  SampleDataActionTypes.SEARCH_DATA_SUCCESS,
+  () => TypedAction<SampleDataActionTypes.SEARCH_DATA_SUCCESS>
+> = createAction(SampleDataActionTypes.SEARCH_DATA_SUCCESS);

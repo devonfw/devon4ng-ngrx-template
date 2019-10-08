@@ -3,17 +3,14 @@ import {
   EntityAdapter,
   createEntityAdapter,
   Update,
+  Dictionary,
 } from '@ngrx/entity';
 import { SampleDataModel } from '../../models/sampledata.model';
 import { HttpResponseModel } from '../../models/httpresponse.model';
-import {
-  SampleDataActionTypes,
-  SampleDataAction,
-  LoadDataSuccess,
-  CreateDataSuccess,
-  UpdateDataSuccess,
-  DeleteDataSuccess,
-} from '../actions/sampledata.actions';
+import * as sampleDataActions from '../actions/sampledata.actions';
+import { createReducer, on } from '@ngrx/store';
+import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
+import { TypedAction, Action, ActionReducer } from '@ngrx/store/src/models';
 
 /* @export
  * @interface SampleDataState
@@ -36,22 +33,35 @@ export const initialState: SampleDataState = adapter.getInitialState({
   textMessage: undefined,
 });
 
-/* @export
- * @param {SampleDataState} [state=initialState]
- * @param {SampleDataAction} action
- * @returns {SampleDataState}
- */
-export function reducer(
-  state: SampleDataState = initialState,
-  action: SampleDataAction,
-): SampleDataState {
-  switch (action.type) {
-    case SampleDataActionTypes.LOAD_DATA: {
-      return { ...state, loading: true };
-    }
-
-    case SampleDataActionTypes.LOAD_DATA_SUCCESS: {
-      const response: HttpResponseModel = (<LoadDataSuccess>action).payload;
+const sampleDataReducer: ActionReducer<
+  {
+    textMessage: string;
+    loaded: boolean;
+    loading: boolean;
+    totalElements: number;
+    ids: string[] | number[];
+    entities: Dictionary<SampleDataModel>;
+  },
+  Action
+> = createReducer(
+  initialState,
+  on(sampleDataActions.loadData, (state: SampleDataState) => ({
+    ...state,
+    loading: true,
+  })),
+  on(
+    sampleDataActions.loadDataSuccess,
+    (
+      state: SampleDataState,
+      action: {
+        payload: HttpResponseModel;
+      } & TypedAction<
+        sampleDataActions.SampleDataActionTypes.LOAD_DATA_SUCCESS
+      > & {
+          type: sampleDataActions.SampleDataActionTypes.LOAD_DATA_SUCCESS;
+        },
+    ) => {
+      const response: HttpResponseModel = action.payload;
       const data: SampleDataModel[] = response.content;
 
       state = {
@@ -61,52 +71,81 @@ export function reducer(
         totalElements: response.totalElements,
       };
       return adapter.addAll(data, state);
-    }
-
-    case SampleDataActionTypes.LOAD_DATA_FAIL: {
-      return { ...state, loading: false, loaded: false };
-    }
-
-    case SampleDataActionTypes.CREATE_DATA: {
-      return { ...state };
-    }
-
-    case SampleDataActionTypes.CREATE_DATA_SUCCESS: {
-      const data: SampleDataModel = (<CreateDataSuccess>action).payload.data;
+    },
+  ),
+  on(sampleDataActions.loadDataFail, (state: SampleDataState) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+  })),
+  on(sampleDataActions.createData, (state: SampleDataState) => ({ ...state })),
+  on(
+    sampleDataActions.createDataSuccess,
+    (
+      state: SampleDataState,
+      action: {
+        payload: SearchCriteriaDataModel;
+      } & TypedAction<
+        sampleDataActions.SampleDataActionTypes.CREATE_DATA_SUCCESS
+      > & {
+          type: sampleDataActions.SampleDataActionTypes.CREATE_DATA_SUCCESS;
+        },
+    ) => {
+      const data: SampleDataModel = action.payload.data;
       state = {
         ...state,
         loading: false,
         loaded: false,
       };
       return adapter.addOne(data, state);
-    }
-
-    case SampleDataActionTypes.CREATE_DATA_FAIL: {
-      return { ...state, textMessage: 'Add Data Fail' };
-    }
-
-    case SampleDataActionTypes.UPDATE_DATA: {
-      return { ...state };
-    }
-
-    case SampleDataActionTypes.UPDATE_DATA_SUCCESS: {
-      const data: Update<SampleDataModel> = (<UpdateDataSuccess>action).payload
-        .data;
+    },
+  ),
+  on(sampleDataActions.createDataFail, (state: SampleDataState) => ({
+    ...state,
+    textMessage: 'Add Data Fail',
+  })),
+  on(sampleDataActions.updateData, (state: SampleDataState) => ({ ...state })),
+  on(
+    sampleDataActions.updateDataSuccess,
+    (
+      state: SampleDataState,
+      action: {
+        payload: {
+          criteria: {};
+          data: Update<SampleDataModel>;
+        };
+      } & TypedAction<
+        sampleDataActions.SampleDataActionTypes.UPDATE_DATA_SUCCESS
+      > & {
+          type: sampleDataActions.SampleDataActionTypes.UPDATE_DATA_SUCCESS;
+        },
+    ) => {
+      const data: Update<SampleDataModel> = action.payload.data;
       state = {
         ...state,
         textMessage: 'Edit Data Success',
       };
       return adapter.updateOne(data, state);
-    }
-
-    case SampleDataActionTypes.UPDATE_DATA_FAIL: {
-      return { ...state, textMessage: 'Edit Data Fail' };
-    }
-    case SampleDataActionTypes.DELETE_DATA: {
-      return { ...state };
-    }
-    case SampleDataActionTypes.DELETE_DATA_SUCCESS: {
-      const dataId: number = (<DeleteDataSuccess>action).payload.data.id;
+    },
+  ),
+  on(sampleDataActions.updateDataFail, (state: SampleDataState) => ({
+    ...state,
+    textMessage: 'Edit Data Fail',
+  })),
+  on(sampleDataActions.deleteData, (state: SampleDataState) => ({ ...state })),
+  on(
+    sampleDataActions.deleteDataSuccess,
+    (
+      state: SampleDataState,
+      action: {
+        payload: SearchCriteriaDataModel;
+      } & TypedAction<
+        sampleDataActions.SampleDataActionTypes.DELETE_DATA_SUCCESS
+      > & {
+          type: sampleDataActions.SampleDataActionTypes.DELETE_DATA_SUCCESS;
+        },
+    ) => {
+      const dataId: number = action.payload.data.id;
       state = {
         ...state,
         textMessage: 'delete Data Success',
@@ -115,14 +154,24 @@ export function reducer(
       };
 
       return adapter.removeOne(dataId, state);
-    }
-    case SampleDataActionTypes.DELETE_DATA_FAIL: {
-      return { ...state, textMessage: 'delete Data Fail' };
-    }
-    default: {
-      return state;
-    }
-  }
+    },
+  ),
+  on(sampleDataActions.deleteDataFail, (state: SampleDataState) => ({
+    ...state,
+    textMessage: 'delete Data Fail',
+  })),
+);
+
+/* @export
+ * @param {SampleDataState} [state=initialState]
+ * @param {SampleDataAction} action
+ * @returns {SampleDataState}
+ */
+export function reducer(
+  state: SampleDataState = initialState,
+  action: Action,
+): SampleDataState {
+  return sampleDataReducer(state, action);
 }
 
 export const getSampleDataTotal: any = (state: SampleDataState) =>

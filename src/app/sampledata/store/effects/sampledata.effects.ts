@@ -1,30 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { of, Observable } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
 import { SampleDataModel } from '../../models/sampledata.model';
-import {
-  SampleDataActionTypes,
-  CreateData,
-  CreateDataSuccess,
-  CreateDataFail,
-  DeleteDataSuccess,
-  DeleteDataFail,
-  UpdateData,
-  UpdateDataSuccess,
-  UpdateDataFail,
-  DeleteData,
-  LoadData,
-  LoadDataSuccess,
-} from '../actions/sampledata.actions';
+import * as sampleDataActions from '../actions/sampledata.actions';
 import { Action } from '@ngrx/store';
-import { LoadDataFail } from '../actions/sampledata.actions';
 import { Update } from '@ngrx/entity';
 import { HttpResponseModel } from '../../models/httpresponse.model';
 import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
+import { TypedAction } from '@ngrx/store/src/models';
 
 /* @export
  * @class SampleDataEffects
@@ -34,119 +21,185 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  @Effect()
-  loadData: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.LOAD_DATA),
-    map((action: LoadData) => action.payload),
-    switchMap((payload: any) => {
-      return this.sampledataservice
-        .getSampleData(
-          payload.size,
-          payload.page,
-          payload.searchTerms,
-          payload.sort,
-        )
-        .pipe(
-          map(
-            (sampledataRes: HttpResponseModel) =>
-              new LoadDataSuccess(sampledataRes),
-          ),
-          catchError((error: Error) => of(new LoadDataFail({ error: error }))),
-        );
-    }),
+  loadData: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(sampleDataActions.loadData),
+      map(
+        (
+          action: {
+            payload: SampleDataModel;
+          } & TypedAction<sampleDataActions.SampleDataActionTypes.LOAD_DATA>,
+        ) => {
+          return action.payload;
+        },
+      ),
+      switchMap((payload: SampleDataModel) => {
+        return this.sampledataservice
+          .getSampleData(
+            payload.size,
+            payload.page,
+            payload.searchTerms,
+            payload.sort,
+          )
+          .pipe(
+            map((sampledataRes: HttpResponseModel) =>
+              sampleDataActions.loadDataSuccess(sampledataRes),
+            ),
+            catchError((error: Error) =>
+              of(sampleDataActions.loadDataFail({ error: error })),
+            ),
+          );
+      }),
+    ),
   );
 
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  @Effect()
-  addData: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.CREATE_DATA),
-    map((action: CreateData) => action.payload),
-    switchMap((payload: SearchCriteriaDataModel) => {
-      return this.sampledataservice.saveSampleData(payload.data).pipe(
-        map(
-          (adddata: SampleDataModel) =>
-            new CreateDataSuccess({
+  addData: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(sampleDataActions.createData),
+      map(
+        (
+          action: {
+            payload: SearchCriteriaDataModel;
+          } & TypedAction<sampleDataActions.SampleDataActionTypes.CREATE_DATA>,
+        ) => action.payload,
+      ),
+      switchMap((payload: SearchCriteriaDataModel) => {
+        return this.sampledataservice.saveSampleData(payload.data).pipe(
+          map((data: SampleDataModel) =>
+            sampleDataActions.createDataSuccess({
               criteria: payload.criteria,
-              data: adddata,
+              data: data,
             }),
-        ),
-        catchError((error: Error) => of(new CreateDataFail({ error: error }))),
-      );
-    }),
+          ),
+          catchError((error: Error) =>
+            of(sampleDataActions.createDataFail({ error: error })),
+          ),
+        );
+      }),
+    ),
   );
 
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  @Effect()
-  addDataSuccess: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.CREATE_DATA_SUCCESS),
-    map((action: CreateDataSuccess) => new LoadData(action.payload.criteria)),
+  addDataSuccess: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(sampleDataActions.createDataSuccess),
+      map(
+        (
+          action: {
+            payload: SearchCriteriaDataModel;
+          } & TypedAction<
+            sampleDataActions.SampleDataActionTypes.CREATE_DATA_SUCCESS
+          >,
+        ) => sampleDataActions.loadData(action.payload.criteria),
+      ),
+    ),
   );
 
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  @Effect()
-  deleteData: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.DELETE_DATA),
-    map((action: DeleteData) => action.payload),
-    switchMap((payload: SearchCriteriaDataModel) => {
-      return this.sampledataservice.deleteSampleData(payload.data.id).pipe(
-        map(() => new DeleteDataSuccess(payload)),
-        catchError((error: Error) => of(new DeleteDataFail({ error: error }))),
-      );
-    }),
+  deleteData: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(sampleDataActions.deleteData),
+      map(
+        (
+          action: {
+            payload: SearchCriteriaDataModel;
+          } & TypedAction<sampleDataActions.SampleDataActionTypes.DELETE_DATA>,
+        ) => action.payload,
+      ),
+      switchMap((payload: SearchCriteriaDataModel) => {
+        return this.sampledataservice.deleteSampleData(payload.data.id).pipe(
+          map(() => sampleDataActions.deleteDataSuccess(payload)),
+          catchError((error: Error) =>
+            of(sampleDataActions.deleteDataFail({ error: error })),
+          ),
+        );
+      }),
+    ),
   );
 
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  @Effect()
-  deleteDataSuccess: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.DELETE_DATA_SUCCESS),
-    map((action: DeleteDataSuccess) => new LoadData(action.payload.criteria)),
+  deleteDataSuccess: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(sampleDataActions.deleteDataSuccess),
+      map(
+        (
+          action: {
+            payload: SearchCriteriaDataModel;
+          } & TypedAction<
+            sampleDataActions.SampleDataActionTypes.DELETE_DATA_SUCCESS
+          >,
+        ) => sampleDataActions.loadData(action.payload.criteria),
+      ),
+    ),
   );
 
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  @Effect()
-  editData: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.UPDATE_DATA),
-    map((action: UpdateData) => action.payload),
-    switchMap((payload: SearchCriteriaDataModel) => {
-      return this.sampledataservice.editSampleData(payload.data).pipe(
-        map((editdata: SampleDataModel) => {
-          const update: Update<SampleDataModel> = {
-            id: editdata.id,
-            changes: {
-              name: editdata.name,
-              surname: editdata.surname,
-              age: editdata.age,
-              mail: editdata.mail,
-            },
-          };
+  editData: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(sampleDataActions.updateData),
+      map(
+        (
+          action: {
+            payload: SearchCriteriaDataModel;
+          } & TypedAction<sampleDataActions.SampleDataActionTypes.UPDATE_DATA>,
+        ) => action.payload,
+      ),
+      switchMap((payload: SearchCriteriaDataModel) => {
+        return this.sampledataservice.editSampleData(payload.data).pipe(
+          map((editdata: SampleDataModel) => {
+            const update: Update<SampleDataModel> = {
+              id: editdata.id,
+              changes: {
+                name: editdata.name,
+                surname: editdata.surname,
+                age: editdata.age,
+                mail: editdata.mail,
+              },
+            };
 
-          return new UpdateDataSuccess({
-            criteria: payload.criteria,
-            data: update,
-          });
-        }),
-        catchError((error: Error) => of(new UpdateDataFail({ error: error }))),
-      );
-    }),
+            return sampleDataActions.updateDataSuccess({
+              criteria: payload.criteria,
+              data: update,
+            });
+          }),
+          catchError((error: Error) =>
+            of(sampleDataActions.updateDataFail({ error: error })),
+          ),
+        );
+      }),
+    ),
   );
 
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  @Effect()
-  editDataSuccess: Observable<Action> = this.actions.pipe(
-    ofType(SampleDataActionTypes.UPDATE_DATA_SUCCESS),
-    map((action: UpdateDataSuccess) => new LoadData(action.payload.criteria)),
+  editDataSuccess: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(sampleDataActions.updateDataSuccess),
+      map(
+        (
+          action: {
+            payload: {
+              criteria: {};
+              data: Update<SampleDataModel>;
+            };
+          } & TypedAction<
+            sampleDataActions.SampleDataActionTypes.UPDATE_DATA_SUCCESS
+          >,
+        ) => sampleDataActions.loadData(action.payload.criteria),
+      ),
+    ),
   );
 
   /* Creates an instance of SampleDataEffects.
