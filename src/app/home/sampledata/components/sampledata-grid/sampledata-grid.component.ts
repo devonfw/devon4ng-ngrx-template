@@ -127,7 +127,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-  /* Method necessary to manage unsubcriptions,  it must not be deleted*/
+    /* Method necessary to manage unsubcriptions,  it must not be deleted*/
   }
 
   getSampleData(): void {
