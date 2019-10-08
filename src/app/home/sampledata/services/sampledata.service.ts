@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { SearchCriteria } from '../../../core/interfaces/search-criteria';
+import { SearchCriteria } from '../../../shared/models/search-criteria';
 import { Router } from '@angular/router';
 import { SampleDataModel } from '../models/sampledata.model';
 

@@ -7,11 +7,11 @@ import { reducers } from './store/reducers/index';
 import { EffectsModule } from '@ngrx/effects';
 import { SampleDataDialogComponent } from '../sampledata/components/sampledata-dialog/sampledata-dialog.component';
 import { SampleDataRoutingModule } from './sampledata-routing.module';
-import { HomeModule } from '../home.module';
 
 import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
 import { SampleDataAlertComponent } from './components/sampledata-alert/sampledata-alert.component';
 import { SampleDataEffects } from './store/effects/sampledata.effects';
+import { InitialPageModule } from '../initial-page/initial-page.module';
 
 /* @export
  * @class SampleDataModule
@@ -22,7 +22,7 @@ import { SampleDataEffects } from './store/effects/sampledata.effects';
     CoreModule,
     TranslateModule,
     SampleDataRoutingModule,
-    HomeModule,
+    InitialPageModule,
     StoreModule.forFeature('sampledatareducer', reducers),
     EffectsModule.forFeature([SampleDataEffects]),
   ],

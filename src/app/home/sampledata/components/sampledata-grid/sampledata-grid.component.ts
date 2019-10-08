@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SampleDataService } from '../../services/sampledata.service';
 import { AuthService } from '../../../../core/security/auth.service';
 import { SampleDataDialogComponent } from '../../components/sampledata-dialog/sampledata-dialog.component';
-import { Pageable } from '../../../../core/interfaces/pageable';
+import { Pageable } from '../../../../shared/models/pageable';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
