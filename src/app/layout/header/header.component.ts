@@ -4,7 +4,7 @@ import { AuthService } from '../../core/security/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 /// import { AppState } from '../../sampledata/store/app.states';
-import { AppState } from '../../sampledata/store/reducers/index';
+import { AppState } from '../../home/sampledata/store/reducers/index';
 import { logOutAction } from '../../auth/store/actions';
 
 /* @export

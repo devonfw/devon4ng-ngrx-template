@@ -15,6 +15,6 @@ import { NavBarComponent} from './nav-bar/nav-bar.component';
   imports: [CommonModule, CoreModule, AppRoutingModule, TranslateModule],
   providers: [],
   declarations: [NavBarComponent, HeaderComponent],
-  exports: [NavBarComponent],
+  exports: [NavBarComponent, HeaderComponent],
 })
 export class LayoutModule {}
