@@ -1,11 +1,5 @@
-import { Action, createAction, union, Creator } from '@ngrx/store';
-import { SampleDataModel } from '../../../home/sampledata/models/sampledata.model';
+import { createAction, props } from '@ngrx/store';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
-import {
-  FunctionWithParametersType,
-  TypedAction,
-  ActionCreator,
-} from '@ngrx/store/src/models';
 
 /* @export
  * @enum {number}
@@ -23,94 +17,48 @@ export enum AuthenticationActionTypes {
  * @class LogInAction
  * @implements {Action}
  */
-export const logInAction: FunctionWithParametersType<
-  [AuthenticateModel],
-  {
-    payload: AuthenticateModel;
-  } & TypedAction<AuthenticationActionTypes.LOGIN>
-> &
-  TypedAction<AuthenticationActionTypes.LOGIN> = createAction(
+export const logInAction = createAction(
   AuthenticationActionTypes.LOGIN,
-  (payload: AuthenticateModel) => ({ payload }),
+  props<{ authenticateModel: AuthenticateModel }>(),
 );
 
 /* @export
  * @class LogInSuccess
  * @implements {Action}
  */
-export const logInSuccess: FunctionWithParametersType<
-  [
-    {
-      token: string;
-    },
-  ],
-  {
-    payload: {
-      token: string;
-    };
-  } & TypedAction<AuthenticationActionTypes.LOGIN_SUCCESS>
-> &
-  TypedAction<AuthenticationActionTypes.LOGIN_SUCCESS> = createAction(
+export const logInSuccess = createAction(
   AuthenticationActionTypes.LOGIN_SUCCESS,
-  (payload: { token: string }) => ({ payload }),
+  props<{ token: string }>(),
 );
 
 /* @export
  * @class LogInFail
  * @implements {Action}
  */
-export const logInFail: FunctionWithParametersType<
-  [
-    {
-      error: Error;
-    },
-  ],
-  {
-    payload: {
-      error: Error;
-    };
-  } & TypedAction<AuthenticationActionTypes.LOGIN_FAIL>
-> &
-  TypedAction<AuthenticationActionTypes.LOGIN_FAIL> = createAction(
+export const logInFail = createAction(
   AuthenticationActionTypes.LOGIN_FAIL,
-  (payload: { error: Error }) => ({ payload }),
+  props<{ error: Error }>(),
 );
 
 /* @export
  * @class LogOutAction
  * @implements {Action}
  */
-export const logOutAction: ActionCreator<
-  AuthenticationActionTypes.LOGOUT,
-  () => TypedAction<AuthenticationActionTypes.LOGOUT>
-> = createAction(AuthenticationActionTypes.LOGOUT);
+export const logOutAction = createAction(AuthenticationActionTypes.LOGOUT);
 
 /* @export
  * @class LogOutSuccess
  * @implements {Action}
  */
-export const logOutSuccess: ActionCreator<
+export const logOutSuccess = createAction(
   AuthenticationActionTypes.LOGOUT_SUCCESS,
-  () => TypedAction<AuthenticationActionTypes.LOGOUT_SUCCESS>
-> = createAction(AuthenticationActionTypes.LOGOUT_SUCCESS);
+);
 
 /* @export
  * @class LogOutFail
  * @implements {Action}
  */
-export const logOutFail: FunctionWithParametersType<
-  [
-    {
-      error: Error;
-    },
-  ],
-  {
-    payload: {
-      error: Error;
-    };
-  } & TypedAction<AuthenticationActionTypes.LOGOUT_FAIL>
-> &
-  TypedAction<AuthenticationActionTypes.LOGOUT_FAIL> = createAction(
+export const logOutFail = createAction(
   AuthenticationActionTypes.LOGOUT_FAIL,
-  (payload: { error: Error }) => ({ payload }),
+  props<{ error: Error }>(),
 );

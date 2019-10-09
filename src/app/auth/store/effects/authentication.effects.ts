@@ -1,24 +1,23 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { of, Observable } from 'rxjs';
-import { tap, map, catchError, switchMap } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { TypedAction } from '@ngrx/store/src/models';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/security/auth.service';
 import { LoginService } from '../../../core/security/login.service';
-import { environment } from '../../../../environments/environment';
 import {
-  logInSuccess,
-  logInFail,
-  logOutSuccess,
-  logOutFail,
   AuthenticationActionTypes,
   logInAction,
+  logInFail,
+  logInSuccess,
   logOutAction,
+  logOutFail,
+  logOutSuccess,
 } from '../actions/authentication.actions';
-import { Action } from '@ngrx/store';
-import { AuthenticateModel } from '../../../auth/models/authentication.model';
-import { HttpResponse } from '@angular/common/http';
-import { TypedAction } from '@ngrx/store/src/models';
 
 /* @export
  * @class AuthenticationEffects
@@ -31,24 +30,20 @@ export class AuthenticationEffects {
   login$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(logInAction),
-      map(
-        (
-          action: {
-            payload: AuthenticateModel;
-          } & TypedAction<AuthenticationActionTypes.LOGIN>,
-        ) => action.payload,
-      ),
-      switchMap((payload: AuthenticateModel) => {
-        return this.loginservice.login(payload.username, payload.password).pipe(
-          map((response: HttpResponse<any>) => {
-            let token: string = '';
-            if (environment.security === 'jwt') {
-              token = response.headers.get('authorization');
-            }
-            return logInSuccess({ token });
-          }),
-          catchError((error: Error) => of(logInFail({ error: error }))),
-        );
+      map(authenticateModel => authenticateModel.authenticateModel),
+      switchMap((authenticateModel: any) => {
+        return this.loginservice
+          .login(authenticateModel.username, authenticateModel.password)
+          .pipe(
+            map((response: HttpResponse<any>) => {
+              let token = '';
+              if (environment.security === 'jwt') {
+                token = response.headers.get('authorization');
+              }
+              return logInSuccess({ token });
+            }),
+            catchError((error: Error) => of(logInFail({ error: error }))),
+          );
       }),
     ),
   );
@@ -60,29 +55,21 @@ export class AuthenticationEffects {
     () =>
       this.actions.pipe(
         ofType(logInSuccess),
-        tap(
-          (
-            action: {
-              payload: {
-                token: string;
-              };
-            } & TypedAction<AuthenticationActionTypes.LOGIN_SUCCESS>,
-          ) => {
-            if (environment.security === 'csrf') {
-              this.loginservice.getCsrf().subscribe((data: any) => {
-                this.authservice.setToken(data.token);
-                this.authservice.setLogged(true);
-                this.router.navigate(['/home']);
-              });
-            }
-
-            if (environment.security === 'jwt') {
-              this.authservice.setToken(action.payload.token);
+        tap(action => {
+          if (environment.security === 'csrf') {
+            this.loginservice.getCsrf().subscribe((data: any) => {
+              this.authservice.setToken(data.token);
               this.authservice.setLogged(true);
-              this.router.navigateByUrl('/home');
-            }
-          },
-        ),
+              this.router.navigate(['/home']);
+            });
+          }
+
+          if (environment.security === 'jwt') {
+            this.authservice.setToken(action.token);
+            this.authservice.setLogged(true);
+            this.router.navigateByUrl('/home');
+          }
+        }),
       ),
     { dispatch: false },
   );

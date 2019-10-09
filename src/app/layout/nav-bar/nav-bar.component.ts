@@ -11,7 +11,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent {
-  sideNavOpened: boolean = false;
+  sideNavOpened = false;
   isMobile: any;
   /* Creates an instance of NavBarComponent.
    * @param {Router} router

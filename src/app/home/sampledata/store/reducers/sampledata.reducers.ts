@@ -49,113 +49,62 @@ const sampleDataReducer: ActionReducer<
     ...state,
     loading: true,
   })),
-  on(
-    sampleDataActions.loadDataSuccess,
-    (
-      state: SampleDataState,
-      action: {
-        payload: HttpResponseModel;
-      } & TypedAction<
-        sampleDataActions.SampleDataActionTypes.LOAD_DATA_SUCCESS
-      > & {
-          type: sampleDataActions.SampleDataActionTypes.LOAD_DATA_SUCCESS;
-        },
-    ) => {
-      const response: HttpResponseModel = action.payload;
-      const data: SampleDataModel[] = response.content;
+  on(sampleDataActions.loadDataSuccess, (state: SampleDataState, action) => {
+    const response: HttpResponseModel = action.httpResponseModel;
+    const data: SampleDataModel[] = response.content;
 
-      state = {
-        ...state,
-        loading: false,
-        loaded: true,
-        totalElements: response.totalElements,
-      };
-      return adapter.addAll(data, state);
-    },
-  ),
+    state = {
+      ...state,
+      loading: false,
+      loaded: true,
+      totalElements: response.totalElements,
+    };
+    return adapter.addAll(data, state);
+  }),
   on(sampleDataActions.loadDataFail, (state: SampleDataState) => ({
     ...state,
     loading: false,
     loaded: false,
   })),
   on(sampleDataActions.createData, (state: SampleDataState) => ({ ...state })),
-  on(
-    sampleDataActions.createDataSuccess,
-    (
-      state: SampleDataState,
-      action: {
-        payload: SearchCriteriaDataModel;
-      } & TypedAction<
-        sampleDataActions.SampleDataActionTypes.CREATE_DATA_SUCCESS
-      > & {
-          type: sampleDataActions.SampleDataActionTypes.CREATE_DATA_SUCCESS;
-        },
-    ) => {
-      const data: SampleDataModel = action.payload.data;
-      state = {
-        ...state,
-        loading: false,
-        loaded: false,
-      };
-      return adapter.addOne(data, state);
-    },
-  ),
+  on(sampleDataActions.createDataSuccess, (state: SampleDataState, action) => {
+    const data: SampleDataModel = action.searchCriteriaDataModel.data;
+    state = {
+      ...state,
+      loading: false,
+      loaded: false,
+    };
+    return adapter.addOne(data, state);
+  }),
   on(sampleDataActions.createDataFail, (state: SampleDataState) => ({
     ...state,
     textMessage: 'Add Data Fail',
   })),
   on(sampleDataActions.updateData, (state: SampleDataState) => ({ ...state })),
-  on(
-    sampleDataActions.updateDataSuccess,
-    (
-      state: SampleDataState,
-      action: {
-        payload: {
-          criteria: {};
-          data: Update<SampleDataModel>;
-        };
-      } & TypedAction<
-        sampleDataActions.SampleDataActionTypes.UPDATE_DATA_SUCCESS
-      > & {
-          type: sampleDataActions.SampleDataActionTypes.UPDATE_DATA_SUCCESS;
-        },
-    ) => {
-      const data: Update<SampleDataModel> = action.payload.data;
-      state = {
-        ...state,
-        textMessage: 'Edit Data Success',
-      };
-      return adapter.updateOne(data, state);
-    },
-  ),
+  on(sampleDataActions.updateDataSuccess, (state: SampleDataState, action) => {
+    const data: Update<SampleDataModel> = action.data;
+    state = {
+      ...state,
+      textMessage: 'Edit Data Success',
+    };
+    return adapter.updateOne(data, state);
+  }),
   on(sampleDataActions.updateDataFail, (state: SampleDataState) => ({
     ...state,
     textMessage: 'Edit Data Fail',
   })),
   on(sampleDataActions.deleteData, (state: SampleDataState) => ({ ...state })),
-  on(
-    sampleDataActions.deleteDataSuccess,
-    (
-      state: SampleDataState,
-      action: {
-        payload: SearchCriteriaDataModel;
-      } & TypedAction<
-        sampleDataActions.SampleDataActionTypes.DELETE_DATA_SUCCESS
-      > & {
-          type: sampleDataActions.SampleDataActionTypes.DELETE_DATA_SUCCESS;
-        },
-    ) => {
-      const dataId: number = action.payload.data.id;
-      state = {
-        ...state,
-        textMessage: 'delete Data Success',
-        loading: false,
-        loaded: true,
-      };
+  on(sampleDataActions.deleteDataSuccess, (state: SampleDataState, action) => {
+    const dataId: number = action.searchCriteriaDataModel.data.id;
+    state = {
+      ...state,
+      textMessage: 'delete Data Success',
+      loading: false,
+      loaded: true,
+    };
 
-      return adapter.removeOne(dataId, state);
-    },
-  ),
+    return adapter.removeOne(dataId, state);
+  }),
   on(sampleDataActions.deleteDataFail, (state: SampleDataState) => ({
     ...state,
     textMessage: 'delete Data Fail',

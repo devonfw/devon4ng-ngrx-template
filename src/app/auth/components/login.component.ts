@@ -28,10 +28,10 @@ export class LoginComponent implements OnInit {
    * @memberof LoginComponent
    */
   login(login: any): void {
-    const payload: AuthenticateModel = {
+    const authenticateModel: AuthenticateModel = {
       username: login.value.username,
       password: login.value.password,
     };
-    this.store.dispatch(logInAction(payload));
+    this.store.dispatch(logInAction({ authenticateModel }));
   }
 }

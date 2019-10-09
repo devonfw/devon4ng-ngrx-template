@@ -16,6 +16,7 @@ import { SampleDataModel } from '../../models/sampledata.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SampleDataAlertComponent } from '../sampledata-alert/sampledata-alert.component';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 
 /* @export
  * @class SampleDataGridComponent
@@ -75,7 +76,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['select', 'name', 'surname', 'age', 'mail'];
 
   totalItems: number;
-  pageSize: number = 8;
+  pageSize = 8;
   pageSizes: number[] = [8, 16, 24];
   selectedRow: any;
   dialogRef: MatDialogRef<SampleDataDialogComponent>;
@@ -122,7 +123,11 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       fromStore.getSampleDataTotal,
     );
 
-    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
+    this.store.dispatch(
+      sampleDataActions.loadData({
+        sampleDataModel: this.getSearchCriteria(),
+      }),
+    );
     this.getSampleData();
   }
 
@@ -197,7 +202,11 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       sort: this.pageable.sort,
     };
 
-    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
+    this.store.dispatch(
+      sampleDataActions.loadData({
+        sampleDataModel: this.getSearchCriteria(),
+      }),
+    );
   }
   /* @param {ITdDataTableSortChangeEvent} sortEvent
    * @memberof SampleDataGridComponent
@@ -210,7 +219,11 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
         direction: '' + sortEvent.direction,
       });
     }
-    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
+    this.store.dispatch(
+      sampleDataActions.loadData({
+        sampleDataModel: this.getSearchCriteria(),
+      }),
+    );
   }
   checkboxLabel(row?: any): string {
     return `${
@@ -224,11 +237,12 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe((result: any) => {
         if (result) {
+          const searchCriteriaDataModel: SearchCriteriaDataModel = {
+            criteria: this.getSearchCriteria(),
+            data: result,
+          };
           this.store.dispatch(
-            sampleDataActions.createData({
-              criteria: this.getSearchCriteria(),
-              data: result,
-            }),
+            sampleDataActions.createData({ searchCriteriaDataModel }),
           );
         }
       });
@@ -253,11 +267,12 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
         if (result) {
           {
             this.selectedRow = undefined;
+            const searchCriteriaDataModel: SearchCriteriaDataModel = {
+              criteria: this.getSearchCriteria(),
+              data: result,
+            };
             this.store.dispatch(
-              sampleDataActions.updateData({
-                criteria: this.getSearchCriteria(),
-                data: result,
-              }),
+              sampleDataActions.updateData({ searchCriteriaDataModel }),
             );
           }
         }
@@ -289,18 +304,23 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe((accept: boolean) => {
         if (accept) {
+          const searchCriteriaDataModel: SearchCriteriaDataModel = {
+            criteria: this.getSearchCriteria(),
+            data: payload,
+          };
           this.store.dispatch(
-            sampleDataActions.deleteData({
-              criteria: this.getSearchCriteria(),
-              data: payload,
-            }),
+            sampleDataActions.deleteData({searchCriteriaDataModel}),
           );
           this.selectedRow = undefined;
         }
       });
   }
   filter(): void {
-    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
+    this.store.dispatch(
+      sampleDataActions.loadData({
+        sampleDataModel: this.getSearchCriteria(),
+      }),
+    );
     this.pagingBar.firstPage();
   }
 
@@ -309,6 +329,10 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
    */
   searchReset(form: any): void {
     form.reset();
-    this.store.dispatch(sampleDataActions.loadData(this.getSearchCriteria()));
+    this.store.dispatch(
+      sampleDataActions.loadData({
+        sampleDataModel: this.getSearchCriteria(),
+      }),
+    );
   }
 }
