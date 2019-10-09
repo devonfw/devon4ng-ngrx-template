@@ -7,7 +7,7 @@ import { SampleDataEffects } from './sampledata.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { hot, cold } from 'jasmine-marbles';
-import { CoreModule } from '../../../core/core.module';
+import { CoreModule } from '../../../../core/core.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { Actions, ofType } from '@ngrx/effects';
 import { switchMap } from 'rxjs/operators';

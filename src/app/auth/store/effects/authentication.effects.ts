@@ -3,14 +3,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/security/auth.service';
 import { LoginService } from '../../../core/security/login.service';
 import {
-  AuthenticationActionTypes,
   logInAction,
   logInFail,
   logInSuccess,

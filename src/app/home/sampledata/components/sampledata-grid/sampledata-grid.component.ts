@@ -309,7 +309,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
             data: payload,
           };
           this.store.dispatch(
-            sampleDataActions.deleteData({searchCriteriaDataModel}),
+            sampleDataActions.deleteData({ searchCriteriaDataModel }),
           );
           this.selectedRow = undefined;
         }

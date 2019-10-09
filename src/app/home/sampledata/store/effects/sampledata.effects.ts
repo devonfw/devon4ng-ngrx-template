@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-
-import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
-import { of, Observable } from 'rxjs';
-import { map, switchMap, catchError, exhaustMap } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Update } from '@ngrx/entity';
+import { Action } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
-import { SampleDataModel } from '../../models/sampledata.model';
-import * as sampleDataActions from '../actions/sampledata.actions';
-import { Action } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
 import { HttpResponseModel } from '../../models/httpresponse.model';
+import { SampleDataModel } from '../../models/sampledata.model';
 import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
-import { TypedAction } from '@ngrx/store/src/models';
+import * as sampleDataActions from '../actions/sampledata.actions';
 
 /* @export
  * @class SampleDataEffects
@@ -58,9 +56,13 @@ export class SampleDataEffects {
         return this.sampledataservice
           .saveSampleData(searchCriteriaDataModel.data)
           .pipe(
-            map((data: SearchCriteriaDataModel) => {
+            map((data: SampleDataModel) => {
+              const criteriaDataModel: SearchCriteriaDataModel = {
+                criteria: searchCriteriaDataModel.criteria,
+                data: data,
+              };
               return sampleDataActions.createDataSuccess({
-                searchCriteriaDataModel: searchCriteriaDataModel,
+                searchCriteriaDataModel: criteriaDataModel,
               });
             }),
             catchError((error: Error) =>

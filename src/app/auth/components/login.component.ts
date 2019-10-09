@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { logInAction } from '../store/actions/authentication.actions';
+import { Observable } from 'rxjs';
 import { AuthenticateModel } from '../../auth/models/authentication.model';
 import * as fromStore from '../store';
+import { logInAction } from '../store/actions/authentication.actions';
 import { getAuthState } from '../store/reducers/index';
 
 /* @export
