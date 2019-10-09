@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 /* @export
  * @class AppComponent
@@ -12,7 +12,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-
   /* Creates an instance of AppComponent.
    * @param {Router} router
    * @param {TranslateService} translate

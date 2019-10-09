@@ -1,6 +1,6 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /* @export
  * @class NavBarComponent

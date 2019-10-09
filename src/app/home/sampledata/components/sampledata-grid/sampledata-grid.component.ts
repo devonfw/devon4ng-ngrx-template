@@ -1,22 +1,22 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { SampleDataService } from '../../services/sampledata.service';
-import { AuthService } from '../../../../core/security/auth.service';
-import { SampleDataDialogComponent } from '../../components/sampledata-dialog/sampledata-dialog.component';
-import { Pageable } from '../../../../shared/models/pageable';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../../../core/security/auth.service';
+import { Pageable } from '../../../../shared/models/pageable';
+import { SampleDataDialogComponent } from '../../components/sampledata-dialog/sampledata-dialog.component';
+import { SampleDataModel } from '../../models/sampledata.model';
+import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
+import { SampleDataService } from '../../services/sampledata.service';
 import * as fromStore from '../../store';
 import * as sampleDataActions from '../../store/actions/sampledata.actions';
-import { SampleDataModel } from '../../models/sampledata.model';
-import { SelectionModel } from '@angular/cdk/collections';
 import { SampleDataAlertComponent } from '../sampledata-alert/sampledata-alert.component';
-import { untilDestroyed } from 'ngx-take-until-destroy';
-import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 
 /* @export
  * @class SampleDataGridComponent

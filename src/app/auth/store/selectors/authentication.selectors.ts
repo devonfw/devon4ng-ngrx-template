@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { getAuthState } from '../reducers';
-import { Authentication } from '../reducers/index';
 import * as authenticationState from '../reducers/authentication.reducers';
+import { Authentication } from '../reducers/index';
 
 export const getAuthentication: any = createSelector(
   getAuthState,

@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedIn: boolean = false;
+  private loggedIn = false;
   private token: string;
 
   /* Creates an instance of AuthService.
    * @param {Router} router
    * @memberof AuthService
    */
-  constructor(public router: Router) { }
+  constructor(public router: Router) {}
 
   /* @returns {boolean}
    * @memberof AuthService

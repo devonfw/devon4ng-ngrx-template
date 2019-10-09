@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
 const routes: Routes = [
   {
     path: '',

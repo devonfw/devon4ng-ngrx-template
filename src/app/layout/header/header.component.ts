@@ -1,11 +1,11 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Component, EventEmitter, Output, Input } from '@angular/core';
-import { AuthService } from '../../core/security/auth.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { logOutAction } from '../../auth/store/actions';
+import { AuthService } from '../../core/security/auth.service';
 /// import { AppState } from '../../sampledata/store/app.states';
 import { AppState } from '../../home/sampledata/store/reducers/index';
-import { logOutAction } from '../../auth/store/actions';
 
 /* @export
  * @class HeaderComponent
@@ -16,7 +16,7 @@ import { logOutAction } from '../../auth/store/actions';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() sideNavOpened: boolean = false;
+  @Input() sideNavOpened = false;
   @Output() toggle: EventEmitter<any> = new EventEmitter();
 
   /* Creates an instance of HeaderComponent.
