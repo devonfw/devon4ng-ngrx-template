@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
+import { InitialPageComponent } from '../initial-page/components/initial-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    component: SampleDataGridComponent,
+    component: InitialPageComponent,
   },
 ];
 @NgModule({
   exports: [RouterModule],
   imports: [RouterModule.forChild(routes)],
 })
-export class SampleDataRoutingModule {}
+export class InitialPageRoutingModule {}

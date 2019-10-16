@@ -1,22 +1,20 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import {
   HttpClientModule,
   HttpClientXsrfModule,
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CdkTableModule } from '@angular/cdk/table';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import 'hammerjs';
-
-import { HttpRequestInterceptorService } from './security/httpRequestInterceptor.service';
+import { MaterialModule } from './material.module';
 import { AuthGuard } from './security/auth-guard.service';
 import { AuthService } from './security/auth.service';
-import { BusinessOperationsService } from './shared/business-operations.service';
+import { HttpRequestInterceptorService } from './security/httpRequestInterceptor.service';
 import { LoginService } from './security/login.service';
-import { MaterialModule } from './material.module';
+import { BusinessOperationsService } from './shared/business-operations.service';
 
 @NgModule({
   imports: [
@@ -24,7 +22,6 @@ import { MaterialModule } from './material.module';
     HttpClientXsrfModule,
     CdkTableModule,
     RouterModule,
-    BrowserAnimationsModule,
   ],
   exports: [CommonModule, FormsModule, MaterialModule, CdkTableModule],
   declarations: [],

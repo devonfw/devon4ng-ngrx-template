@@ -22,7 +22,6 @@ import { InitialPageModule } from '../initial-page/initial-page.module';
     CoreModule,
     TranslateModule,
     SampleDataRoutingModule,
-    InitialPageModule,
     StoreModule.forFeature('sampledatareducer', reducers),
     EffectsModule.forFeature([SampleDataEffects]),
   ],

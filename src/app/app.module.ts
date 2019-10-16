@@ -21,7 +21,6 @@ import {
   StoreRouterConnectingModule,
   RouterStateSerializer,
 } from '@ngrx/router-store';
-import { InitialPageModule } from './home/initial-page/initial-page.module';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? []
@@ -38,12 +37,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     AuthDataModule,
-    SampleDataModule,
     BrowserAnimationsModule,
     LayoutModule,
     AppRoutingModule,
     CoreModule,
-    InitialPageModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

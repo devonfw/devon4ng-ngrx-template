@@ -58,16 +58,17 @@ export class AuthenticationEffects {
             this.loginservice.getCsrf().subscribe((data: any) => {
               this.authservice.setToken(data.token);
               this.authservice.setLogged(true);
-              this.router.navigate(['/home']);
+              this.router.navigate(['/home//initial']);
             });
           }
 
           if (environment.security === 'jwt') {
             this.authservice.setToken(action.token);
             this.authservice.setLogged(true);
-            this.router.navigateByUrl('/home');
+            this.router.navigate(['/home/initial']);
           }
         }),
+        catchError((error: Error) => of(logInFail({ error: error }))),
       ),
     { dispatch: false },
   );

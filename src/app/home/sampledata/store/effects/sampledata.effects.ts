@@ -144,7 +144,6 @@ export class SampleDataEffects {
                   mail: editdata.mail,
                 },
               };
-              searchCriteriaDataModel.data = update;
               return sampleDataActions.updateDataSuccess({
                 criteria: searchCriteriaDataModel.criteria,
                 data: update,
