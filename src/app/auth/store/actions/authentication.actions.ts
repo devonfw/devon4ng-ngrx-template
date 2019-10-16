@@ -1,64 +1,37 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, props, union } from '@ngrx/store';
 import { AuthenticateModel } from '../../../auth/models/authentication.model';
 
-/* @export
- * @enum {number}
- */
-export enum AuthenticationActionTypes {
-  LOGIN = '[SampleData] Login ',
-  LOGIN_SUCCESS = '[SampleData] LoginSuccess',
-  LOGIN_FAIL = '[SampleData] LoginFail',
-  LOGOUT = '[SampleData] Logout ',
-  LOGOUT_SUCCESS = '[SampleData] LogoutSuccess',
-  LOGOUT_FAIL = '[SampleData] LogoutFail',
-}
-
-/* @export
- * @class LogInAction
- * @implements {Action}
- */
 export const logInAction = createAction(
-  AuthenticationActionTypes.LOGIN,
+  '[AuthActions] Login',
   props<{ authenticateModel: AuthenticateModel }>(),
 );
 
-/* @export
- * @class LogInSuccess
- * @implements {Action}
- */
 export const logInSuccess = createAction(
-  AuthenticationActionTypes.LOGIN_SUCCESS,
+  '[AuthActions] LoginSuccess',
   props<{ token: string }>(),
 );
 
-/* @export
- * @class LogInFail
- * @implements {Action}
- */
 export const logInFail = createAction(
-  AuthenticationActionTypes.LOGIN_FAIL,
+  '[AuthActions] LoginFail',
   props<{ error: Error }>(),
 );
 
-/* @export
- * @class LogOutAction
- * @implements {Action}
- */
-export const logOutAction = createAction(AuthenticationActionTypes.LOGOUT);
+export const logOutAction = createAction('[AuthActions] Logout');
 
-/* @export
- * @class LogOutSuccess
- * @implements {Action}
- */
-export const logOutSuccess = createAction(
-  AuthenticationActionTypes.LOGOUT_SUCCESS,
-);
+export const logOutSuccess = createAction('[AuthActions] LogoutSuccess');
 
-/* @export
- * @class LogOutFail
- * @implements {Action}
- */
 export const logOutFail = createAction(
-  AuthenticationActionTypes.LOGOUT_FAIL,
+  '[AuthActions] LogoutFail',
   props<{ error: Error }>(),
 );
+
+const all = union({
+  logInAction,
+  logInSuccess,
+  logInFail,
+  logOutAction,
+  logOutSuccess,
+  logOutFail,
+});
+
+export type AuthActions = typeof all;
