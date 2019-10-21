@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -6,10 +6,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./sampledata-alert.component.scss'],
 })
 export class SampleDataAlertComponent implements OnInit {
-  message: string = '';
-  title: string = '';
-  cancelButton: string = 'Cancel';
-  acceptButton: string = 'Delete';
+  message = '';
+  title = '';
+  cancelButton = 'Cancel';
+  acceptButton = 'Delete';
   constructor(
     public dialogRef: MatDialogRef<SampleDataAlertComponent>,
     @Inject(MAT_DIALOG_DATA) private dialogData: any,

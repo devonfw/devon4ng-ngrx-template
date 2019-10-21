@@ -8,13 +8,12 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { SampleDataModule } from './sampledata/sampledata.module';
+import { SampleDataModule } from './home/sampledata/sampledata.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, MetaReducer } from '@ngrx/store';
 import { reducers, CustomSerializer } from './store';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HomeModule } from './home/home.module';
 import { LoginComponent } from './auth/components/login.component';
 
 import { AuthDataModule } from './auth/auth.module';
@@ -38,12 +37,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     AuthDataModule,
-    SampleDataModule,
     BrowserAnimationsModule,
     LayoutModule,
     AppRoutingModule,
     CoreModule,
-    HomeModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

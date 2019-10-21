@@ -1,9 +1,9 @@
-import { StoreModule } from '@ngrx/store';
-import { reducers, effects } from './store/reducers/index';
-import { EffectsModule } from '@ngrx/effects';
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { AuthDataRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './components/login.component';
+import { effects, reducers } from './store/reducers/index';
 
 /* @export
  * @class AuthDataModule

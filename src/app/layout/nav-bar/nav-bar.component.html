@@ -20,7 +20,7 @@
               <a
                 id="home"
                 mat-list-item
-                [routerLink]="['./initialPage']"
+                [routerLink]="['./initial']"
                 (click)="close()"
               >
                 <mat-icon matListAvatar>home</mat-icon>
@@ -46,7 +46,9 @@
           <mat-sidenav-content>
             <div class="content-container-outer">
               <div class="content-container-inner">
-                <router-outlet></router-outlet>
+                <router-outlet>
+                  
+                </router-outlet>
               </div>
               <mat-toolbar class="public-footer">
                 <span>DevonFW Application</span>

@@ -7,4 +7,5 @@
       },
       "prettier.singleQuote": true,
       "prettier.trailingComma": "all",
+      "workbench.editor.enablePreview": false
     }

@@ -1,7 +1,12 @@
 import {
-  AuthenticationActionTypes,
-  AuthenticationAction,
+  logInAction,
+  logInSuccess,
+  logInFail,
+  logOutAction,
+  logOutSuccess,
+  logOutFail,
 } from '../actions/authentication.actions';
+import { createReducer, on, ActionReducer, Action } from '@ngrx/store';
 
 /* @export
  * @interface AuthState
@@ -22,30 +27,49 @@ export const initialState: AuthState = {
  * @param {AuthenticationAction} action
  * @returns {AuthState}
  */
+const authReducer: ActionReducer<
+  {
+    errorMessage: string;
+    isLoggedIn: boolean;
+    textMessage: string;
+  },
+  Action
+> = createReducer(
+  initialState,
+  on(logInAction, (state: AuthState) => ({
+    ...state,
+    isLoggedIn: false,
+  })),
+  on(logInSuccess, (state: AuthState) => ({
+    ...state,
+    isLoggedIn: true,
+  })),
+  on(logInFail, (state: AuthState) => ({
+    ...state,
+    errorMessage: 'Incorrect username and/or password.',
+  })),
+  on(logOutAction, (state: AuthState) => ({
+    ...state,
+    textMessage: 'Logging Out.',
+  })),
+  on(logOutSuccess, (state: AuthState) => initialState),
+  on(logOutFail, (state: AuthState) => ({
+    ...state,
+    errorMessage: 'Something went wrong !!!!.',
+  })),
+);
+
 export function reducer(
-  state: AuthState = initialState,
-  action: AuthenticationAction,
-): AuthState {
-  switch (action.type) {
-    case AuthenticationActionTypes.LOGIN:
-      return { ...state, isLoggedIn: false };
-    case AuthenticationActionTypes.LOGIN_SUCCESS:
-      return { ...state, isLoggedIn: true };
-    case AuthenticationActionTypes.LOGIN_FAIL: {
-      return { ...state, errorMessage: 'Incorrect username and/or password.',
-      };
-    }
-    case AuthenticationActionTypes.LOGOUT:
-      return { ...state, textMessage: 'Logging Out.' };
-    case AuthenticationActionTypes.LOGOUT_SUCCESS:
-      return initialState;
-    case AuthenticationActionTypes.LOGOUT_FAIL:
-      return { ...state, errorMessage: 'Something went wrong !!!!.',
-      };
-    default:
-      return state;
-  }
+  state: AuthState | undefined,
+  action: Action,
+): {
+  errorMessage: string;
+  isLoggedIn: boolean;
+  textMessage: string;
+} {
+  return authReducer(state, action);
 }
+
 export const getSelectUser: any = (state: AuthState) => state.isLoggedIn;
 export const getSelectError: any = (state: AuthState) => state.errorMessage;
 export const getTextMessage: any = (state: AuthState) => state.textMessage;

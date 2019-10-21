@@ -4,7 +4,7 @@ import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
 import { Update } from '@ngrx/entity';
 import { SampleDataModel } from '../../models/sampledata.model';
 
-const TEST_ID: number = 0;
+const TEST_ID = 0;
 const detailsdata: SearchCriteriaDataModel = {
   criteria: {},
   data: {
@@ -28,9 +28,9 @@ describe('SampleDataReducersTestCase', () => {
     it('should add the New Details in array', () => {
       const { initialState } = fromMyReducers;
       const previousState: any = { ...initialState };
-      const action: any = new froasptempletesaction.CreateDataSuccess(
-        detailsdata,
-      );
+      const action: any = froasptempletesaction.createDataSuccess({
+        searchCriteriaDataModel: detailsdata,
+      });
       const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         previousState,
         action,
@@ -49,9 +49,9 @@ describe('SampleDataReducersTestCase', () => {
     it('should Edit Details in array', () => {
       // Add entity
       const { initialState } = fromMyReducers;
-      const action: any = new froasptempletesaction.CreateDataSuccess(
-        detailsdata,
-      );
+      const action: any = froasptempletesaction.createDataSuccess({
+        searchCriteriaDataModel: detailsdata,
+      });
       const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         { ...initialState },
         action,
@@ -75,9 +75,7 @@ describe('SampleDataReducersTestCase', () => {
 
       // Update added entity
       const afterAddState: fromMyReducers.SampleDataState = { ...state };
-      const actionUpdate: any = new froasptempletesaction.UpdateDataSuccess(
-        edit,
-      );
+      const actionUpdate: any = froasptempletesaction.updateDataSuccess(edit);
       const stateUpdated: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         afterAddState,
         actionUpdate,
@@ -100,9 +98,9 @@ describe('SampleDataReducersTestCase', () => {
     it('should Remove the Details from array', () => {
       // Add entity
       const { initialState } = fromMyReducers;
-      const action: any = new froasptempletesaction.CreateDataSuccess(
-        detailsdata,
-      );
+      const action: any = froasptempletesaction.createDataSuccess({
+        searchCriteriaDataModel: detailsdata,
+      });
       const state: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         { ...initialState },
         action,
@@ -111,9 +109,9 @@ describe('SampleDataReducersTestCase', () => {
       // Delete added entity
       const textMessage: any = 'delete Data Success';
       const afterAddState: any = { ...state };
-      const actionDelete: any = new froasptempletesaction.DeleteDataSuccess(
-        detailsdata,
-      );
+      const actionDelete: any = froasptempletesaction.deleteDataSuccess({
+        searchCriteriaDataModel: detailsdata,
+      });
       const stateDeleted: any = fromMyReducers.reducer(
         afterAddState,
         actionDelete,
