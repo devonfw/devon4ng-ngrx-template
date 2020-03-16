@@ -8,7 +8,6 @@ import {
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import 'hammerjs';
 import { MaterialModule } from './material.module';
 import { AuthGuard } from './security/auth-guard.service';
 import { AuthService } from './security/auth.service';

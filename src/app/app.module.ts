@@ -19,7 +19,7 @@ import { LoginComponent } from './auth/components/login.component';
 import { AuthDataModule } from './auth/auth.module';
 import {
   StoreRouterConnectingModule,
-  RouterStateSerializer,
+  RouterStateSerializer, DefaultRouterStateSerializer,
 } from '@ngrx/router-store';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
@@ -49,7 +49,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule.forRoot({ stateKey: 'routerReducer' }),
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer, stateKey: 'routerReducer' }),
     EffectsModule.forRoot([]),
     TranslateModule.forRoot({
       loader: {
