@@ -4,9 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SampleDataModule } from './home/sampledata/sampledata.module';
 import { EffectsModule } from '@ngrx/effects';
@@ -19,15 +17,14 @@ import { LoginComponent } from './auth/components/login.component';
 import { AuthDataModule } from './auth/auth.module';
 import {
   StoreRouterConnectingModule,
-  RouterStateSerializer, DefaultRouterStateSerializer,
+  RouterStateSerializer,
+  DefaultRouterStateSerializer,
 } from '@ngrx/router-store';
+import { TranslocoRootModule } from './transloco-root.module';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? []
   : [];
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
 
 /* @export
  * @class AppModule
@@ -49,15 +46,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer, stateKey: 'routerReducer' }),
-    EffectsModule.forRoot([]),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
+    StoreRouterConnectingModule.forRoot({
+      serializer: DefaultRouterStateSerializer,
+      stateKey: 'routerReducer',
     }),
+    EffectsModule.forRoot([]),
+    HttpClientModule,
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent],

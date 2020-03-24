@@ -5,8 +5,9 @@ export interface SampleDataModel {
   name?: string;
   surname?: string;
   age?: number;
-  mail?: string;
+  email?: string;
   id?: number;
+  modificationCounter?: number;
   size?: number;
   page?: number;
   searchTerms?: any;

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SearchCriteria } from '../../../shared/models/search-criteria';
 import { Router } from '@angular/router';
 import { SampleDataModel } from '../models/sampledata.model';
+import { HttpResponseModel } from '../models/httpresponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -42,42 +43,45 @@ export class SampleDataService {
       name: searchTerms.name,
       surname: searchTerms.surname,
       age: searchTerms.age,
-      mail: searchTerms.mail,
+      email: searchTerms.email,
     };
 
-    return this.http.post<any>(this.urlService + 'search', searchCriteria);
+    return this.http.post<HttpResponseModel>(
+      this.urlService + 'search',
+      searchCriteria,
+    );
   }
 
   /* @param {*} data
    * @returns {Observable<Object>}
    * @memberof SampleDataService
    */
-  saveSampleData(data: any): Observable<Object> {
-    const obj: any = {
+  saveSampleData(data: SampleDataModel): Observable<Object> {
+    const obj: SampleDataModel = {
       id: data.id,
       name: data.name,
       surname: data.surname,
       age: data.age,
-      mail: data.mail,
+      email: data.email,
     };
-    return this.http.post(this.urlService, obj);
+    return this.http.post<SampleDataModel>(this.urlService, obj);
   }
 
   /* @param {*} data
    * @returns {Observable<Object>}
    * @memberof SampleDataService
    */
-  editSampleData(data: any): Observable<Object> {
-    const obj: any = {
+  editSampleData(data: SampleDataModel): Observable<SampleDataModel> {
+    const obj: SampleDataModel = {
       id: data.id,
       name: data.name,
       modificationCounter: data.modificationCounter,
       surname: data.surname,
       age: data.age,
-      mail: data.mail,
+      email: data.email,
     };
 
-    return this.http.post(this.urlService, obj);
+    return this.http.post<SampleDataModel>(this.urlService, obj);
   }
 
   /* @param {*} criteria
@@ -85,7 +89,7 @@ export class SampleDataService {
    * @memberof SampleDataService
    */
   searchSampleData(criteria: any): Observable<Object> {
-    return this.http.post(this.urlService + 'search', {
+    return this.http.post<HttpResponseModel>(this.urlService + 'search', {
       criteria: criteria,
     });
   }

@@ -11,25 +11,25 @@
   >
     <mat-icon>menu</mat-icon>
   </button>
-  <span class="cursor-pointer">{{ 'header.title' | translate }}</span>
+  <span class="cursor-pointer">{{ 'header.title' | transloco }}</span>
 
   <span flex></span>
 
   <span class="menu-items-right">
     <a mat-icon-button [mat-menu-trigger-for]="menu">
       <mat-icon
-        *ngIf="isCurrentLang('en')"
+        *ngIf="currentLanguage == 'es'"
         class="flag-icon flag-icon-es"
       ></mat-icon>
       <mat-icon
-        *ngIf="isCurrentLang('es')"
+        *ngIf="currentLanguage == 'en'"
         class="flag-icon flag-icon-gb"
       ></mat-icon>
     </a>
     <mat-menu #menu="matMenu">
       <button
         mat-menu-item
-        *ngIf="isCurrentLang('en')"
+        *ngIf="currentLanguage == 'es'"
         (click)="toggleLanguage('en')"
       >
         <mat-icon class="flag-icon flag-icon-gb"></mat-icon>
@@ -37,7 +37,7 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="isCurrentLang('es')"
+        *ngIf="currentLanguage == 'en'"
         (click)="toggleLanguage('es')"
       >
         <mat-icon class="flag-icon flag-icon-es"></mat-icon>

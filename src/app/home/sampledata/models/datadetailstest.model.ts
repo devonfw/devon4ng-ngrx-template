@@ -5,9 +5,9 @@ export class TestDataDetails {
   name?: string;
   surname?: string;
   age?: number;
-  mail?: string;
+  email?: string;
   id?: number;
-  pageSize?: number = 8;
+  pageSize ? = 8;
   pageSizes?: number[] = [8, 16, 24];
   selectedRow?: any;
   size?: number;
@@ -20,7 +20,7 @@ export const generateUser: any = (): TestDataDetails => {
     id: 0,
     name: 'name',
     surname: 'surname',
-    mail: 'mail@mail.com',
+    email: 'mail@mail.com',
     age: 20,
   };
 };

@@ -1,17 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoreModule } from '../../core/core.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/reducers/index';
+import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { CoreModule } from '../../core/core.module';
 import { SampleDataDialogComponent } from '../sampledata/components/sampledata-dialog/sampledata-dialog.component';
-import { SampleDataRoutingModule } from './sampledata-routing.module';
-
-import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
 import { SampleDataAlertComponent } from './components/sampledata-alert/sampledata-alert.component';
+import { SampleDataGridComponent } from './components/sampledata-grid/sampledata-grid.component';
+import { SampleDataRoutingModule } from './sampledata-routing.module';
 import { SampleDataEffects } from './store/effects/sampledata.effects';
-import { InitialPageModule } from '../initial-page/initial-page.module';
+import { reducers } from './store/reducers/index';
 
 /* @export
  * @class SampleDataModule
@@ -20,7 +17,6 @@ import { InitialPageModule } from '../initial-page/initial-page.module';
   imports: [
     CommonModule,
     CoreModule,
-    TranslateModule,
     SampleDataRoutingModule,
     StoreModule.forFeature('sampledatareducer', reducers),
     EffectsModule.forFeature([SampleDataEffects]),

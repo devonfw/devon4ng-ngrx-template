@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/platform-server": "~9.0.6",
     "@angular/router": "~9.0.6",
+    "@ngneat/transloco": "^2.14.0",
     "@ngrx/effects": "^9.0.0",
     "@ngrx/entity": "^9.0.0",
     "@ngrx/router-store": "^9.0.0",
@@ -29,10 +30,8 @@
     "@ngrx/store-devtools": "^9.0.0",
     "core-js": "^2.6.2",
     "intl": "^1.2.5",
-    "lodash": "4.17.13",
     "material-ui-country-flags": "^3.0.1",
     "ngx-take-until-destroy": "^5.4.0",
-    "remote-redux-devtools": "^0.5.16",
     "rxjs": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -61,5 +60,11 @@
     "ts-node": "~7.0.1",
     "tslint": "^5.20.0",
     "typescript": "~3.7.5"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
   }
 }

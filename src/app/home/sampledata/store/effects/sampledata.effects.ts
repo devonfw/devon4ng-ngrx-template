@@ -19,7 +19,7 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  loadData: Observable<Action> = createEffect(() =>
+  loadData$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(sampleDataActions.loadData),
       map(action => {
@@ -48,7 +48,7 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  addData: Observable<Action> = createEffect(() =>
+  createData$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(sampleDataActions.createData),
       map(action => action.searchCriteriaDataModel),
@@ -59,7 +59,7 @@ export class SampleDataEffects {
             map((data: SampleDataModel) => {
               const criteriaDataModel: SearchCriteriaDataModel = {
                 criteria: searchCriteriaDataModel.criteria,
-                data: data,
+                data,
               };
               return sampleDataActions.createDataSuccess({
                 searchCriteriaDataModel: criteriaDataModel,
@@ -76,7 +76,7 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  addDataSuccess: Observable<Action> = createEffect(() =>
+  createDataSuccess$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(sampleDataActions.createDataSuccess),
       map(action => {
@@ -90,7 +90,7 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  deleteData: Observable<Action> = createEffect(() =>
+  deleteData$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(sampleDataActions.deleteData),
       map(action => action.searchCriteriaDataModel),
@@ -112,7 +112,7 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  deleteDataSuccess: Observable<Action> = createEffect(() =>
+  deleteDataSuccess$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(sampleDataActions.deleteDataSuccess),
       map(action =>
@@ -126,7 +126,7 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  editData: Observable<Action> = createEffect(() =>
+  updateData$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(sampleDataActions.updateData),
       map(action => action.searchCriteriaDataModel),
@@ -141,7 +141,7 @@ export class SampleDataEffects {
                   name: editdata.name,
                   surname: editdata.surname,
                   age: editdata.age,
-                  mail: editdata.mail,
+                  email: editdata.email,
                 },
               };
               return sampleDataActions.updateDataSuccess({
@@ -160,7 +160,7 @@ export class SampleDataEffects {
   /* @type {Observable<Action>}
    * @memberof SampleDataEffects
    */
-  editDataSuccess: Observable<Action> = createEffect(() =>
+  updateDataSuccess$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(sampleDataActions.updateDataSuccess),
       map(action =>

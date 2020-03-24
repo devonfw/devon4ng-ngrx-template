@@ -4,8 +4,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../../core/security/auth.service';
@@ -52,28 +52,22 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   columns: any[] = [
     {
       name: 'name',
-      label: this.getTranslation(
-        'sampledatamanagement.SampleData.columns.name',
-      ),
+      label: 'sampledatamanagement.SampleData.columns.name',
     },
     {
       name: 'surname',
-      label: this.getTranslation(
-        'sampledatamanagement.SampleData.columns.surname',
-      ),
+      label: 'sampledatamanagement.SampleData.columns.surname',
     },
     {
       name: 'age',
-      label: this.getTranslation('sampledatamanagement.SampleData.columns.age'),
+      label: 'sampledatamanagement.SampleData.columns.age',
     },
     {
-      name: 'mail',
-      label: this.getTranslation(
-        'sampledatamanagement.SampleData.columns.mail',
-      ),
+      name: 'email',
+      label: 'sampledatamanagement.SampleData.columns.email',
     },
   ];
-  displayedColumns: string[] = ['select', 'name', 'surname', 'age', 'mail'];
+  displayedColumns: string[] = ['select', 'name', 'surname', 'age', 'email'];
 
   totalItems: number;
   pageSize = 8;
@@ -85,12 +79,12 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
   /* @type {*}
    * @memberof SampleDataGridComponent
    */
-  searchTerms: Object = {
+  searchTerms: any = {
     id: undefined,
     name: undefined,
     surname: undefined,
     age: undefined,
-    mail: undefined,
+    email: undefined,
     modificationCounter: undefined,
     pageSize: undefined,
     pagination: undefined,
@@ -107,7 +101,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
    */
   constructor(
     private store: Store<fromStore.AppState>,
-    private translate: TranslateService,
+    private translocoService: TranslocoService,
     public dialog: MatDialog,
     public authService: AuthService,
     public router: Router,
@@ -153,35 +147,6 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
         //
       },
     );
-  }
-
-  /* @param {string} text
-   * @returns {string}
-   * @memberof SampleDataGridComponent
-   */
-  getTranslation(text: string): string {
-    let value: string;
-
-    this.translate
-      .get(text)
-      .pipe(untilDestroyed(this))
-      .subscribe((res: string) => {
-        value = res;
-      });
-
-    this.translate.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
-      this.columns.forEach((column: any) => {
-        if (text.endsWith(column.name)) {
-          this.translate
-            .get('sampledatamanagement.SampleData.columns.' + column.name)
-            .pipe(untilDestroyed(this))
-            .subscribe((res: string) => {
-              column.label = res;
-            });
-        }
-      });
-    });
-    return value;
   }
 
   getSearchCriteria(): {} {
@@ -290,12 +255,16 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       .open(SampleDataAlertComponent, {
         width: '400px',
         data: {
-          message: this.getTranslation('sampledatamanagement.alert.message'),
-          title: this.getTranslation('sampledatamanagement.alert.title'),
-          cancelButton: this.getTranslation(
+          message: this.translocoService.translate(
+            'sampledatamanagement.alert.message',
+          ),
+          title: this.translocoService.translate(
+            'sampledatamanagement.alert.title',
+          ),
+          cancelButton: this.translocoService.translate(
             'sampledatamanagement.alert.cancelBtn',
           ),
-          acceptButton: this.getTranslation(
+          acceptButton: this.translocoService.translate(
             'sampledatamanagement.alert.acceptBtn',
           ),
         },

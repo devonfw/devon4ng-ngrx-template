@@ -1,6 +1,6 @@
-import * as froasptempletes from './sampledata.actions';
 import { generateUser } from '../../models/datadetailstest.model';
-import { SampleDataActionTypes } from './sampledata.actions';
+import * as fromSampleDataActions from './sampledata.actions';
+
 describe('SampleDataActionTestCase', () => {
   describe('Add Data Details', () => {
     describe('CreateData', () => {
@@ -8,24 +8,24 @@ describe('SampleDataActionTestCase', () => {
         const payload: any = {
           name: 'TESTNAME',
           surname: 'TESTSURNAME',
-          mail: 'TESTMAIL',
+          email: 'TESTMAIL',
           age: 12,
         };
-        const action: any = froasptempletes.createData(payload);
-        expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.CREATE_DATA,
-          payload,
+        const action = fromSampleDataActions.createData(payload);
+        expect({ ...(action as any) }).toEqual({
+          type: '[SampleData] CreateData',
+          searchCriteriaDataModel: payload,
         });
       });
     });
     describe('CreateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = froasptempletes.createDataFail({ error });
-        const payload: any = { error: error };
-        expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.CREATE_DATA_FAIL,
-          payload,
+        const action = fromSampleDataActions.createDataFail({ error });
+        const payload = { error: error };
+        expect({ ...(action as any) }).toEqual({
+          type: '[SampleData] CreateDataFail',
+          error: Object(payload),
         });
       });
     });
@@ -34,13 +34,13 @@ describe('SampleDataActionTestCase', () => {
         const payload: any = {
           name: 'TESTNAME',
           surname: 'TESTSURNAME',
-          mail: 'TESTMAIL',
+          email: 'TESTMAIL',
           age: 12,
         };
-        const action: any = froasptempletes.createDataSuccess(payload);
+        const action = fromSampleDataActions.createDataSuccess(payload);
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.CREATE_DATA_SUCCESS,
-          payload,
+          type: '[SampleData] CreateDataSuccess',
+          searchCriteriaDataModel: Object(payload),
         });
       });
     });
@@ -48,65 +48,64 @@ describe('SampleDataActionTestCase', () => {
   describe('Edit Data Details', () => {
     describe('UpdateData', () => {
       it('should create an action', () => {
-        const payload: any = generateUser();
-        const action: any = froasptempletes.updateData(payload);
+        const payload = generateUser();
+        const action: any = fromSampleDataActions.updateData(payload);
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.UPDATE_DATA,
-          payload,
+          type: '[SampleData] UpdateData',
+          searchCriteriaDataModel: Object(payload),
         });
       });
     });
     describe('UpdateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = froasptempletes.updateDataFail({ error });
-        const payload: any = { error: error };
-        expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.UPDATE_DATA_FAIL,
-          payload,
+        const action = fromSampleDataActions.updateDataFail({ error });
+        expect({ ...(action as any) }).toEqual({
+          type: '[SampleData] UpdateDataFail',
+          error,
         });
       });
     });
     describe('UpdateDataSuccess', () => {
       it('should create an action', () => {
-        const payload: any = generateUser();
-        const action: any = froasptempletes.updateDataSuccess(payload);
-        expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.UPDATE_DATA_SUCCESS,
-          payload,
+        const payload = generateUser();
+        const action = fromSampleDataActions.updateDataSuccess(payload);
+        expect({ ...(action as any) }).toEqual({
+          type: '[SampleData] UpdateDataSuccess',
+          criteria: {},
+          data: Object({ ...payload }),
         });
       });
     });
   });
-  describe('Remove Data Details', () => {
-    describe('RemoveData', () => {
+  describe('Delete Data Details', () => {
+    describe('DeleteData', () => {
       it('should create an action', () => {
-        const payload: any = generateUser();
-        const action: any = froasptempletes.deleteData(payload);
+        const payload = generateUser();
+        const action: any = fromSampleDataActions.deleteData(payload);
         expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.DELETE_DATA,
-          payload,
+          type: '[SampleData] DeleteData',
+          searchCriteriaDataModel: Object(payload),
         });
       });
     });
-    describe('RemoveDataFail', () => {
+    describe('DeleteDataFail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action: any = froasptempletes.deleteDataFail({ error });
-        const payload: any = { error: error };
-        expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.DELETE_DATA_FAIL,
-          payload,
+        const action = fromSampleDataActions.deleteDataFail({ error });
+        expect({ ...(action as any) }).toEqual({
+          type: '[SampleData] DeleteDataFail',
+          error,
         });
       });
     });
-    describe('RemoveDataSuccess', () => {
+    describe('DeleteDataSuccess', () => {
       it('should create an action', () => {
-        const payload: any = generateUser();
-        const action: any = froasptempletes.deleteDataSuccess(payload);
-        expect({ ...action }).toEqual({
-          type: SampleDataActionTypes.DELETE_DATA_SUCCESS,
-          payload,
+        const payload = generateUser();
+        const action = fromSampleDataActions.deleteDataSuccess(payload);
+        expect({ ...(action as any) }).toEqual({
+          type: '[SampleData] DeleteSuccess',
+          searchCriteriaDataMode: Object({ payload }),
         });
       });
     });

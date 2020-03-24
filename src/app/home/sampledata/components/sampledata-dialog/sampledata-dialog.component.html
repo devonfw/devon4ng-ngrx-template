@@ -5,7 +5,7 @@
       matInput
       type="string"
       name="name"
-      [placeholder]="'sampledatamanagement.SampleData.columns.name' | translate"
+      [placeholder]="'sampledatamanagement.SampleData.columns.name' | transloco"
       [(ngModel)]="items.name"
       required
     />
@@ -16,7 +16,7 @@
       type="string"
       name="surname"
       [placeholder]="
-        'sampledatamanagement.SampleData.columns.surname' | translate
+        'sampledatamanagement.SampleData.columns.surname' | transloco
       "
       [(ngModel)]="items.surname"
       required
@@ -27,7 +27,7 @@
       matInput
       type="number"
       name="age"
-      [placeholder]="'sampledatamanagement.SampleData.columns.age' | translate"
+      [placeholder]="'sampledatamanagement.SampleData.columns.age' | transloco"
       [(ngModel)]="items.age"
       required
     />
@@ -36,19 +36,21 @@
     <input
       matInput
       type="string"
-      name="mail"
-      [placeholder]="'sampledatamanagement.SampleData.columns.mail' | translate"
-      [(ngModel)]="items.mail"
+      name="email"
+      [placeholder]="
+        'sampledatamanagement.SampleData.columns.email' | transloco
+      "
+      [(ngModel)]="items.email"
       required
     />
   </mat-form-field>
 
   <mat-dialog-actions>
     <button type="button" mat-button mat-dialog-close>
-      {{ 'buttons.cancel' | translate }}
+      {{ 'buttons.cancel' | transloco }}
     </button>
     <button type="submit" mat-button [disabled]="!dialogForm.form.valid">
-      {{ 'buttons.save' | translate }}
+      {{ 'buttons.save' | transloco }}
     </button>
   </mat-dialog-actions>
 </form>
