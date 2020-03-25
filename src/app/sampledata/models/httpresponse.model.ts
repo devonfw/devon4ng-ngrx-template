@@ -1,5 +1,5 @@
 import { SampleDataModel } from './sampledata.model';
-import { Pageable } from '../../../shared/models/pageable';
+import { Pageable } from '../../shared/models/pageable';
 
 /* @export
  * @interface HttpResponseModel

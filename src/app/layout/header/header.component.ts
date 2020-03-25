@@ -4,7 +4,7 @@ import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
 import { Store } from '@ngrx/store';
 import { logOutAction } from '../../auth/store/actions';
 import { AuthService } from '../../core/security/auth.service';
-import { AppState } from '../../home/sampledata/store/reducers/index';
+import { AppState } from '../../sampledata/store/reducers/index';
 
 /* @export
  * @class HeaderComponent

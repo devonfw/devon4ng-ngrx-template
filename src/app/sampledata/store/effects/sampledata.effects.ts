@@ -4,7 +4,7 @@ import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { AuthService } from '../../../../core/security/auth.service';
+import { AuthService } from '../../../core/security/auth.service';
 import { SampleDataService } from '../../../sampledata/services/sampledata.service';
 import { HttpResponseModel } from '../../models/httpresponse.model';
 import { SampleDataModel } from '../../models/sampledata.model';

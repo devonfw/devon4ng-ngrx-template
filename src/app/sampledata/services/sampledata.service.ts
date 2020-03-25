@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
-import { SearchCriteria } from '../../../shared/models/search-criteria';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SampleDataModel } from '../models/sampledata.model';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { SearchCriteria } from '../../shared/models/search-criteria';
 import { HttpResponseModel } from '../models/httpresponse.model';
+import { SampleDataModel } from '../models/sampledata.model';
 
 @Injectable({
   providedIn: 'root',

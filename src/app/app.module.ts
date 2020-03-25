@@ -1,26 +1,23 @@
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import {
+  DefaultRouterStateSerializer,
+  RouterStateSerializer,
+  StoreRouterConnectingModule,
+} from '@ngrx/router-store';
+import { MetaReducer, StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthDataModule } from './auth/auth.module';
+import { LoginComponent } from './auth/components/login.component';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { SampleDataModule } from './home/sampledata/sampledata.module';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, MetaReducer } from '@ngrx/store';
-import { reducers, CustomSerializer } from './store';
-import { environment } from '../environments/environment';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { LoginComponent } from './auth/components/login.component';
-
-import { AuthDataModule } from './auth/auth.module';
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer,
-  DefaultRouterStateSerializer,
-} from '@ngrx/router-store';
-import { TranslocoRootModule } from './transloco-root.module';
+import { CustomSerializer, reducers } from './store';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? []

@@ -4,7 +4,7 @@
   </mat-toolbar>
   <div>
     <mat-card class="login-card">
-      <mat-card-title>{{ "login.title" | transloco }}</mat-card-title>
+      <mat-card-title>{{ 'login.title' | transloco }}</mat-card-title>
       <mat-card-content>
         <form (ngSubmit)="login(loginForm.form)" #loginForm="ngForm">
           <mat-form-field>
@@ -35,7 +35,7 @@
             type="submit"
             [disabled]="!loginForm.form.valid"
           >
-            {{ "buttons.submit" | transloco }}
+            {{ 'buttons.submit' | transloco }}
           </button>
         </form>
       </mat-card-content>
