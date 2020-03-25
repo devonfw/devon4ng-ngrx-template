@@ -1,18 +1,23 @@
 import { generateUser } from '../../models/datadetailstest.model';
-import * as fromSampleDataActions from './sampledata.actions';
+import * as sampleDataActions from './sampledata.actions';
 
 describe('SampleDataActionTestCase', () => {
   describe('Add Data Details', () => {
     describe('CreateData', () => {
       it('should create an action', () => {
-        const payload: any = {
-          name: 'TESTNAME',
-          surname: 'TESTSURNAME',
-          email: 'TESTMAIL',
-          age: 12,
+        const payload = {
+          criteria: {},
+          data: {
+            name: 'TESTNAME',
+            surname: 'TESTSURNAME',
+            email: 'TESTMAIL',
+            age: 12,
+          },
         };
-        const action = fromSampleDataActions.createData(payload);
-        expect({ ...(action as any) }).toEqual({
+        const action = sampleDataActions.createData({
+          searchCriteriaDataModel: payload,
+        });
+        expect({ ...action }).toEqual({
           type: '[SampleData] CreateData',
           searchCriteriaDataModel: payload,
         });
@@ -21,26 +26,30 @@ describe('SampleDataActionTestCase', () => {
     describe('CreateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action = fromSampleDataActions.createDataFail({ error });
-        const payload = { error: error };
-        expect({ ...(action as any) }).toEqual({
+        const action = sampleDataActions.createDataFail({ error });
+        expect({ ...action }).toEqual({
           type: '[SampleData] CreateDataFail',
-          error: Object(payload),
+          error,
         });
       });
     });
     describe('CreateDataSuccess', () => {
       it('should create an action', () => {
-        const payload: any = {
-          name: 'TESTNAME',
-          surname: 'TESTSURNAME',
-          email: 'TESTMAIL',
-          age: 12,
+        const payload = {
+          criteria: {},
+          data: {
+            name: 'TESTNAME',
+            surname: 'TESTSURNAME',
+            email: 'TESTMAIL',
+            age: 12,
+          },
         };
-        const action = fromSampleDataActions.createDataSuccess(payload);
+        const action = sampleDataActions.createDataSuccess({
+          searchCriteriaDataModel: payload,
+        });
         expect({ ...action }).toEqual({
           type: '[SampleData] CreateDataSuccess',
-          searchCriteriaDataModel: Object(payload),
+          searchCriteriaDataModel: payload,
         });
       });
     });
@@ -48,19 +57,24 @@ describe('SampleDataActionTestCase', () => {
   describe('Edit Data Details', () => {
     describe('UpdateData', () => {
       it('should create an action', () => {
-        const payload = generateUser();
-        const action: any = fromSampleDataActions.updateData(payload);
+        const payload = {
+          criteria: {},
+          data: generateUser(),
+        };
+        const action = sampleDataActions.updateData({
+          searchCriteriaDataModel: payload,
+        });
         expect({ ...action }).toEqual({
           type: '[SampleData] UpdateData',
-          searchCriteriaDataModel: Object(payload),
+          searchCriteriaDataModel: payload,
         });
       });
     });
     describe('UpdateDatafail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action = fromSampleDataActions.updateDataFail({ error });
-        expect({ ...(action as any) }).toEqual({
+        const action = sampleDataActions.updateDataFail({ error });
+        expect({ ...action }).toEqual({
           type: '[SampleData] UpdateDataFail',
           error,
         });
@@ -68,12 +82,14 @@ describe('SampleDataActionTestCase', () => {
     });
     describe('UpdateDataSuccess', () => {
       it('should create an action', () => {
-        const payload = generateUser();
-        const action = fromSampleDataActions.updateDataSuccess(payload);
-        expect({ ...(action as any) }).toEqual({
-          type: '[SampleData] UpdateDataSuccess',
+        const payload = {
           criteria: {},
-          data: Object({ ...payload }),
+          data: generateUser(),
+        };
+        const action = sampleDataActions.updateDataSuccess(payload);
+        expect({ ...action }).toEqual({
+          type: '[SampleData] UpdateDataSuccess',
+          ...payload,
         });
       });
     });
@@ -81,19 +97,24 @@ describe('SampleDataActionTestCase', () => {
   describe('Delete Data Details', () => {
     describe('DeleteData', () => {
       it('should create an action', () => {
-        const payload = generateUser();
-        const action: any = fromSampleDataActions.deleteData(payload);
+        const payload = {
+          criteria: {},
+          data: generateUser(),
+        };
+        const action = sampleDataActions.deleteData({
+          searchCriteriaDataModel: payload,
+        });
         expect({ ...action }).toEqual({
           type: '[SampleData] DeleteData',
-          searchCriteriaDataModel: Object(payload),
+          searchCriteriaDataModel: payload,
         });
       });
     });
     describe('DeleteDataFail', () => {
       it('should create an action', () => {
         const error: Error = new Error();
-        const action = fromSampleDataActions.deleteDataFail({ error });
-        expect({ ...(action as any) }).toEqual({
+        const action = sampleDataActions.deleteDataFail({ error });
+        expect({ ...action }).toEqual({
           type: '[SampleData] DeleteDataFail',
           error,
         });
@@ -101,11 +122,16 @@ describe('SampleDataActionTestCase', () => {
     });
     describe('DeleteDataSuccess', () => {
       it('should create an action', () => {
-        const payload = generateUser();
-        const action = fromSampleDataActions.deleteDataSuccess(payload);
-        expect({ ...(action as any) }).toEqual({
+        const payload = {
+          criteria: {},
+          data: generateUser(),
+        };
+        const action = sampleDataActions.deleteDataSuccess({
+          searchCriteriaDataModel: payload,
+        });
+        expect({ ...action }).toEqual({
           type: '[SampleData] DeleteSuccess',
-          searchCriteriaDataMode: Object({ payload }),
+          searchCriteriaDataModel: payload,
         });
       });
     });

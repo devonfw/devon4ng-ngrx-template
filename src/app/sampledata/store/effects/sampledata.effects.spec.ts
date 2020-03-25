@@ -3,45 +3,67 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
-import { hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs';
+import { cold, hot } from 'jasmine-marbles';
+import { Observable, of } from 'rxjs';
+import { generateUser } from '../../models/datadetailstest.model';
 import { SampleDataService } from '../../services/sampledata.service';
 import * as sampleDataActions from '../actions/sampledata.actions';
 import { SampleDataEffects } from './sampledata.effects';
 
 describe('SampleDataffects', () => {
   let actions$: Observable<Action>;
-  const effects = TestBed.inject<SampleDataEffects>(SampleDataEffects);
+  let effects: SampleDataEffects;
+  let sampleDataService: any;
+  let saveSampleDataSpy: any;
+
   beforeEach(() => {
+    sampleDataService = jasmine.createSpyObj('SampleDataService', [
+      'saveSampleData',
+    ]);
+    saveSampleDataSpy = sampleDataService.saveSampleData.and.returnValue(
+      of(generateUser()),
+    );
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [
-        SampleDataService,
         SampleDataEffects,
+        {
+          provide: SampleDataService,
+          useValue: sampleDataService,
+        },
         provideMockActions(() => actions$),
       ],
     });
+
+    effects = TestBed.inject<SampleDataEffects>(SampleDataEffects);
   });
 
   describe('SampleData Effects', () => {
-    describe('loadData', () => {});
+    // describe('loadData', () => {});
 
     describe('createData', () => {
       it('CreateData Effects should work also', () => {
         const action = sampleDataActions.createData({
-          searchCriteriaDataModel: { criteria: {}, data: {} },
+          searchCriteriaDataModel: { criteria: {}, data: generateUser() },
+        });
+        const completion = sampleDataActions.createDataSuccess({
+          searchCriteriaDataModel: { criteria: {}, data: generateUser() },
         });
 
         actions$ = hot('-a--', {
-          a: { type: '[SampleData] CreateData' },
+          a: action,
         });
+        const response = cold('-b', { b: generateUser() });
+        const expected = cold('--c', { c: completion });
 
-        expect(effects.createData$).toBeObservable(actions$);
+        saveSampleDataSpy.and.returnValue(response);
+        expect(effects.createData$).toBeObservable(expected);
       });
     });
 
-    describe('updateData', () => {});
+    // describe('updateData', () => {});
 
-    describe('deleteData', () => {});
+    // describe('deleteData', () => {});
   });
 });
