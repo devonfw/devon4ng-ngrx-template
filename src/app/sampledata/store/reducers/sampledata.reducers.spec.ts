@@ -11,7 +11,7 @@ const detailsdata: SearchCriteriaDataModel = {
     id: TEST_ID,
     name: 'TESTNAME',
     surname: 'TESTSURNAME',
-    mail: 'TESTMAIL',
+    email: 'TESTMAIL',
     age: 12,
   },
 };
@@ -64,7 +64,7 @@ describe('SampleDataReducersTestCase', () => {
           id: TEST_ID,
           name: 'TESTNAME2',
           surname: 'TESTSURNAME2',
-          mail: 'TESTMAIL2',
+          email: 'TESTMAIL2',
         },
       };
 
@@ -85,7 +85,9 @@ describe('SampleDataReducersTestCase', () => {
       expect(stateUpdated.entities[TEST_ID].surname).toEqual(
         update.changes.surname,
       );
-      expect(stateUpdated.entities[TEST_ID].mail).toEqual(update.changes.mail);
+      expect(stateUpdated.entities[TEST_ID].email).toEqual(
+        update.changes.email,
+      );
     });
   });
   describe('Remove Action Reducer ', () => {

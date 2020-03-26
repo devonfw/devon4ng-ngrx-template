@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import {
+  routerReducer,
+  StoreRouterConnectingModule,
+  DefaultRouterStateSerializer,
+} from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { AuthGuard } from './core/security/auth-guard.service';
 import { NavBarComponent } from './layout/nav-bar/nav-bar.component';
@@ -25,7 +29,7 @@ const routes: Routes = [
         path: 'sampleData',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./home/sampledata/sampledata.module').then(
+          import('./sampledata/sampledata.module').then(
             m => m.SampleDataModule,
           ),
       },
@@ -64,7 +68,9 @@ const routes: Routes = [
       },
     ),
     RouterModule.forRoot(routes),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({
+      serializer: DefaultRouterStateSerializer,
+    }),
   ],
 })
 export class AppRoutingModule {}

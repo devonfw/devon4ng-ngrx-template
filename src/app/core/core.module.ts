@@ -8,13 +8,13 @@ import {
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import 'hammerjs';
 import { MaterialModule } from './material.module';
 import { AuthGuard } from './security/auth-guard.service';
 import { AuthService } from './security/auth.service';
 import { HttpRequestInterceptorService } from './security/httpRequestInterceptor.service';
 import { LoginService } from './security/login.service';
 import { BusinessOperationsService } from './shared/business-operations.service';
+import { TranslocoRootModule } from '../transloco-root.module';
 
 @NgModule({
   imports: [
@@ -22,8 +22,15 @@ import { BusinessOperationsService } from './shared/business-operations.service'
     HttpClientXsrfModule,
     CdkTableModule,
     RouterModule,
+    TranslocoRootModule,
   ],
-  exports: [CommonModule, FormsModule, MaterialModule, CdkTableModule],
+  exports: [
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    CdkTableModule,
+    TranslocoRootModule,
+  ],
   declarations: [],
   providers: [
     AuthGuard,

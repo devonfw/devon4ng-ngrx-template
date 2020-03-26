@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslocoService } from '@ngneat/transloco';
 
 /* @export
  * @class SampleDataDialogComponent
@@ -15,7 +15,7 @@ export class SampleDataDialogComponent {
     name: '',
     surname: '',
     age: '',
-    mail: '',
+    email: '',
   };
 
   /* Creates an instance of SampleDataDialogComponent.
@@ -25,27 +25,19 @@ export class SampleDataDialogComponent {
    * @memberof SampleDataDialogComponent
    */
   constructor(
-    private translate: TranslateService,
+    private translocoService: TranslocoService,
     public dialogRef: MatDialogRef<SampleDataDialogComponent>,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
   ) {
     if (!dialogData) {
-      this.title = this.getTranslation('sampledatamanagement.addTitle');
+      this.title = this.translocoService.translate(
+        'sampledatamanagement.addTitle',
+      );
     } else {
-      this.title = this.getTranslation('sampledatamanagement.editTitle');
+      this.title = this.translocoService.translate(
+        'sampledatamanagement.editTitle',
+      );
       this.items = { ...dialogData };
     }
-  }
-
-  /* @param {string} text
-   * @returns {string}
-   * @memberof SampleDataDialogComponent
-   */
-  getTranslation(text: string): string {
-    let value: string;
-    this.translate.get(text).subscribe((res: any) => {
-      value = res;
-    });
-    return value;
   }
 }

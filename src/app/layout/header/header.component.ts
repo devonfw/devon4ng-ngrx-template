@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { logOutAction } from '../../auth/store/actions';
 import { AuthService } from '../../core/security/auth.service';
-/// import { AppState } from '../../sampledata/store/app.states';
-import { AppState } from '../../home/sampledata/store/reducers/index';
+import { AppState } from '../../sampledata/store/reducers/index';
 
 /* @export
  * @class HeaderComponent
@@ -16,6 +15,8 @@ import { AppState } from '../../home/sampledata/store/reducers/index';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  currentLanguage: string;
+  langs: AvailableLangs;
   @Input() sideNavOpened = false;
   @Output() toggle: EventEmitter<any> = new EventEmitter();
 
@@ -28,12 +29,17 @@ export class HeaderComponent {
    */
   constructor(
     public router: Router,
-    private translate: TranslateService,
+    private translocoService: TranslocoService,
     private auth: AuthService,
     private store: Store<AppState>,
-  ) {}
+  ) {
+    this.langs = translocoService.getAvailableLangs();
+    translocoService.langChanges$.subscribe(
+      lang => (this.currentLanguage = lang),
+    );
+  }
 
-  toggleSideNav(): void {
+  toggleSideNav() {
     this.sideNavOpened = !this.sideNavOpened;
     this.toggle.emit(this.sideNavOpened);
   }
@@ -41,16 +47,8 @@ export class HeaderComponent {
   /* @param {string} option
    * @memberof HeaderComponent
    */
-  toggleLanguage(option: string): void {
-    this.translate.use(option);
-  }
-
-  /* @param {string} lang
-   * @returns {boolean}
-   * @memberof HeaderComponent
-   */
-  isCurrentLang(lang: string): boolean {
-    return this.translate.currentLang !== lang;
+  toggleLanguage(option: string) {
+    this.translocoService.setActiveLang(option);
   }
 
   /* @returns {boolean}
@@ -59,7 +57,8 @@ export class HeaderComponent {
   isLogged(): boolean {
     return this.auth.isLogged() || false;
   }
-  logout(): void {
+
+  logout() {
     this.store.dispatch(logOutAction());
   }
 }

@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
-import { SearchCriteria } from '../../../shared/models/search-criteria';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { SearchCriteria } from '../../shared/models/search-criteria';
+import { HttpResponseModel } from '../models/httpresponse.model';
 import { SampleDataModel } from '../models/sampledata.model';
 
 @Injectable({
@@ -32,7 +33,7 @@ export class SampleDataService {
     page: number,
     searchTerms: any,
     sort: any[],
-  ): Observable<any> {
+  ): Observable<HttpResponseModel> {
     const searchCriteria: SearchCriteria = {
       pageable: {
         pageSize: size,
@@ -42,42 +43,45 @@ export class SampleDataService {
       name: searchTerms.name,
       surname: searchTerms.surname,
       age: searchTerms.age,
-      mail: searchTerms.mail,
+      email: searchTerms.email,
     };
 
-    return this.http.post<any>(this.urlService + 'search', searchCriteria);
+    return this.http.post<HttpResponseModel>(
+      this.urlService + 'search',
+      searchCriteria,
+    );
   }
 
   /* @param {*} data
    * @returns {Observable<Object>}
    * @memberof SampleDataService
    */
-  saveSampleData(data: any): Observable<Object> {
-    const obj: any = {
+  saveSampleData(data: SampleDataModel): Observable<Object> {
+    const obj: SampleDataModel = {
       id: data.id,
       name: data.name,
       surname: data.surname,
       age: data.age,
-      mail: data.mail,
+      email: data.email,
     };
-    return this.http.post(this.urlService, obj);
+    return this.http.post<SampleDataModel>(this.urlService, obj);
   }
 
   /* @param {*} data
    * @returns {Observable<Object>}
    * @memberof SampleDataService
    */
-  editSampleData(data: any): Observable<Object> {
-    const obj: any = {
+  editSampleData(data: SampleDataModel): Observable<SampleDataModel> {
+    const obj: SampleDataModel = {
       id: data.id,
       name: data.name,
       modificationCounter: data.modificationCounter,
       surname: data.surname,
       age: data.age,
-      mail: data.mail,
+      email: data.email,
     };
 
-    return this.http.post(this.urlService, obj);
+    return this.http.post<SampleDataModel>(this.urlService, obj);
   }
 
   /* @param {*} criteria
@@ -85,7 +89,7 @@ export class SampleDataService {
    * @memberof SampleDataService
    */
   searchSampleData(criteria: any): Observable<Object> {
-    return this.http.post(this.urlService + 'search', {
+    return this.http.post<HttpResponseModel>(this.urlService + 'search', {
       criteria: criteria,
     });
   }

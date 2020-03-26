@@ -1,16 +1,15 @@
 import {
-  EntityState,
-  EntityAdapter,
   createEntityAdapter,
-  Update,
   Dictionary,
+  EntityAdapter,
+  EntityState,
+  Update,
 } from '@ngrx/entity';
-import { SampleDataModel } from '../../models/sampledata.model';
-import { HttpResponseModel } from '../../models/httpresponse.model';
-import * as sampleDataActions from '../actions/sampledata.actions';
 import { createReducer, on } from '@ngrx/store';
-import { SearchCriteriaDataModel } from '../../models/searchcriteriadata.model';
-import { TypedAction, Action, ActionReducer } from '@ngrx/store/src/models';
+import { Action, ActionReducer } from '@ngrx/store/src/models';
+import { HttpResponseModel } from '../../models/httpresponse.model';
+import { SampleDataModel } from '../../models/sampledata.model';
+import * as sampleDataActions from '../actions/sampledata.actions';
 
 /* @export
  * @interface SampleDataState
@@ -59,7 +58,7 @@ const sampleDataReducer: ActionReducer<
       loaded: true,
       totalElements: response.totalElements,
     };
-    return adapter.addAll(data, state);
+    return adapter.setAll(data, state);
   }),
   on(sampleDataActions.loadDataFail, (state: SampleDataState) => ({
     ...state,
