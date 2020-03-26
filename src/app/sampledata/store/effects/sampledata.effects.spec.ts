@@ -12,8 +12,6 @@ import {
 import { SampleDataService } from '../../services/sampledata.service';
 import * as sampleDataActions from '../actions/sampledata.actions';
 import { SampleDataEffects } from './sampledata.effects';
-import { Update } from '@ngrx/entity';
-import { SampleDataModel } from '../../models/sampledata.model';
 
 describe('SampleDataffects', () => {
   let actions$: Observable<Action>;
