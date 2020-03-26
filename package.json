@@ -28,7 +28,7 @@
     "@ngrx/router-store": "^9.0.0",
     "@ngrx/store": "^9.0.0",
     "@ngrx/store-devtools": "^9.0.0",
-    "core-js": "^2.6.2",
+    "core-js": "^3.6.4",
     "intl": "^1.2.5",
     "material-ui-country-flags": "^3.0.1",
     "ngx-take-until-destroy": "^5.4.0",
