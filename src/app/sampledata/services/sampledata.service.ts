@@ -33,7 +33,7 @@ export class SampleDataService {
     page: number,
     searchTerms: any,
     sort: any[],
-  ): Observable<any> {
+  ): Observable<HttpResponseModel> {
     const searchCriteria: SearchCriteria = {
       pageable: {
         pageSize: size,

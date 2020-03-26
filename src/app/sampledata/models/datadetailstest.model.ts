@@ -7,7 +7,7 @@ export class TestDataDetails {
   age?: number;
   email?: string;
   id?: number;
-  pageSize ? = 8;
+  pageSize = 8;
   pageSizes?: number[] = [8, 16, 24];
   selectedRow?: any;
   size?: number;
@@ -15,12 +15,23 @@ export class TestDataDetails {
   searchTerms?: any;
   sort?: any[];
 }
-export const generateUser: any = (): TestDataDetails => {
+
+export const generateUser = () => ({
+  id: 0,
+  name: 'name',
+  surname: 'surname',
+  email: 'mail@mail.com',
+  age: 20,
+});
+
+export const generateUserUpdate = () => {
   return {
     id: 0,
-    name: 'name',
-    surname: 'surname',
-    email: 'mail@mail.com',
-    age: 20,
+    changes: {
+      name: 'name',
+      surname: 'surname',
+      email: 'mail@mail.com',
+      age: 20,
+    },
   };
 };

@@ -1,4 +1,7 @@
-import { generateUser } from '../../models/datadetailstest.model';
+import {
+  generateUser,
+  generateUserUpdate,
+} from '../../models/datadetailstest.model';
 import * as sampleDataActions from './sampledata.actions';
 
 describe('SampleDataActionTestCase', () => {
@@ -84,7 +87,7 @@ describe('SampleDataActionTestCase', () => {
       it('should create an action', () => {
         const payload = {
           criteria: {},
-          data: generateUser(),
+          data: generateUserUpdate(),
         };
         const action = sampleDataActions.updateDataSuccess(payload);
         expect({ ...action }).toEqual({
