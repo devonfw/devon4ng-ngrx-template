@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { AuthGuard } from './security/auth-guard.service';
 import { AuthService } from './security/auth.service';
-import { HttpRequestInterceptorService } from './security/httpRequestInterceptor.service';
+import { HttpRequestInterceptorService } from './security/http-request-interceptor.service';
 import { LoginService } from './security/login.service';
 import { BusinessOperationsService } from './shared/business-operations.service';
 import { TranslocoRootModule } from '../transloco-root.module';
