@@ -17,7 +17,6 @@ import { effects, reducers } from './store/reducers/index';
     EffectsModule.forFeature(effects),
   ],
   declarations: [],
-  entryComponents: [],
   providers: [LoginComponent],
 })
 export class AuthDataModule {}

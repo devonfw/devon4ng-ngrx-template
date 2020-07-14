@@ -26,7 +26,6 @@ import { reducers } from './store/reducers/index';
     SampleDataDialogComponent,
     SampleDataAlertComponent,
   ],
-  entryComponents: [SampleDataDialogComponent, SampleDataAlertComponent],
   providers: [],
 })
 export class SampleDataModule {}
