@@ -5,7 +5,7 @@ import {
 } from '@angular/router';
 import * as fromRouter from '@ngrx/router-store';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 /* @export
  * @interface RouterStateUrl
