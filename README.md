@@ -1,11 +1,11 @@
 # devon4ng Application Template
 
-This application utilizes @ngrx/store to manage the state of the app,@angular/router to manage navigation between routes, @ngrx/effects to isolate side effects. This project has been updated to **Angular 9** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+This application utilizes @ngrx/store to manage the state of the app,@angular/router to manage navigation between routes, @ngrx/effects to isolate side effects. This project has been updated to **Angular 10** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
 **Ngrx State Management**
 
-This application uses [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) version 9.0.0 to manage application state, [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) version 9.0.0 to manage side effects, and [@ngrx/router-store]
-(https://github.com/ngrx/platform/blob/master/docs/router-store/README.md) version 9.0.0 to connect the Angular Router with @ngrx/store.
+This application uses [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) version 9.0.0 to manage application state, [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) version 10.0.0 to manage side effects, and [@ngrx/router-store]
+(https://github.com/ngrx/platform/blob/master/docs/router-store/README.md) version 10.0.0 to connect the Angular Router with @ngrx/store.
 
 ### Ngrx Store
 
