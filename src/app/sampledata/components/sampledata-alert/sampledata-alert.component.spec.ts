@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SampleDataAlertComponent } from './sampledata-alert.component';
 import {
   MatDialogModule,
@@ -11,7 +11,7 @@ describe('SampleDataAlertComponent', () => {
   let component: SampleDataAlertComponent;
   let fixture: ComponentFixture<SampleDataAlertComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatDialogModule, MatButtonModule],
       providers: [
