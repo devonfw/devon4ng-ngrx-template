@@ -21,9 +21,7 @@ export interface SampleDataState extends EntityState<SampleDataModel> {
   textMessage: string;
 }
 
-export const adapter: EntityAdapter<SampleDataModel> = createEntityAdapter<
-  SampleDataModel
->();
+export const adapter: EntityAdapter<SampleDataModel> = createEntityAdapter<SampleDataModel>();
 
 export const initialState: SampleDataState = adapter.getInitialState({
   loaded: false,
@@ -110,17 +108,16 @@ const sampleDataReducer: ActionReducer<
   })),
 );
 
-/* @export
- * @param {SampleDataState} [state=initialState]
- * @param {SampleDataAction} action
- * @returns {SampleDataState}
+/**
+ * export sampleDataReducer as reducer
+ *
+ * @param state {SampleDataState}
+ * @param action {Action}
  */
-export function reducer(
+export const reducer = (
   state: SampleDataState = initialState,
   action: Action,
-): SampleDataState {
-  return sampleDataReducer(state, action);
-}
+): SampleDataState => sampleDataReducer(state, action);
 
 export const getSampleDataTotal: any = (state: SampleDataState) =>
   state.totalElements;

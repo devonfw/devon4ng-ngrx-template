@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
  * @class AppComponent
  */
 @Component({
-  selector: 'public-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {

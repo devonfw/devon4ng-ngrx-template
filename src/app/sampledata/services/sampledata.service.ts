@@ -38,7 +38,7 @@ export class SampleDataService {
       pageable: {
         pageSize: size,
         pageNumber: page,
-        sort: sort,
+        sort,
       },
       name: searchTerms.name,
       surname: searchTerms.surname,
@@ -53,10 +53,10 @@ export class SampleDataService {
   }
 
   /* @param {*} data
-   * @returns {Observable<Object>}
+   * @returns {Observable<unknown>}
    * @memberof SampleDataService
    */
-  saveSampleData(data: SampleDataModel): Observable<Object> {
+  saveSampleData(data: SampleDataModel): Observable<unknown> {
     const obj: SampleDataModel = {
       id: data.id,
       name: data.name,
@@ -68,7 +68,7 @@ export class SampleDataService {
   }
 
   /* @param {*} data
-   * @returns {Observable<Object>}
+   * @returns {Observable<SampleDataModel>}
    * @memberof SampleDataService
    */
   editSampleData(data: SampleDataModel): Observable<SampleDataModel> {
@@ -85,20 +85,20 @@ export class SampleDataService {
   }
 
   /* @param {*} criteria
-   * @returns {Observable<Object>}
+   * @returns {Observable<unknown>}
    * @memberof SampleDataService
    */
-  searchSampleData(criteria: any): Observable<Object> {
+  searchSampleData(criteria: any) {
     return this.http.post<HttpResponseModel>(this.urlService + 'search', {
-      criteria: criteria,
+      criteria,
     });
   }
 
   /* @param {number} id
-   * @returns {Observable<Object>}
+   * @returns {Observable<unknown>}
    * @memberof SampleDataService
    */
-  deleteSampleData(id: number): Observable<Object> {
+  deleteSampleData(id: number) {
     return this.http.delete(this.urlService + id);
   }
 }

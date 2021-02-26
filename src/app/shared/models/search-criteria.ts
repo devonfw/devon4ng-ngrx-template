@@ -4,6 +4,6 @@ import { Pageable } from './pageable';
  * @interface SearchCriteria
  */
 export interface SearchCriteria {
-  pageable: Pageable;
   [propName: string]: any;
+  pageable: Pageable;
 }

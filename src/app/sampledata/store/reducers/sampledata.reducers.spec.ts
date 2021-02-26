@@ -68,14 +68,14 @@ describe('SampleDataReducersTestCase', () => {
         },
       };
 
-      const edit: any = {
+      const edit = {
         criteria: {},
         data: update,
       };
 
       // Update added entity
       const afterAddState: fromMyReducers.SampleDataState = { ...state };
-      const actionUpdate: any = froasptempletesaction.updateDataSuccess(edit);
+      const actionUpdate = froasptempletesaction.updateDataSuccess(edit);
       const stateUpdated: fromMyReducers.SampleDataState = fromMyReducers.reducer(
         afterAddState,
         actionUpdate,

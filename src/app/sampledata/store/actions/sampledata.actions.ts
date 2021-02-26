@@ -51,7 +51,7 @@ export const updateData = createAction(
 
 export const updateDataSuccess = createAction(
   '[SampleData] UpdateDataSuccess',
-  props<{ criteria: {}; data: Update<SampleDataModel> }>(),
+  props<{ criteria: any; data: Update<SampleDataModel> }>(),
 );
 
 export const updateDataFail = createAction(

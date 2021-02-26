@@ -24,14 +24,12 @@ export const generateUser = () => ({
   age: 20,
 });
 
-export const generateUserUpdate = () => {
-  return {
-    id: 0,
-    changes: {
-      name: 'name',
-      surname: 'surname',
-      email: 'mail@mail.com',
-      age: 20,
-    },
-  };
-};
+export const generateUserUpdate = () => ({
+  id: 0,
+  changes: {
+    name: 'name',
+    surname: 'surname',
+    email: 'mail@mail.com',
+    age: 20,
+  },
+});

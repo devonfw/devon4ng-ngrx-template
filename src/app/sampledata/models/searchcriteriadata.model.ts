@@ -4,6 +4,6 @@ import { SampleDataModel } from './sampledata.model';
  * @interface SearchCriteriaDataModel
  */
 export interface SearchCriteriaDataModel {
-  criteria: {};
+  criteria: Record<string, unknown>;
   data: SampleDataModel;
 }
