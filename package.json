@@ -1,6 +1,6 @@
 {
   "name": "devon4ng-ngrx-template",
-  "version": "0.0.0",
+  "version": "11.2.3",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
