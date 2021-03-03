@@ -1,11 +1,11 @@
 # devon4ng Application Template
 
-This application utilizes @ngrx/store to manage the state of the app,@angular/router to manage navigation between routes, @ngrx/effects to isolate side effects. This project has been updated to **Angular 10** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+This application utilizes @ngrx/store to manage the state of the app,@angular/router to manage navigation between routes, @ngrx/effects to isolate side effects. This project has been updated to **Angular 11** and uses the [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
 
 **Ngrx State Management**
 
-This application uses [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) version 9.0.0 to manage application state, [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) version 10.0.0 to manage side effects, and [@ngrx/router-store]
-(https://github.com/ngrx/platform/blob/master/docs/router-store/README.md) version 10.0.0 to connect the Angular Router with @ngrx/store.
+This application uses [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) version 9.0.0 to manage application state, [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) version 11.0.1 to manage side effects, and [@ngrx/router-store]
+(https://github.com/ngrx/platform/blob/master/docs/router-store/README.md) version 11.0.1 to connect the Angular Router with @ngrx/store.
 
 ### Ngrx Store
 
@@ -17,7 +17,7 @@ Run `npm install @ngrx/store` or `yarn add @ngrx/store`
 
 ### Ngrx Effects
 
-@ngrx/effects provides an API to model event sources as actions. 
+@ngrx/effects provides an API to model event sources as actions.
 
 Installation:
 

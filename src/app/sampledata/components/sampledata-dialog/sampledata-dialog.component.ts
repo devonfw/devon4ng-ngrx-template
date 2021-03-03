@@ -6,7 +6,7 @@ import { TranslocoService } from '@ngneat/transloco';
  * @class SampleDataDialogComponent
  */
 @Component({
-  selector: 'public-sampledata-dialog',
+  selector: 'app-sampledata-dialog',
   templateUrl: './sampledata-dialog.component.html',
 })
 export class SampleDataDialogComponent {

@@ -59,16 +59,14 @@ const authReducer: ActionReducer<
   })),
 );
 
-export function reducer(
+export const reducer = (
   state: AuthState | undefined,
   action: Action,
 ): {
   errorMessage: string;
   isLoggedIn: boolean;
   textMessage: string;
-} {
-  return authReducer(state, action);
-}
+} => authReducer(state, action);
 
 export const getSelectUser: any = (state: AuthState) => state.isLoggedIn;
 export const getSelectError: any = (state: AuthState) => state.errorMessage;

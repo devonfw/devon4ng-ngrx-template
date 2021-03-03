@@ -1,15 +1,13 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "types": []
   },
-  "files": [
-    "main.ts",
-    "polyfills.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  },
+  "files": ["main.ts", "polyfills.ts"],
+  "include": ["src/**/*.d.ts"]
 }

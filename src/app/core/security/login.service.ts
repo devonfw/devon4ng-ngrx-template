@@ -12,13 +12,13 @@ import { environment } from '../../../environments/environment';
 export class LoginService {
   /* Creates an instance of LoginService.
    * @param {Router} router
-   * @param {BusinessOperationsService} BO
+   * @param {BusinessOperationsService} bo
    * @param {HttpClient} http
    * @memberof LoginService
    */
   constructor(
     public router: Router,
-    private BO: BusinessOperationsService,
+    private bo: BusinessOperationsService,
     private http: HttpClient,
   ) {}
 
@@ -44,10 +44,10 @@ export class LoginService {
     }
 
     return this.http.post(
-      this.BO.login(),
+      this.bo.login(),
       {
-        j_username: username,
-        j_password: password,
+        username,
+        password,
       },
       options,
     );
@@ -57,13 +57,13 @@ export class LoginService {
    * @memberof LoginService
    */
   logout(): Observable<string> {
-    return this.http.get(this.BO.logout(), { responseType: 'text' });
+    return this.http.get(this.bo.logout(), { responseType: 'text' });
   }
 
   /* @returns {Observable<any>}
    * @memberof LoginService
    */
   getCsrf(): Observable<any> {
-    return this.http.get(this.BO.getCsrf(), { withCredentials: true });
+    return this.http.get(this.bo.getCsrf(), { withCredentials: true });
   }
 }

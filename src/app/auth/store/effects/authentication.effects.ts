@@ -28,9 +28,9 @@ export class AuthenticationEffects {
   login$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(logInAction),
-      map(authenticateModel => authenticateModel.authenticateModel),
-      switchMap((authenticateModel: any) => {
-        return this.loginservice
+      map((authenticateModel) => authenticateModel.authenticateModel),
+      switchMap((authenticateModel: any) =>
+        this.loginservice
           .login(authenticateModel.username, authenticateModel.password)
           .pipe(
             map((response: HttpResponse<any>) => {
@@ -40,9 +40,9 @@ export class AuthenticationEffects {
               }
               return logInSuccess({ token });
             }),
-            catchError((error: Error) => of(logInFail({ error: error }))),
-          );
-      }),
+            catchError((error: Error) => of(logInFail({ error }))),
+          ),
+      ),
     ),
   );
 
@@ -53,7 +53,7 @@ export class AuthenticationEffects {
     () =>
       this.actions.pipe(
         ofType(logInSuccess),
-        tap(action => {
+        tap((action) => {
           if (environment.security === 'csrf') {
             this.loginservice.getCsrf().subscribe((data: any) => {
               this.authservice.setToken(data.token);
@@ -68,7 +68,7 @@ export class AuthenticationEffects {
             this.router.navigate(['/home/initial']);
           }
         }),
-        catchError((error: Error) => of(logInFail({ error: error }))),
+        catchError((error: Error) => of(logInFail({ error }))),
       ),
     { dispatch: false },
   );
@@ -82,13 +82,13 @@ export class AuthenticationEffects {
       map((action: any) => {
         //
       }),
-      switchMap((payload: any) => {
-        return this.loginservice.logout().pipe(
+      switchMap((payload: any) =>
+        this.loginservice.logout().pipe(
           map(() => logOutSuccess()),
           tap(() => this.router.navigate(['/login'])),
-          catchError((error: Error) => of(logOutFail({ error: error }))),
-        );
-      }),
+          catchError((error: Error) => of(logOutFail({ error }))),
+        ),
+      ),
     ),
   );
 

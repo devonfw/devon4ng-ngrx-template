@@ -10,15 +10,15 @@ import { AppState } from '../../sampledata/store/reducers/index';
  * @class HeaderComponent
  */
 @Component({
-  selector: 'public-header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  currentLanguage: string;
-  langs: AvailableLangs;
   @Input() sideNavOpened = false;
   @Output() toggle: EventEmitter<any> = new EventEmitter();
+  currentLanguage: string;
+  langs: AvailableLangs;
 
   /* Creates an instance of HeaderComponent.
    * @param {Router} router
@@ -35,7 +35,7 @@ export class HeaderComponent {
   ) {
     this.langs = translocoService.getAvailableLangs();
     translocoService.langChanges$.subscribe(
-      lang => (this.currentLanguage = lang),
+      (lang) => (this.currentLanguage = lang),
     );
   }
 

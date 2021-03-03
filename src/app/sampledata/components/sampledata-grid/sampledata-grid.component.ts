@@ -5,8 +5,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
-import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/security/auth.service';
 import { Pageable } from '../../../shared/models/pageable';
@@ -22,26 +22,13 @@ import { SampleDataAlertComponent } from '../sampledata-alert/sampledata-alert.c
  * @class SampleDataGridComponent
  * @implements {OnInit}
  */
+@UntilDestroy({ checkProperties: true })
 @Component({
-  selector: 'public-app-sampledata-grid-display',
+  selector: 'app-sampledata-grid-display',
   templateUrl: './sampledata-grid.component.html',
   styleUrls: ['./sampledata-grid.component.scss'],
 })
 export class SampleDataGridComponent implements OnInit, OnDestroy {
-  private pageable: Pageable = {
-    pageSize: 8,
-    pageNumber: 0,
-    sort: [
-      {
-        property: 'name',
-        direction: 'ASC',
-      },
-    ],
-  };
-
-  private sampledata$: Observable<SampleDataModel[]>;
-  private sampledataTotal$: Observable<number>;
-  private sorting: any[] = [];
   @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
 
   data: any = [];
@@ -90,6 +77,22 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     pagination: undefined,
     searchTerms: undefined,
   };
+
+  private pageable: Pageable = {
+    pageSize: 8,
+    pageNumber: 0,
+    sort: [
+      {
+        property: 'name',
+        direction: 'ASC',
+      },
+    ],
+  };
+
+  private sampledata$: Observable<SampleDataModel[]>;
+  private sampledataTotal$: Observable<number>;
+  private sorting: any[] = [];
+
   /* Creates an instance of SampleDataGridComponent.
    * @param {Store<fromStore.AppState>} store
    * @param {TranslateService} translate
@@ -149,12 +152,12 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSearchCriteria(): {} {
+  getSearchCriteria() {
     return {
       size: this.pageable.pageSize,
       page: this.pageable.pageNumber,
       searchTerms: { ...this.searchTerms },
-      sort: this.pageable.sort = this.sorting,
+      sort: (this.pageable.sort = this.sorting),
     };
   }
   /* @param {IPageChangeEvent} pagingEvent
@@ -191,9 +194,9 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
     );
   }
   checkboxLabel(row?: any): string {
-    return `${
-      this.selection.isSelected(row) ? 'deselect' : 'select'
-    } row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.position + 1
+    }`;
   }
   openDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent);
@@ -217,9 +220,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
    */
   selectEvent(row: any): void {
     this.selection.toggle(row);
-    this.selection.isSelected(row)
-      ? (this.selectedRow = row)
-      : (this.selectedRow = undefined);
+    this.selectedRow = this.selection.isSelected(row) ? row : undefined;
   }
   openEditDialog(): void {
     this.dialogRef = this.dialog.open(SampleDataDialogComponent, {
@@ -249,7 +250,7 @@ export class SampleDataGridComponent implements OnInit, OnDestroy {
       size: this.pageable.pageSize,
       page: this.pageable.pageNumber,
       searchTerms: { ...this.searchTerms },
-      sort: this.pageable.sort = this.sorting,
+      sort: (this.pageable.sort = this.sorting),
     };
     this.dialog
       .open(SampleDataAlertComponent, {

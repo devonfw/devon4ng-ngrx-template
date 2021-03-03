@@ -67,7 +67,7 @@ const routes: Routes = [
         },
       },
     ),
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     StoreRouterConnectingModule.forRoot({
       serializer: DefaultRouterStateSerializer,
     }),

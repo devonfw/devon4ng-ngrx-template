@@ -6,6 +6,6 @@ export class AppPage {
   }
 
   getParagraphText(): promise.Promise<string> {
-    return element(by.css('public-root h1')).getText();
+    return element(by.css('app-root h1')).getText();
   }
 }
