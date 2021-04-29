@@ -29,7 +29,7 @@
     "@ngrx/router-store": "^11.0.1",
     "@ngrx/store": "^11.0.1",
     "@ngrx/store-devtools": "^11.0.1",
-    "core-js": "^2.6.2",
+    "core-js": "^3.11.1",
     "intl": "^1.2.5",
     "material-ui-country-flags": "^3.0.1",
     "rxjs": "^6.5.4",
