@@ -148,13 +148,15 @@
     aria-query "^4.2.2"
     axobject-query "^2.2.0"
 
-"@angular-eslint/eslint-plugin@13.2.0":
-  version "13.2.0"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/eslint-plugin/-/eslint-plugin-13.2.0.tgz#c42b5d38a637c535313598156c3e54bbbe57803e"
-  integrity sha512-8qscIBc4montFQ52+XfBk7qR675oXV8mvRpjDh3cTfIZCzV6CSbbbH2iLp/9egnn0Pgy2ZUIsWgcsbK4W3+4bw==
+"@angular-eslint/eslint-plugin-template@13.2.1":
+  version "13.2.1"
+  resolved "https://registry.yarnpkg.com/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-13.2.1.tgz#d12846507a0331cbbc81ded45a905186323e5c09"
+  integrity sha512-fA11IGfnWzJePFVS04JKigQY33/Twp5Gv3sj6o8NLRi25NbZDFMc6YjRv8FuKfJ0DXrZh0nLgP2L/01qnXDgZQ==
   dependencies:
-    "@angular-eslint/utils" "13.2.0"
+    "@angular-eslint/bundled-angular-compiler" "13.2.1"
     "@typescript-eslint/experimental-utils" "5.17.0"
+    aria-query "^4.2.2"
+    axobject-query "^2.2.0"
 
 "@angular-eslint/eslint-plugin@13.2.1":
   version "13.2.1"
@@ -164,13 +166,13 @@
     "@angular-eslint/utils" "13.2.1"
     "@typescript-eslint/experimental-utils" "5.17.0"
 
-"@angular-eslint/schematics@13.2.0":
-  version "13.2.0"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/schematics/-/schematics-13.2.0.tgz#7b2ac7130c954c756f4b191de8a3981a25524355"
-  integrity sha512-wxpfZ1L8Twa9Jfwqis7fY6jZvORqAv1k+9m1P6+6/l8gIm/8RYwD44o9Qm2MGt7YClnVthpCDhvfprcoKq6zgA==
+"@angular-eslint/schematics@13.2.1":
+  version "13.2.1"
+  resolved "https://registry.yarnpkg.com/@angular-eslint/schematics/-/schematics-13.2.1.tgz#20a2ecda4d6a8319aaa58c654abccd31ee0915f4"
+  integrity sha512-uejXuV9mGzjxw/WY7T3FBpm3HWmOtjnA3eFXzY2VssqaYbEcBl9DakBh9h+KivV86iH3F3ElY8WC0Ka25TCCsg==
   dependencies:
-    "@angular-eslint/eslint-plugin" "13.2.0"
-    "@angular-eslint/eslint-plugin-template" "13.2.0"
+    "@angular-eslint/eslint-plugin" "13.2.1"
+    "@angular-eslint/eslint-plugin-template" "13.2.1"
     ignore "5.2.0"
     strip-json-comments "3.1.1"
     tmp "0.2.1"
@@ -182,14 +184,6 @@
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "13.2.1"
     eslint-scope "^5.1.0"
-
-"@angular-eslint/utils@13.2.0":
-  version "13.2.0"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/utils/-/utils-13.2.0.tgz#5e75ae917d6d789222f919c19a19c3d1abb317ff"
-  integrity sha512-ywkk+pVLaDLwzNKUcc/xWtJC4Bkm+qRrMOR8ZX3q84E5RTvIvc8IcPFBE4ey3lnGe+nE44OEGuLedCo9vn1Meg==
-  dependencies:
-    "@angular-eslint/bundled-angular-compiler" "13.2.0"
-    "@typescript-eslint/experimental-utils" "5.17.0"
 
 "@angular-eslint/utils@13.2.1":
   version "13.2.1"
