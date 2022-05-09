@@ -23,7 +23,7 @@
     "@angular/platform-server": "~13.1.0",
     "@angular/router": "~13.1.0",
     "@ngneat/transloco": "^3.2.0",
-    "@ngneat/until-destroy": "^8.1.4",
+    "@ngneat/until-destroy": "^9.2.0",
     "@ngrx/effects": "^13.0.2",
     "@ngrx/entity": "^13.0.2",
     "@ngrx/router-store": "^13.0.2",
